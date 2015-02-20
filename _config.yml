@@ -1,0 +1,11 @@
+# Site settings
+title: '#define software'
+email: mrrusof@gmail.com
+description: "Software systems are wonderful!"
+baseurl: ""
+url: "http://mrrusof.github.io"
+twitter_username: mrrusof
+github_username: mrrusof
+
+# Build settings
+markdown: kramdown
