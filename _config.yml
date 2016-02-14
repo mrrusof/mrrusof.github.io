@@ -4,7 +4,7 @@ email: mrrusof@gmail.com
 description: "A not very difficult subject, just difficult enough."
 baseurl: ""
 url: "http://mrrusof.github.io"
-twitter_username: mrrusof
+twitter_username:
 github_username: mrrusof
 
 # Build settings
