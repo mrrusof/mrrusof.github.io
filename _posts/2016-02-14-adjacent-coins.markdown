@@ -222,27 +222,23 @@ void print_vector(const vector<int> &A) {
   cout << "\n";
 }
 
-int main() {
-  int vA[] = {0};
-  vector<int> A(&vA[0], &vA[0]+1);
+void solve_vector(const int vA[], const int N) {
+  vector<int> A(&vA[0], &vA[0]+N);
   print_vector(A);
   cout << "Maximum possible adjacency is " << solution(A) << ".\n";
+}
+
+int main() {
+  int vA[] = {0};
+  solve_vector(vA, 1);
   int vB[] = {0, 0};
-  vector<int> B(&vB[0], &vB[0]+2);
-  print_vector(B);
-  cout << "Maximum possible adjacency is " << solution(B) << ".\n";
+  solve_vector(vB, 2);
   int vC[] = {0, 1};
-  vector<int> C(&vC[0], &vC[0]+2);
-  print_vector(C);
-  cout << "Maximum possible adjacency is " << solution(C) << ".\n";
+  solve_vector(vC, 2);
   int vD[] = {0, 1, 0, 1, 0, 0, 1, 0};
-  vector<int> D(&vD[0], &vD[0]+8);
-  print_vector(D);
-  cout << "Maximum possible adjacency is " << solution(D) << ".\n";
+  solve_vector(vD, 8);
   int vE[] = {1, 1, 0, 1, 0, 0, 1, 1};
-  vector<int> E(&vE[0], &vE[0]+8);
-  print_vector(E);
-  cout << "Maximum possible adjacency is " << solution(E) << ".\n";
+  solve_vector(vE, 8);
   return 0;
 }
 ```
