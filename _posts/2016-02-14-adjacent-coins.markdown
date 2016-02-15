@@ -12,8 +12,10 @@ maximizes your gain or minimizes your loss, but you have to do it in
 linear time and constant memory.
 Then, around three months ago, [vladon reviewed my
 code](https://github.com/mrrusof/algorithms/issues/1).  I was
-impressed.  So this weekend, I finally put some time
-together and found the following solution.
+impressed.
+
+This weekend, I finally put some time together and came up with the
+following solution.
 
 
 # Problem
