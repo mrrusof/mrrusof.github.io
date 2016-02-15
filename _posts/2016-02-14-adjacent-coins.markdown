@@ -3,15 +3,17 @@ layout: post
 title: The Adjacent Coins Problem
 date: 2016-02-14
 author: Ruslán Ledesma-Garza
+summary: Choose a coin that maximizes your gain or minimizes your loss, but you have to do it in linear time and constant memory.
 ---
 
-Here is a problem that I considered solved for some time: The Adjacent
-Coins Problem.  That, until
-[some cool guy reviewed my
+Here is a problem that I considered solved for some months: The Adjacent
+Coins Problem.  This is problem where you have to choose a coin that
+maximizes your gain or minimizes your loss, but you have to do it in
+linear time and constant memory.
+Then, some three months ago, [some cool guy reviewed my
 code](https://github.com/mrrusof/algorithms/issues/1).  I was
 impressed and humbled.  Well, nobody's
-perfect, and that's ok.  What is not ok is walking away.
-So this weekend, after some three months, I finally put some time
+perfect, and that's ok. So this weekend, I finally put some time
 together and got it done.  This is how I solved it.
 
 
