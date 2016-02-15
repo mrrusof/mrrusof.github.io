@@ -7,14 +7,13 @@ summary: Choose a coin that maximizes your gain or minimizes your loss, but you 
 ---
 
 Here is a problem that I considered solved for some months: The Adjacent
-Coins Problem.  This is problem where you have to choose a coin that
+Coins Problem.  This is a problem where you have to choose a coin that
 maximizes your gain or minimizes your loss, but you have to do it in
 linear time and constant memory.
-Then, some three months ago, [some cool guy reviewed my
+Then, around three months ago, [vladon reviewed my
 code](https://github.com/mrrusof/algorithms/issues/1).  I was
-impressed and humbled.  Well, nobody's
-perfect, and that's ok. So this weekend, I finally put some time
-together and got it done.  This is how I solved it.
+impressed.  So this weekend, I finally put some time
+together and found the following solution.
 
 
 # Problem
@@ -259,13 +258,13 @@ int main() {
 
 # Summary
 
-From the start, I had the impression that a solution to the
-problem involved ranking the coins and selecting the highest rank.
-So I created the two ranking rules.  My biggest obstacle was figuring
-how to apply the rules to sequences of any lenght.  The solution
-crystallized when I figured that I could handle sequences of length 1,
-length 2, and the rest separately.  Then I figured that I only had to
-distinguish between sequences of length 1 and the rest.
+The first time I tried to solve the problem, I had the impression that
+a solution involved ranking the coins and selecting the highest rank.
+So I created the two ranking rules.  During my second attempt, my
+biggest obstacle was figuring how to apply the rules to sequences of
+any length.  Then, I figured that I could handle sequences of length
+1, length 2, and the rest separately.  Afterwards, I figured that I
+only had to handle sequences of length 1 and the rest.
 
 What was your experience trying to solve the problem?  Let me know in
 the comments.
