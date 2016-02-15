@@ -2,7 +2,18 @@
 layout: post
 title: The Adjacent Coins Problem
 date: 2016-02-14
+author: Ruslán Ledesma-Garza
 ---
+
+Here is a problem that I considered solved for some time: The Adjacent
+Coins Problem.  That, until
+[some cool guy reviewed my
+code](https://github.com/mrrusof/algorithms/issues/1).  I was
+impressed and humbled.  Well, nobody's
+perfect, and that's ok.  What is not ok is walking away.
+So this weekend, after some three months, I finally put some time
+together and got it done.  This is how I solved it.
+
 
 # Problem
 
@@ -242,3 +253,43 @@ int main() {
   return 0;
 }
 ```
+
+
+# Summary
+
+From the start, I had the impression that a solution to the
+problem involved ranking the coins and selecting the highest rank.
+So I created the two ranking rules.  My biggest obstacle was figuring
+how to apply the rules to sequences of any lenght.  The solution
+crystallized when I figured that I could handle sequences of length 1,
+length 2, and the rest separately.  Then I figured that I only had to
+distinguish between sequences of length 1 and the rest.
+
+What was your experience trying to solve the problem?  Let me know in
+the comments.
+
+
+# Comments
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = 'http://mrrusof.github.io/2016/02/14/adjacent-coins.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 2016-02-14-adjacent-coins; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//mrrusof.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
