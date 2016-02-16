@@ -32,8 +32,8 @@ int solution(const vector<int> &A);
 
 that, given a non-empty zero-indexed array `A` consisting of N integers
 representing the coins, returns the maximum possible adjacency that
-can be obtained by reversing exactly one coin (that is, one of the
-coins must be reversed). Consecutive elements of array `A` represent
+can be obtained by reversing exactly one coin (that is, **one of the
+coins must be reversed**). Consecutive elements of array `A` represent
 consecutive coins in the row. Array `A` contains only 0s and/or 1s:
 
 - 0 represents a coin with heads facing up;
@@ -76,11 +76,12 @@ Complexity:
 # Solution
 
 Given a sequence of coins, the adjacency of the sequence either
-changes or remains the same when we flip a coin because we either
-gain pairs, lose pairs, or keep the same amount of pairs.  Consider
-the following sequence and the delta adjacency for each coin.
+changes or remains the same when we flip a coin because we either gain
+pairs, lose pairs, or keep the same amount of pairs.  Keep in mind
+that **we must flip a coin**.  Consider the following sequence and the
+delta adjacency for each coin.
 
-```ascuudoc
+```asciidoc
 Index  | Coin | Delta adjacency
 -------------------------------
 0      | 1    | -1
