@@ -272,6 +272,16 @@ What was your experience trying to solve the problem?  Let me know in
 the comments.
 
 
+# Acknowledgements
+
+Many thanks to María Rabelero and Jan Křetínský for their valuable
+feedback on an early version of this post and my solution.
+
+Jan included a valuable insight in his review. That when we look for
+the maximum gain or minimum loss, we can stop iterating the coins in
+the middle as soon as we find a sequence `010` or `101`.
+
+
 # Comments
 
 <div id="disqus_thread"></div>
