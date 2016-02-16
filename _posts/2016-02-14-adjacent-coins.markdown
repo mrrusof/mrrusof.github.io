@@ -275,6 +275,10 @@ the comments.
 
 # Acknowledgements
 
+Special thanks to [Vladislav Yaroslavlev
+(vladon)](https://github.com/vladon) for reviewing my original attempt
+at solving the problem.
+
 Many thanks to María Rabelero and Jan Křetínský for their valuable
 feedback on an early version of this post and my solution.
 
