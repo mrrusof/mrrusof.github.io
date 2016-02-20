@@ -50,6 +50,7 @@ answer.
 One rule is that there are either 5 or 8 cities in the kingdom.
 The other rule is that the answer is the sum of what each wise man sees.
 The following table illustrates feasible solutions to the problem.
+
 ```asciidoc
 \  W | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 E \  |   |   |   |   |   |   |   |   |
@@ -64,6 +65,7 @@ E \  |   |   |   |   |   |   |   |   |
   7  |   | 8 |   |   |   |   |   |   |
   8  | 8 |   |   |   |   |   |   |   |
 ```
+
 The first row and first column indicates what each man sees.
 Each cell that is not empty indicates a feasible solution.
 An example of feasible solution is when the man in the East sees
@@ -74,6 +76,7 @@ cities and the man in the West sees 2.
 For this solution the answer is 7 cities, which is impossible given that
 there are either 5 or 8 cities.
 
+
 After the first dinner, we learn that neither of the wise men is
 looking at more than 5 cities.
 The reason is that the wise men were not set free after the first
@@ -81,6 +84,7 @@ dinner.
 The rule is that if a wise man sees 6 cities or more, that man
 answers that there are 8 cities in the kingdom.
 We illustrate the rule by labeling our table of feasible solutions.
+
 ```asciidoc
 \  W | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 E \  |   |   |   |   |   |   |   |   |
@@ -101,14 +105,17 @@ E \  |   |   |   |   |   |   |   |   |
                                |   Wise man West can see 7 cities.
                                Wise man West can see 6 cities.
 ```
+
 We label rows and columns where a man sees 6 cities or more.
 Any labeled row corresponds to one feasible solution, because there is
 only one cell that is not empty.
 All feasible solutions in those rows correspond to answer 8.
 The same is true for the labeled columns.
 
+
 Given that neither wise man is looking at 6 or more cities, we remove
 those solutions from our table of feasible solutions.
+
 ```asciidoc
 \  W | 0 | 1 | 2 | 3 | 4 | 5
 E \  |   |   |   |   |   |
@@ -121,6 +128,7 @@ E \  |   |   |   |   |   |
   5  | 5 |   |   | 8 |   |
 ```
 
+
 After the second dinner, the wise men learn that none of them is
 looking at less than 3 cities.
 The reason is that the the wise men were not set free after the second
@@ -128,6 +136,7 @@ dinner.
 The rule is that if a wise man sees 2 cities or less, that man answers
 that there are 5 cities in the kingdom.
 We illustrate the rule by labeling our table of feasible solutions.
+
 ```asciidoc
 \  W | 0 | 1 | 2 | 3 | 4 | 5
 E \  |   |   |   |   |   |
@@ -145,13 +154,16 @@ E \  |   |   |   |   |   |
        |   Wise man West can see 1 cities.
        Wise man West can see 0 cities.
 ```
+
 We label rows and columns where a man sees 2 cities or less.
 Any labeled row corresponds to one feasible solution.
 All feasible solutions in those rows correspond to answer 5.
 The same is true for the labeled columns.
 
+
 Given that neither wise man is looking at 2 or less cities, we remove
 those solutions from our table of feasible solutions.
+
 ```asciidoc
 \  W | 3 | 4 | 5
 E \  |   |   |
@@ -160,6 +172,7 @@ E \  |   |   |
   4  |   | 8 |
   5  | 8 |   |
 ```
+
 
 In the third dinner, the wise men know that there are 8 cities.
 The reason is that all remaining feasible solutions correspond to
