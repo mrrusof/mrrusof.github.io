@@ -174,7 +174,7 @@ unfeasible with each day that they remained imprisoned.
 
 I really liked this problem because the first time I heard it, it
 sounded impossible for them to save their lives.
-The reason is that I pictured solitary imprisonment as a condition that
+The reason is that I pictured solitary confinement as a condition that
 barred all form of communication.
 
 What was your experience trying to solve the problem? Let me know in
