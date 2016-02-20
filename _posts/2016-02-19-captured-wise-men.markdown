@@ -173,7 +173,7 @@ eliminating solutions as they became unfeasible.  Solutions became
 unfeasible with each day that they remained imprisoned.
 
 I really liked this problem because the first time I heard it, it
-sounded impossible for them to save their lives.
+sounded impossible for the wise men to save their lives.
 The reason is that I pictured solitary confinement as a condition that
 barred all form of communication.
 
