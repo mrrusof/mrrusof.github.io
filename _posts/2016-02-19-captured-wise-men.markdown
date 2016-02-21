@@ -18,7 +18,7 @@ Two wise men were captured by an evil king.  They were locked up in
 two separate cells in a tower in solitary confinement.
 
 The wise men came from far away and did not know the kingdom of the
-sadistic king.  They were brought blindfolded and isolated all the way
+evil king.  They were brought blindfolded and isolated all the way
 from their origin to the cells.
 
 One of the cells pointed eastwards.  From there you could
@@ -26,13 +26,16 @@ see half of the kingdom.  The other cell pointed westwards.  From
 there you could see the other half.  Thus, each of the wise men could
 see a different half of the kingdom.
 
-The wise men were imprisoned one morning.  Upon imprisonment, the
-evil king told the wise men the following.  They would be free if
-any of them could tell if the cities in the kingdom were 5 or 8. From
-each cell you could see half of the kingdom.  A wrong
-answer or not answering within 7 days of imprisonment would result in
-the execution of both wise men.  The wise men could only give their
-answer to a jailer who would give them food each evening.
+The wise men were imprisoned one morning.
+
+Upon imprisonment, the evil king told the wise men the following.
+
+- They would be free if any of them could tell if the cities in the
+kingdom were 5 or 8.
+- From each cell you could see half of the kingdom.
+- A wrong answer or not answering within 7 days of imprisonment would
+result in the execution of both wise men.
+- The wise men could only give their answer to a jailer who would give them food each evening.
 
 On the third evening, the wise men were set free.  What answer did they
 give and how did they manage to put it together?
@@ -196,7 +199,7 @@ the comments.
 
 # Acknowledgements
 
-Thanks to Eduardo Romano for challenging me to solve this problem.
+Thanks to [Eduardo Romano](https://mx.linkedin.com/in/edoromano/en) for challenging me to solve this problem.
 
 
 # Comments
