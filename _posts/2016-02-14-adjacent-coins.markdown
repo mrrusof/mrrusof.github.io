@@ -279,7 +279,9 @@ Special thanks to [Vladislav Yaroslavlev
 (vladon)](https://github.com/vladon) for reviewing my original attempt
 at solving the problem.
 
-Many thanks to María Rabelero and Jan Křetínský for their valuable
+Many thanks to [María
+Rabelero](https://mx.linkedin.com/in/mariarabelero/en) and [Jan
+Křetínský](https://www7.in.tum.de/~kretinsk/) for their valuable
 feedback on an early version of this post and my solution.
 
 Jan included a valuable insight in his review. When we look for
