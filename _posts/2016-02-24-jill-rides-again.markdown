@@ -57,7 +57,7 @@ The input file contains information on several bus routes.
 The first line of the file is a single integer `b` representing the
 number of route descriptions in the file.
 The identifier for each route (`r`) is the sequence number within the
-data file, `1 <= r <= b`.
+zdata file, `1 <= r <= b`.
 Each route description begins with the number of stops on the route: an
 integer `s`, `2 <= s <= 20,000` on a line by itself.
 The number of stops is followed by `s - 1` lines, each line `i` (`1 <= i
@@ -123,3 +123,28 @@ Route 3 has no nice parts
 Once again, I will give you a head start.
 This time, I have no solution up my sleeve.
 Good luck!
+
+# Comments
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = 'http://mrrusof.github.io/2016/02/24/jill-rides-again.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 2016-02-24-jill-rides-again; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//mrrusof.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
