@@ -57,7 +57,7 @@ The input file contains information on several bus routes.
 The first line of the file is a single integer `b` representing the
 number of route descriptions in the file.
 The identifier for each route (`r`) is the sequence number within the
-zdata file, `1 <= r <= b`.
+data file, `1 <= r <= b`.
 Each route description begins with the number of stops on the route: an
 integer `s`, `2 <= s <= 20,000` on a line by itself.
 The number of stops is followed by `s - 1` lines, each line `i` (`1 <= i
