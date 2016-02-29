@@ -73,13 +73,12 @@ Complexity:
 - expected worst-case space complexity is O(1), beyond input storage
   (not counting the storage required for input arguments). 
 
-# Solution
+# Analysis
 
 Given a sequence of coins, the adjacency of the sequence either
 changes or remains the same when we flip a coin because we either gain
-pairs, lose pairs, or keep the same amount of pairs.  Keep in mind
-that **we must flip a coin**.  Consider the following sequence and the
-delta adjacency for each coin.
+pairs, lose pairs, or keep the same amount of pairs.  Consider the
+following sequence and the delta adjacency for each coin.
 
 ```asciidoc
 Index  | Coin | Delta adjacency
@@ -100,13 +99,14 @@ coin 2 or 3, we gain two pairs and the adjacency becomes 5.
 Flipping one of the other coins destroys a pair and creates another
 pair, so the adjacency does not change if we flip any of them.
 
-When we can gain coins, we choose to flip a coin that causes the
-biggest gain.  When we cannot gain coins, we choose to flip a coin
-that causes the smallest loss. That way we get the maximum number of
-pairs possible.  For the sequence, we flip coin 2, which gives the
-maximum possible adjacency 5.  Coin 3 is an alternative.
+Because **we must flip a coin**, we choose the coin to flip in the
+following way.  When we can gain pairs, we choose to flip a coin that
+causes the biggest gain.  When we cannot gain pairs, we choose to flip
+a coin that causes the smallest loss. That way we get the maximum
+number of pairs possible.  For the sequence, we flip coin 2, which
+gives the maximum possible adjacency 5.  Coin 3 is an alternative.
 
-# Implementation
+# Solution
 
 When the given sequence consists of one coin we return 0.  For this
 case, 0 is always the right answer because adjacency is 0 and remains 0
