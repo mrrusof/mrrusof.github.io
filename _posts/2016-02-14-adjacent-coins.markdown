@@ -26,9 +26,9 @@ of coins with the same side facing up.
 
 Write a C++ function
 
-```cpp
+{% highlight cpp %}
 int solution(const vector<int> &A);
-```
+{% endhighlight %}
 
 that, given a non-empty zero-indexed array `A` consisting of N integers
 representing the coins, returns the maximum possible adjacency that
@@ -41,7 +41,7 @@ consecutive coins in the row. Array `A` contains only 0s and/or 1s:
 
 For example, given array `A` consisting of eight numbers, such that:
 
-```cpp
+{% highlight cpp %}
 A[0] = 1
 A[1] = 1
 A[2] = 0
@@ -50,7 +50,7 @@ A[4] = 0
 A[5] = 0
 A[6] = 1
 A[7] = 1
-```
+{% endhighlight %}
 
 the function should return 5. The initial adjacency is 3, as there are
 three pairs of adjacent coins with the same side facing up, namely (0,
@@ -123,7 +123,7 @@ previous coins either form a pair or not.  Each time the current coin
 and the previous show the same side, we count one pair.  Our
 implementation is the following.
 
-```cpp
+{% highlight cpp %}
 int adjacency(const vector<int> &A) {
   int adjacency = 0;
   int previous = -1;
@@ -133,7 +133,7 @@ int adjacency(const vector<int> &A) {
   }
   return adjacency;
 }
-```
+{% endhighlight %}
 
 We compute the maximum delta adjacency by computing the delta
 adjacency for each coin and keeping the maximum.  For the first and
@@ -177,7 +177,7 @@ vvv     v
 
 Our implementation is the following.
 
-```cpp
+{% highlight cpp %}
 int max(int x, int y) {
   if(x < y) return y;
   return x;
@@ -194,21 +194,21 @@ int maximum_delta_adjacency(const vector<int> &A) {
   }
   return maximum;
 }
-```
+{% endhighlight %}
 
 The last touch is adding the adjacency and the maximum delta
 adjacency in function `solution` as follows.
 
-```cpp
+{% highlight cpp %}
 int solution(const vector<int> &A) {
   if(A.size() == 1) return 0;
   return adjacency(A) + maximum_delta_adjacency(A);
 }
-```
+{% endhighlight %}
 
 We illustrate usage of `solution` with the following program.
 
-```cpp
+{% highlight cpp %}
 #include <iostream>
 #include <vector>
 
@@ -256,7 +256,7 @@ int main() {
   solve_vector(vE, 8);
   return 0;
 }
-```
+{% endhighlight %}
 
 
 # Summary
