@@ -11,7 +11,7 @@ folding bike and lived in a place where there is excellent public
 transportation.
 
 Jill Rides Again is [problem 507 in the UVa Online
-Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&category=&problem=448&mosmsg=Submission%20received%20with%20ID%2015981694).
+Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=448).
 Even though I include the problem description in this post, I
 encourage you to visit the [UVa Online
 Judge](https://uva.onlinejudge.org/index.php) because there you will
