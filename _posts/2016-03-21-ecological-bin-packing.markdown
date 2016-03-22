@@ -3,7 +3,7 @@ layout: post
 title: Ecological Bin Packing
 date: 2016-03-21
 author: Ruslán Ledesma-Garza 
-summary: Something something.
+summary: 'Group bottles with the least movements possible.'
 ---
 
 The Blocks Problem is [problem 102 in the UVa Online
