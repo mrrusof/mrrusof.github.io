@@ -85,7 +85,7 @@ CBG 50
 
 # Solution
 
-I'll give you a head start.
+I'll give you a head start. I'll post a solution by March 23, 2016.
 
 # Comments
 
