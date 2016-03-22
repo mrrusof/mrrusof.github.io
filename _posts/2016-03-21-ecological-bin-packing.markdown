@@ -7,7 +7,7 @@ summary: 'Group bottles with the least movements possible.'
 ---
 
 The Blocks Problem is [problem 102 in the UVa Online
-Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=37).
+Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=38).
 Even though I include the problem description in this post, I
 encourage you to visit the [UVa Online
 Judge](https://uva.onlinejudge.org/index.php) because there you will
