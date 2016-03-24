@@ -218,13 +218,13 @@ The remaining two subsequences are ignored.
 
 
 The problem with the straightforward solution is that it is too slow.
-For the given sequence, the solution computes all 45 sums illustrated
-in the following graph.
-For a sequence of `n` elements, the solution computes `1/2(n^2 + n)`
-sums.
+For the given sequence, the solution considers the 45 subsequences
+illustrated in the following graph and computes the sum for each.
+For a sequence of `n` elements, there are `1/2(n^2 + n)`
+subsequences and the solution computes the sum for each.
 For the maximum sequence length considered by the problem statement of
-Jill Rides Again (i.e. 20,000), the solution computes 100,010,000
-sums and thus timeouts in the UVa Online Judge.
+Jill Rides Again (i.e. 20,000), the solution considers 100,010,000
+subsequences and thus timeouts in the UVa Online Judge.
 
 ![TODO](/assets/2016-03-05-jill-rides-again-cuadratic.png)
 
