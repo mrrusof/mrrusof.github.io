@@ -121,10 +121,8 @@ Route 3 has no nice parts
 
 Jill Rides Again is similar to the Maximum Subarray
 Problem [[Bentley84](#Bentley84)].
-Our strategy to finding a solution is understanding the solution to
-the Maximum Subarray Problem and then deriving a solution to Jill
-Rides Again.
-
+For that reason, we analyze the Maximum Subarray Problem and derive a solution
+to Jill Rides Again.
 
 For a given sequence of integers, the Maximum Subarray Problem
 consists in finding the maximum sum that is positive amongst the sums
@@ -145,7 +143,7 @@ The maximum sum corresponds to subsequences A and B.
 
 
 A straightforward solution consists of computing the sum for each
-subarray and selecting the maximum sum.
+subsequence and selecting the maximum sum.
 Consider the following C implementation.
 
 {% highlight c %}
@@ -179,15 +177,16 @@ int main() {
 }
 {% endhighlight %}
 
-**Listing 1: Solution that computes the sum of each subarray and
+**Listing 1: Solution that computes the sum of each subsequence and
    selects the maximum**
 
 
-The solution computes the sum for each subarray by visiting each
-position in each iteration of loop `START` and computing the
-sum of corresponding subsequences in each iteration of loop `END`.
-For the first position, the sum of the following subsequences is
-computed by loop `END`.
+The solution computes the sum for each subsequence in the following way.
+The solution visits each start position with every iteration of
+loop `START`.  For a given start position, the solution computes the
+sum of each subsequence that starts there by means of loop `END`.
+For example, when the start position is the first position (`i = 0`),
+the solution computes the sum of the following subsequences.
 
 ```asciidoc
           -1   6  -6   2  -4   5   6  -6   6
@@ -202,37 +201,40 @@ computed by loop `END`.
 [0, 8]   ------------------------------------
 ```
 
-The following graph illustrates the iteration of loop `END` for the
-first position.
-For subsequence `[0, 0]`, the sum is negative and thus ignored.
-For subsequence `[0, 1]`, the sum is 5 and the maximum sum so far,
-thus the sum is recorded as the current maximum.
-For subsequences that end in positions 2, 3, 4, and 5, each sum is not
-bigger than 5 and thus ignored.
-The sum of subsequence `[0, 6]` is 8 and becomes the maximum.
-The remaining two subsequences are ignored.
+The solution selects the maximum sum `max_sum` after computing the sum
+for each subsequence.  The following graph illustrates how the
+solution selects the maximum sum for each subsequence that starts in
+the first position.  For subsequence `[0, 0]`, the sum is negative and
+thus ignored.  For subsequence `[0, 1]`, the sum is 5 and the maximum
+sum so far, thus the sum is recorded as the current maximum.  For
+subsequences that end in positions 2, 3, 4, and 5, each sum is not
+bigger than 5 and thus ignored.  The sum of subsequence `[0, 6]` is 8
+and becomes the maximum.  The remaining two subsequences are ignored.
 
 ![TODO](/assets/2016-03-05-jill-rides-again-subsequences-for-first.png)
 
-**Figure 2: Sum of each subsequence corresponding to first position**
+**Figure 2: State of program in Listing 1 for the
+  subsequences that start in the first position.  The line
+  in blue indicates the value of `curr_sum` for each end position. The dotted
+  red line indicates the value of `max_sum` for each end position.**
 
 
 The problem with the straightforward solution is that it is too slow.
 For the given sequence, the solution considers the 45 subsequences
 illustrated in the following graph and computes the sum for each.
 For a sequence of `n` elements, there are `1/2(n^2 + n)`
-subsequences and the solution computes the sum for each.
+subsequences.
 For the maximum sequence length considered by the problem statement of
 Jill Rides Again (i.e. 20,000), the solution considers 100,010,000
 subsequences and thus timeouts in the UVa Online Judge.
 
 ![TODO](/assets/2016-03-05-jill-rides-again-cuadratic.png)
 
-**Figure 3: Execution of straightforward solution in Listing 1.  Each
-  line corresponds to an iteration of loop `START` and each line
-  segment corresponds to an iteration of loop `END`.  Each iteration
-  of loop `END` corresponds to the sum for a subsequence.  The answer
-  corresponds to the last time `max_sum` is updated.**
+**Figure 3: State of program in Listing 1 for all subsequences.  Each
+  line corresponds to a start position.  For each line, each data
+  point indicates the value of `curr_sum` for the subsequence that
+  ends in the corresponding position.
+  Line answer indicates the last time `max_sum` is updated.**
 
 
 The fastest solution to the Maximum Subarray Problem is Kadane's
@@ -269,9 +271,24 @@ int main() {
 
 **Listing 4: Our implementation of Kadane's Algorithm**
 
+Kadane's Algorithm is the fastest solution because Kadane's Algorithm
+considers `n` subsequences for a sequence of `n` elements.
+For example, for the given sequence, Kadane's Algorithm considers only 9
+subsequences instead of the 45 that the solution in Listing 1 considers.  The
+following graph indicates the 9 subsequences.  For each position of
+the sequence, Kadane's Algorithm considers only one subsequence.  That
+subsequence is the longest subsequence that ends in the
+position and has the maximum sum.
 
-Consider the following graph that illustrates the execution of
-Kedane's Algorithm on the given sequence.
+![TODO](/assets/2016-03-05-jill-rides-again-max_here.png)
+
+**Figure 5: The 9 subsequences considered by Kadane's Algorithm.**
+
+As Kadane's Algorithm iterates over positions, it preserves the
+invariant condition that `max_sum` is the maximum sum so far.  The
+maximum sum so far corresponds to a subsequence that either ends at a
+previous position or ends in the current position (i.e. `max_sum` is `max_here`). 
+Consider the execution of Kadane's Algorithm for the given sequence.
 Before visiting the first position, there is no maximum sum
 (i.e. `max_sum` is zero at line `BEFORE`).
 For each position, line `SUM` assigns to `max_here` the sum of the
@@ -283,20 +300,21 @@ positive position, line `SUM` computes the maximum sum there.
 For the first position, `RESET` resets `max_here` because the
 subsequence `[0, 0]` has sum -1.
 Preserving -1 and then visiting the second position would correspond
-to moving over the line labeled 0 in Figure 5.
+to moving over the line labeled 0 in Figure 6.
 What we want is to move over the line labeled 1 when we visit the
 second position.
 When the sum of the subsequence that ends here and has the maximum sum
 is greater than the current maximum sum, line `UPDATE` updates the
-maximum sum so far `max_sum`.
+maximum sum so far `max_sum` and thus preserves the invariant
+condition.
 For the first position, there is no update.
 For the second position, there is an update and that corresponds to
-the star to the left in Figure 5.
+the star to the left in Figure 6.
 
 ![TODO](/assets/2016-03-05-jill-rides-again-kadane.png)
 
-**Figure 5: Execution of Kadane's Algorithm in Listing 4 laid over the
-  execution of straightforward solution in Listing 1.  Triangles
+**Figure 6: State of Kadane's Algorithm in Listing 4 laid over the
+  state of solution in Listing 1.  Triangles
   indicate reset of `max_here`.  Stars indicate update of
   `max_sum`.  For each position, the line `max_here` indicates the sum
   of the subsequence that ends in the position and has the maximum sum.**
@@ -342,27 +360,27 @@ int main() {
 }
 {% endhighlight %}
 
-**Listing 6: Our solution to Jill Rides Again**
+**Listing 7: Our solution to Jill Rides Again**
 
 The following figure illustrates the execution of our solution to Jill
 Rides Again on the given sequence.
 For a given position, our changes track the boundaries of the
 subsequence that ends here and the maximum so far.
-When Kedana's Algorithm resets `max_here`, that corresponds to
+When Kadane's Algorithm resets `max_here`, that corresponds to
 discarding the subsequence that ends here and thus line `C` resets the
 left boundary `i_here` of the subsequence.
-When Kedana's Algorithm updates the maximum so far, lines `E` and `F` update
+When Kadane's Algorithm updates the maximum so far, lines `E` and `F` update
 its boundaries `max_i` and `max_j` with the boundaries of the
 subsequence that ends here.
 The second disjunct in line `D` corresponds to the requirement that we
 return the longest maximal subsequence.
 When that disjunct is satisfied, our solution pushes the right
 boundary of the maximum sum so far but not its value.
-That is what happens in the rightmost star in Figure 7.
+That is what happens in the rightmost star in Figure 8.
 
 ![TODO](/assets/2016-03-05-jill-rides-again-our-solution.png)
 
-**Figure 7: Execution of our solution to Jill Rides Again in Listing 6.
+**Figure 8: Execution of our solution to Jill Rides Again in Listing 7.
   Triangles indicate reset of the beginning of
   the subsequence that ends at each subsequent position, `i_here`.
   Stars indicate update of the boundaries of the maximum
@@ -375,10 +393,12 @@ Judge](https://uva.onlinejudge.org/index.php).
 
 # Summary
 
-Jill Rides Again is a problem that has a straightforward but slow
-solution.  What I like about this problem is that once you picture the
-straightforward solution, you have to discipline yourself to approach
-the problem in a different way.
+Jill Rides Again is a variant of the classical Maximum Subarray
+Problem [[Bentley84](#Bentley84)].  The solution to the Maximum
+Subarray Problem is Kadane's Algorithm.  Kadane's Algorithm is a
+model solution for problems that require computing maximum
+subsequences.  Thus, we based our solution to Jill Rides Again on
+Kadane's Algorithm.
 
 What was your experience solving this problem? Let me know in the
 comments.
