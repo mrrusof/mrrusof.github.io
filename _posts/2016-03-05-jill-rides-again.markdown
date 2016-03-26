@@ -278,7 +278,7 @@ subsequences instead of the 45 that the solution in Listing 1 considers.  The
 following graph indicates the 9 subsequences.  For each position of
 the sequence, Kadane's Algorithm considers only one subsequence.  That
 subsequence is the longest subsequence that ends in the
-position and has the maximum sum.
+position and has the maximum sum (i.e. `max_here`).
 
 ![TODO](/assets/2016-03-05-jill-rides-again-max_here.png)
 
@@ -287,7 +287,8 @@ position and has the maximum sum.
 As Kadane's Algorithm iterates over positions, it preserves the
 invariant condition that `max_sum` is the maximum sum so far.  The
 maximum sum so far corresponds to a subsequence that either ends at a
-previous position or ends in the current position (i.e. `max_sum` is `max_here`). 
+previous position (and thus line `UPDATE` is not executed) or ends in the
+current position (and thus line `UPDATE` is executed).
 Consider the execution of Kadane's Algorithm for the given sequence.
 Before visiting the first position, there is no maximum sum
 (i.e. `max_sum` is zero at line `BEFORE`).
