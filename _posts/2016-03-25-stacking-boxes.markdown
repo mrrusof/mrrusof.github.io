@@ -66,7 +66,7 @@ measurements for the i-th box.
 
 There may be several box sequences in the input file. Your program
 should process all of them and determine, for each sequence, which of
-the k boxes determine the longest nesting string and the length of
+the `k` boxes determine the longest nesting string and the length of
 that nesting string (the number of boxes in the string).
 
 In this problem the maximum dimensionality is 10 and the minimum
@@ -117,7 +117,7 @@ can be output.
 
 # Solution
 
-I'll give you a head start. I will publish the solution by March 26 2016.
+I'll give you a head start. I will publish the solution by March 29 2016.
 
 # Comments
 
