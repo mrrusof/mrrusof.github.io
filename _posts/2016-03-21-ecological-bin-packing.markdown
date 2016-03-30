@@ -83,11 +83,15 @@ BCG 30
 CBG 50
 {% endhighlight %}
 
-# Solution
+# Analysis
 
-We compute the cost of candidate solutions in alphabetical order and
-select the first that has the minimum bottle movements.  Consider the
-following input.
+For a given input, the answer is the first configuration in
+alphabetical order that corresponds to the minimum cost.
+Thus, for the given input we compute the cost of candidate
+configurations in alphabetical order and answer with the first that
+corresponds to the minimum cost.
+
+Consider the following input.
 
 {% highlight asciidoc %}
 1  2  3  4  5  6  7  8  9
@@ -104,8 +108,9 @@ color | B  G  C  |  B  G  C  |  B  G  C
 count | 1  2  3  |  4  5  6  |  7  8  9
 {% endhighlight %}
 
-For any given input, the following six configurations are
-candidate.
+The following six configurations are all the candidate configurations
+for any given input.  We list the six configurations in alphabetical
+order.
 
 {% highlight asciidoc %}
 BCG
@@ -117,7 +122,7 @@ GCB
 {% endhighlight %}
 
 For the first configuration, consider the following computation of the
-associated cost.  The associated cost is the cost of moving the brown
+corresponding cost.  The associated cost is the cost of moving the brown
 bottles to bin 0, the clear bottles to bin 1, and the green bottles to
 bin 2.
 
@@ -128,7 +133,7 @@ cost += count[0][C] + count[2][C];
 cost += count[0][G] + count[1][G];
 {% endhighlight %}
 
-The cost of all configurations is the following.
+The cost of all configurations for the given input is the following.
 
 {% highlight asciidoc %}
 BCG 30
@@ -139,16 +144,18 @@ GBC 30
 GCB 30
 {% endhighlight %}
 
-The minimum number of movements is 30 and the first configuration with
-that number is `BCG`, thus we return `BCG 30`.
+The minimum cost is 30 and the first configuration with
+that cost is `BCG`, thus we answer `BCG 30`.
+
+# Solution
 
 We implement the solution in the following C program.
 For each line of input, we store the initial configuration in array
 `b`.  Macro `Moves(x, y, z)` computes the cost for given configuration `x,
 y, z`.  Variables `min` and `min_i` are respectively the minimum number of bottle
 movements and the index of the corresponding configuration.  Macro
-`SelectMin(i)` selects the first solution that has the minimum bottle
-movements by updating `min` and `min_i`.  The sequence of appications
+`SelectMin(i)` selects the first solution that has the minimum cost by
+updating `min` and `min_i`.  The sequence of appications
 of `Moves` and `Select` computes the answer.  The `printf`
 statement prints the configuration label and the cost of the answer.
 
