@@ -117,7 +117,7 @@ can be output.
 
 # Solution
 
-I'll give you a head start. I will publish the solution by March 29 2016.
+I'll give you a head start.
 
 # Comments
 
