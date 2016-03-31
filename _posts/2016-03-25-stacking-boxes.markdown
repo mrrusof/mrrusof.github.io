@@ -115,9 +115,395 @@ can be output.
 7 2 5 6
 {% endhighlight %}
 
+# Analysis
+
+Nine boxes of two dimensions.
+{% highlight asciidoc %}
+9 2
+5 3
+4 4
+1 5
+6 6
+2 4
+3 6
+5 5
+7 7
+3 8
+{% endhighlight %}
+
+Sequence of boxes.
+{% highlight asciidoc %}
+(5, 3) (4, 4) (1, 5) (6, 6) (2, 4) (3, 6) (5, 5) (7, 7) (3, 8)
+{% endhighlight %}
+
+Boxes rotated.
+{% highlight asciidoc %}
+(3, 5) (4, 4) (1, 5) (6, 6) (2, 4) (3, 6) (5, 5) (7, 7) (3, 8)
+{% endhighlight %}
+
+Sequence sorted lexicographically.
+{% highlight asciidoc %}
+(1, 5) (2, 4) (3, 5) (3, 6) (3, 8) (4, 4) (5, 5) (6, 6) (7, 7)
+{% endhighlight %}
+
+Longest increasing sequences for each position.
+{% highlight asciidoc %}
+ (1, 5) | (2, 4) | (3, 5) | (3, 6) | (3, 8) | (4, 4) | (5, 5) | (6, 6) | (7, 7)
+--------|--------|--------|--------|--------|--------|--------|--------|--------
+ (1, 5) | (2, 4) | (2, 4) | (1, 5) | (1, 5) | (4, 4) | (2, 4) | (2, 4) | (2, 4)
+        |        | (3, 5) | (3, 6) | (3, 8) |        | (5, 5) | (3, 5) | (3, 5)
+        |        |        |        |        |        |        | (6, 6) | (6, 6)
+        |        |        |        |        |        |        |        | (7, 7)
+    ^                 ^                                            ^        ^
+    |                 |                                            |        |
+    1                 2                                            3        4
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /
+                       /
+                     /
+                   /
+                 /
+               /
+             /
+           /
+         /
+      (1, 5)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|
+                       /  |
+                     /    |
+                   /      |
+                 /        |
+               /          |
+             /            |
+           /              |
+         /                |
+      (1, 5)            (2, 4)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|
+                       /  |
+                     /    |
+                   /      |
+                 /        |
+               /          |
+             /            |
+           /              |
+         /                |
+      (1, 5)            (2, 4)
+                         /
+                       /  
+                    (3, 5)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|
+                       /  |
+                     /    |
+                   /      |
+                 /        |
+               /          |
+             /            |
+           /              |
+         /                |
+      (1, 5)            (2, 4)
+       /                 /
+     /                 /  
+ (3, 6)             (3, 5)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|
+                       /  |
+                     /    |
+                   /      |
+                 /        |
+               /          |
+             /            |
+           /              |
+         /                |
+      (1, 5)            (2, 4)
+       / \               /
+     /     \           /  
+ (3, 6)   (3, 8)    (3, 5)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|\
+                       /  |  \
+                     /    |    \
+                   /      |      \
+                 /        |        \
+               /          |          \
+             /            |            \
+           /              |              \
+         /                |                \
+      (1, 5)            (2, 4)            (4, 4)
+       / \               /
+     /     \           /  
+ (3, 6)   (3, 8)    (3, 5)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|\
+                       /  |  \
+                     /    |    \
+                   /      |      \
+                 /        |        \
+               /          |          \
+             /            |            \
+           /              |              \
+         /                |                \
+      (1, 5)            (2, 4)            (4, 4)
+       / \               / \
+     /     \           /     \
+ (3, 6)   (3, 8)    (3, 5)  (5, 5)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|\
+                       /  |  \
+                     /    |    \
+                   /      |      \
+                 /        |        \
+               /          |          \
+             /            |            \
+           /              |              \
+         /                |                \
+      (1, 5)            (2, 4)            (4, 4)
+       / \               / \
+     /     \           /     \
+ (3, 6)   (3, 8)    (3, 5)  (5, 5)
+                      |
+                      |
+                    (6, 6)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+                          *
+                         /|\
+                       /  |  \
+                     /    |    \
+                   /      |      \
+                 /        |        \
+               /          |          \
+             /            |            \
+           /              |              \
+         /                |                \
+      (1, 5)            (2, 4)            (4, 4)
+       / \               / \
+     /     \           /     \
+ (3, 6)   (3, 8)    (3, 5)  (5, 5)
+                      |
+                      |
+                    (6, 6)
+                      |
+                      |
+                    (7, 7)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+0  0
+
+0  1        1  1
+
+0  2        1  2        2  2
+
+0  3        1  3        2  3        3  3
+
+0  4        1  4        2  4        3  4        4  4
+
+0  5        1  5        2  5        3  5        4  5        5  5
+
+0  6        1  6        2  6        3  6        4  6        5  6        6  6
+
+0  7        1  7        2  7        3  7        4  7        5  7        6  7
+
+0  8        1  8        2  8        3  8        4  8        5  8        6  8
+
+0  9        1  9        2  9        3  9        4  9        5  9        6  9
+
+0 10        1 10        2 10        3 10        4 10        5 10        6 10
+
+0 11        1 11        2 11        3 11        4 11        5 11        6 11
+
+0 12        1 12        2 12        3 12        4 12        5 12        6 12
+
+0 13        1 13        2 13        3 13        4 13        5 13        6 13
+
+0 14        1 14        2 14        3 14        4 14        5 14        6 14
+
+0 15        1 15        2 15        3 15        4 15        5 15        6 15
+
+...         ...         ...         ...         ...         ...         ...
+{% endhighlight %}
+
+{% highlight c %}
+#include <stdio.h>
+
+#define MAX_DIM 10
+#define MAX_BOX 30
+#define NO_PARENT -1
+
+#define Si(i) scanf("%d", &i)
+
+typedef struct box {
+  int d[MAX_DIM];
+  int original_position;
+} box;
+
+void merge_sort_ints(int *a, int n) {
+  int i, j, k;
+  int m = n / 2;
+  int tmp[n];
+  if(n <= 1)
+    return;
+  merge_sort_ints(a, m);
+  merge_sort_ints(a + m, n - m);
+  for(k = i = 0, j = m; k < n; k++)
+    if(i < m && j < n)
+      if(a[i] <= a[j])
+	tmp[k] = a[i++];
+      else
+	tmp[k] = a[j++];
+    else if(i < m)
+      tmp[k] = a[i++];
+    else
+      tmp[k] = a[j++];
+  for(i = 0; i < n; i++)
+    a[i] = tmp[i];
+}
+
+int le_box(box a, box b, int d) {
+  int i;
+  for(i = 0; i < d; i++) {
+    if(a.d[i] < b.d[i])
+      return 1;
+    else if(a.d[i] > b.d[i])
+      return 0;
+  }
+  return 1;
+}
+
+void copy_box(box *to, box *from, int d) {
+  int i = 0;
+  to->original_position = from->original_position;
+  for(i = 0; i < d; i++)
+    to->d[i] = from->d[i];
+}
+
+void merge_sort_boxes(box *a, int n, int d) {
+  int i, j, k;
+  int m = n / 2;
+  box tmp[n];
+  if(n <= 1)
+    return;
+  merge_sort_boxes(a, m, d);
+  merge_sort_boxes(a + m, n - m, d);
+  for(k = i = 0, j = m; k < n; k++)
+    if(i < m && j < n)
+      if(le_box(a[i], a[j], d))
+	copy_box(tmp + k , a + i++, d);
+      else
+	copy_box(tmp + k, a + j++, d);
+    else if(i < m)
+      copy_box(tmp + k , a + i++, d);
+    else
+      copy_box(tmp + k, a + j++, d);
+  for(i = 0; i < n; i++)
+    copy_box(a + i, tmp + i, d);
+}
+
+int box_fits(box *this, box *into_this, int d) {
+  int i;
+  for(i = 0; i < d; i++)
+    if(this->d[i] >= into_this->d[i])
+      return 0;
+  return 1;
+}
+
+int main() {
+  int n, d, i, j;
+  box box[MAX_BOX];
+  int longest_here_parent[MAX_BOX];
+  int longest_here_length[MAX_BOX];
+  int longest_last;
+  int longest_length;
+  int longest[MAX_BOX];
+  while(Si(n) != EOF) {
+
+    /* Read input. */
+    Si(d);
+    for(i = 0; i < n; i++) {
+      box[i].original_position = i + 1;
+      for(j = 0; j < d; j++)
+	Si(box[i].d[j]);
+    }
+
+    /* For each box, sort dimensions. */
+    for(i = 0; i < n; i++)
+      merge_sort_ints(box[i].d, d);
+
+    /* Sort boxes lexicographically. */
+    merge_sort_boxes(box, n, d);
+
+    /* For each position, compute one longest increasing subsequence
+       that ends in the position. */
+    for(i = 0; i < n; i++) {
+      longest_here_parent[i] = NO_PARENT;
+      longest_here_length[i] = 1;
+    }
+    for(i = 0; i < n; i++)
+      for(j = 0; j < i; j++)
+	if(box_fits(box + j, box + i, d) &&
+	   longest_here_length[i] < longest_here_length[j] + 1) {
+	  longest_here_parent[i] = j;
+	  longest_here_length[i] = longest_here_length[j] + 1;
+	}
+
+    /* Compute the longest increasing subsequence. */
+    longest_last = 0;
+    longest_length = 1;
+    for(i = 1; i < n; i++) 
+      if(longest_length < longest_here_length[i]) {
+	longest_last = i;
+	longest_length = longest_here_length[i];
+      }
+    i = longest_last;
+    j = longest_length - 1;
+    for( ; longest_here_length[i] != 1; j--) {
+      longest[j] = i;
+      i = longest_here_parent[i];
+    }
+    longest[j] = i;
+
+    /* Output longest increasing subsequence. */
+    printf("%d\n", longest_length);
+    printf("%d", box[longest[0]].original_position);
+    for(i = 1; i < longest_length; i++)
+      printf(" %d", box[longest[i]].original_position);
+    printf("\n");
+  }
+  return 0;
+}
+{% endhighlight %}
+
+
 # Solution
 
-I'll give you a head start. I will publish the solution by March 29 2016.
 
 # Comments
 
