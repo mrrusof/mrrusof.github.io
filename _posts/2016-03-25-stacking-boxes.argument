@@ -1,0 +1,35 @@
+I.   The problem has no n log n solution.
+II.  You must keep all independent paths.
+     1. Sample input where all paths are independent.
+     (1, 2) (1, 3) (1, 4) (1, 5)
+III. You cannot do binary search on the paths.
+     1.  Not all boxes are comparable by means of `fits`.
+     (1, 2) does not fit in (1, 3)
+     (1, 3) does not fit in (1, 2)
+IV.  
+
+T(n) = T(n - 1) + log n
+T(1) = 0
+
+2 ^ 0 = 1
+2 ^ 1 = 2
+2 ^ 2 = 4
+2 ^ 3 = 8
+2 ^ 4 = 16
+
+T(3) = T(2) + log n
+T(2) = T(1) + log n
+
+T(n) = T(n / 2) + n
+T(1) = 0
+
+T(16) = 16 log 16 = 16 * 4 = 
+T(8)  = 8 log 8   = 8  * 3 = 24
+T(4)  = 4 log 4   = 4  * 2 = 8
+
+T(16) = 2*T(8) + 16 = 48 + 16 = 64 = 16 log 16
+T(8)  = 2*T(4) + 8  = 16 + 8  = 24 = 8 log 8
+T(4)  = 2*T(2) + 4  = 4  + 4  = 8  = 4 log 4
+T(2)  = 2*T(1) + 2  = 0 + 2
+T(1)  = 0
+
