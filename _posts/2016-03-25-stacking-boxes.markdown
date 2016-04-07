@@ -315,6 +315,7 @@ Longest increasing sequences for each position.
                     (7, 7)
 {% endhighlight %}
 
+<<<<<<< HEAD
 {% highlight asciidoc %}
 0  0
 
@@ -351,6 +352,8 @@ Longest increasing sequences for each position.
 ...         ...         ...         ...         ...         ...         ...
 {% endhighlight %}
 
+=======
+>>>>>>> a81d921ccdfb72d6826961be0a7f0f72a7824643
 {% highlight c %}
 #include <stdio.h>
 
