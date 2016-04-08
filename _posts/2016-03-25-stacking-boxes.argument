@@ -1,51 +1,59 @@
-     For a given sequence of boxes, we answer with any longest stack.
-     There may be more than one longest stack for a given sequence of boxes.
-     Consider the following sequence of boxes.
+Our solution searches for an answer in a set of candidates.
 
-     ```
-     (1, 5) (2, 4) (3, 5) (3, 6)
-     ```
 
-     There are two stacks that are longest, stack `(1, 5) (3, 6)` and stack `(2, 4) (3, 5)`.
-     Any of the two is an answer to the problem.
+An answer is any longest stack.
+Consider the following sequence of boxes.
 
-I.   The longest stacks are in the set of candidates.
-We answer with any longest stack from a set of candidates.
-     The set of candidates consists of one stack for each given box.
-     For a given box, the candidate is any longest stack from the set of stacks that end with the box.
+```
+(1, 5) (2, 4) (3, 5) (3, 6)
+```
 
-     Consider the following input.
+For the given sequence, stacks `(2, 4) (3, 5)`, `(1, 5) (3, 6)`, and `(2, 4) (3, 6)` are the longest stacks.
+Any of the them is an answer for the given sequence of boxes.
 
-     INPUT
 
-     The candidate stacks are the following
+The set of candidates consists of one candidate stack for each given box.
+For a given box, the candidate stack is any longest stack in the set of stacks that end with the box.
+For example, the set of stacks what end with the box `(3, 6)` consists of stacks `(3, 6)`, `(1, 5) (3, 6)`, and `(2, 4) (3, 6)`.
+Thus, we can choose either `(1, 5) (3, 6)` or `(2, 4) (3, 6)` as the candidate stack for box `(3, 6)`.
+The following table indicates the set of candidates that our solution computes for the given sequence of boxes.
 
-     CANDIDATE SEQUENCES
+{% highlight asciidoc %}
+ (1, 5) | (2, 4) | (3, 5) | (3, 6)
+--------|--------|--------|--------
+ (1, 5) | (2, 4) | (2, 4) | (1, 5)
+        |        | (3, 5) | (3, 6)
+{% endhighlight %}
 
-     The longest candidate is `(2, 4) (3, 5) (6, 6) (7, 7)`.
 
-     We construct the candidate stacks from left to right.
-     For a given box, the candidate is any longest stack that ends with the box.
-     For example, the stacks that end with box `(3, 6)` are `(1, 5) (3, 6)` and `(2, 4) (3, 6)`.
-     We pick the `(1, 5) (3, 6)` because it is the first stack that ends with box `(3, 6)`.
-     
-     The set of stacks that end with a given box consists of one element per each candidate stack to the left that fits the box.
-     For example, for box `(3, 6)`, stack `(1, 5) (3, 6)` corresponds to candidate `(1, 5)` and stack `(2, 4) (3, 6)` corresponds to candidate `(2, 4)`.
-     There is no stack for candidate `(1, 5) (3, 5)` because `(3, 5)` does not fit box `(3, 6)`.
+The set of candidates contains at least one answer for the given sequence of boxes.
 
-     Given that the input sequence of boxes is ordered, we do not consider candidates to the right when computing the set of stacks that end with the box, because none fits the box.
-     For example, for box `(3, 6)`, none of the candidates to the right fits the box because at least one of their dimensions is greater or equal to the corresponding dimension of the box.
-     There may be candidates to the left that do not fit the given box.
-     For example, for box `(3, 6)`, candidate `(1, 5) (3, 5)` does not fit the box.
 
-     When we receive an unsorted sequence of boxes, we sort the sequence lexicographically before constructing the set of candidates.
 
-     Given that dimensions for each box are sorted, when we compare boxes lexicographically or when we check if one fits another, we compare corresponding dimensions from left to right.
-     For example, when we check if box `(1, 5)` fits box `(3, 6)`, we do comparisons `1 < 3` and `5 < 6`.
-     
-     Box `(a1, a2, ..., an)` fits box `(b1, b2, ..., bn)` iff `a1 <= a2 <= ... <= an`, `b1 <= b2 <= ... <= bn` and `a1 < b1`, `a2 < b2`, ..., `an < bn`
-     
-     When we receive boxes with unsorted dimensions, we sort the dimensions before sorting the sequence of boxes.
+
+
+We construct the candidate stacks from left to right.
+For a given box, the candidate is any longest stack that ends with the box.
+For example, the stacks that end with box `(3, 6)` are `(1, 5) (3, 6)` and `(2, 4) (3, 6)`.
+We pick the `(1, 5) (3, 6)` because it is the first stack that ends with box `(3, 6)`.
+
+The set of stacks that end with a given box consists of one element per each candidate stack to the left that fits the box.
+For example, for box `(3, 6)`, stack `(1, 5) (3, 6)` corresponds to candidate `(1, 5)` and stack `(2, 4) (3, 6)` corresponds to candidate `(2, 4)`.
+There is no stack for candidate `(1, 5) (3, 5)` because `(3, 5)` does not fit box `(3, 6)`.
+
+Given that the input sequence of boxes is ordered, we do not consider candidates to the right when computing the set of stacks that end with the box, because none fits the box.
+For example, for box `(3, 6)`, none of the candidates to the right fits the box because at least one of their dimensions is greater or equal to the corresponding dimension of the box.
+There may be candidates to the left that do not fit the given box.
+For example, for box `(3, 6)`, candidate `(1, 5) (3, 5)` does not fit the box.
+
+When we receive an unsorted sequence of boxes, we sort the sequence lexicographically before constructing the set of candidates.
+
+Given that dimensions for each box are sorted, when we compare boxes lexicographically or when we check if one fits another, we compare corresponding dimensions from left to right.
+For example, when we check if box `(1, 5)` fits box `(3, 6)`, we do comparisons `1 < 3` and `5 < 6`.
+
+Box `(a1, a2, ..., an)` fits box `(b1, b2, ..., bn)` iff `a1 <= a2 <= ... <= an`, `b1 <= b2 <= ... <= bn` and `a1 < b1`, `a2 < b2`, ..., `an < bn`
+
+When we receive boxes with unsorted dimensions, we sort the dimensions before sorting the sequence of boxes.
 
      
 
