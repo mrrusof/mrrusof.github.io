@@ -269,6 +269,7 @@ Each candidate corresponds to a longest stack that ends with `(3, 6)`, stacks `(
 We choose `(1, 5) (3, 6)` as the longest candidate for `(3, 6)` because we consider candidate `(1, 5)` before candidate `(2, 4)`.	
 
 The construction of the set of candidates belongs to complexity class `O(n^2)`.
+Our construction corresponds to [the `O(n^2)` algorithm for the Longest Increasing Subsequence Problem](http://www.algorithmist.com/index.php/Longest_Increasing_Subsequence.c).
 
 We return the first longest candidate we find from left to right.
 Consider the selected candidate from the set of candidates.
@@ -638,7 +639,13 @@ Judge](https://uva.onlinejudge.org/index.php).
 
 We approach Stacking Boxes as a search problem.
 We restrict the search space to a set of candidates.
-The construction of the set of candidates belongs to complexity class `O(n^2)` and is the most expensive part.
+The construction of the set of candidates belongs to complexity class `O(n^2)` and is the most expensive part of our solution.
+Our solution to the problem consists of three steps.
+
+1. Sort dimensions for each box so that comparing any two boxes reduces to comparing their corresponding dimensions.
+2. Sort the sequence of boxes lexicographically so that for each box, the boxes to the left are the boxes that may fit.
+3. Construct the set of candidates in a similar way to [the `O(n^2)` algorithm for the Longest Increasing Subsequence Problem](http://www.algorithmist.com/index.php/Longest_Increasing_Subsequence.c).
+
 
 # A faster solution
 
