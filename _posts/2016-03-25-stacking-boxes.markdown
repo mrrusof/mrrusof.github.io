@@ -117,7 +117,7 @@ can be output.
 7 2 5 6
 {% endhighlight %}
 
-# Analysis
+# Approach
 
 We approach the problem as a search problem.
 We search for an answer in a set of candidates.
@@ -284,6 +284,10 @@ Candidate |        |        | (3, 5) | (3, 6)
 {% endhighlight %}
 
 # Implementation
+
+We implement our solution in C.
+We explain our implementation of the preprocessing, construction of the set of candidates, and search for a longest candidate.
+After that, we show the full code for our implementation.
 
 We apply function `merge_sort_ints(int *a, int n)` to sorting the dimensions of a given box.
 Function `merge_sort_ints` sorts array `a` of `n` integers by merge sort.
