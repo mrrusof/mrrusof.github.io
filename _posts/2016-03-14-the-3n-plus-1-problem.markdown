@@ -194,7 +194,7 @@ I have yet to figure out a faster solution.
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-    this.page.url = 'http://mrrusof.github.io/2016/03/14/the-3n-plus-1-problem.html'; // Replace PAGE_URL with your page's canonical URL variable
+    this.page.url = 'http://ruslanledesma.com/2016/03/14/the-3n-plus-1-problem.html'; // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = '2016-03-14-the-3n-plus-1-problem'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE

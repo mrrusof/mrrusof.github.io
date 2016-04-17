@@ -298,7 +298,7 @@ the middle as soon as we find a sequence `010` or `101`.
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://mrrusof.github.io/2016/02/14/adjacent-coins.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.url = 'http://ruslanledesma.com/2016/02/14/adjacent-coins.html';  // Replace PAGE_URL with your page's canonical URL variable
         this.page.identifier = '2016-02-14-adjacent-coins'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE

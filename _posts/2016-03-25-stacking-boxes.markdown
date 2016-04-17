@@ -675,7 +675,7 @@ Do you have any idea how to solve Stacking Boxes faster? Let me know in the comm
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://mrrusof.github.io/2016/03/25/stacking-boxes.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.url = 'http://ruslanledesma.com/2016/03/25/stacking-boxes.html';  // Replace PAGE_URL with your page's canonical URL variable
         this.page.identifier = '2016-03-25-stacking-boxes'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE

@@ -114,7 +114,7 @@ know in the comments.
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://mrrusof.github.io/2016/03/08/protip-redirect-stdout-stderr-separate-files.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.url = 'http://ruslanledesma.com/2016/03/08/protip-redirect-stdout-stderr-separate-files.html';  // Replace PAGE_URL with your page's canonical URL variable
         this.page.identifier = '2016-03-08-protip-redirect-stdout-stderr-separate-files'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
