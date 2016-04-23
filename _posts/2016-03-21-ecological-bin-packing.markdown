@@ -2,7 +2,7 @@
 layout: post
 title: Ecological Bin Packing
 date: 2016-03-21
-author: Ruslán Ledesma-Garza 
+author: Ruslan Ledesma-Garza
 summary: 'Group bottles with the least movements possible.'
 ---
 

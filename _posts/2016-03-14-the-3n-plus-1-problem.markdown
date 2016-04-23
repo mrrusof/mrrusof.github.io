@@ -2,7 +2,7 @@
 layout: post
 title: 'The 3n + 1 Problem'
 date: 2016-03-14
-author: Ruslán Ledesma-Garza
+author: Ruslan Ledesma-Garza
 summary: 'A classical programming problem. The problem statement will
 tell you an answer, just not a fast one.'
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: The Adjacent Coins Problem
 date: 2016-02-14
-author: Ruslán Ledesma-Garza
+author: Ruslan Ledesma-Garza
 summary: Choose a coin that maximizes your gain or minimizes your loss, but you have to do it in linear time and constant memory.
 ---
 

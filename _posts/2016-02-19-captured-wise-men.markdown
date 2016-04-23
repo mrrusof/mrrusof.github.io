@@ -2,7 +2,7 @@
 layout: post
 title: The Captured Wise Men
 date: 2016-02-19
-author: Ruslán Ledesma-Garza
+author: Ruslan Ledesma-Garza
 summary: Two wise men are prisoners in a tower in solitary confinement. Each holds half of an answer that would save their lives. Eventually, they put together the answer. But how?
 ---
 

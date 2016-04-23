@@ -3,7 +3,7 @@ layout: post
 title: 'ProTip: Redirect stdout and stderr to console and different
 files in Bash'
 date: 2016-03-08
-author: Ruslán Ledesma-Garza 
+author: Ruslan Ledesma-Garza
 summary: 'When you troubleshoot command execution, sometimes you need
 to analyze standard output and standard error side by side. Here is
 how to distribute output amongst multiple files and the console.'

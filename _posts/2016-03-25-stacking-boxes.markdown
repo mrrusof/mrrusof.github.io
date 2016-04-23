@@ -2,7 +2,7 @@
 layout: post
 title: Stacking Boxes
 date: 2016-03-25
-author: Ruslán Ledesma-Garza 
+author: Ruslan Ledesma-Garza
 summary: 'Finding a way to fit a given set of boxes one inside the
 other is easy even for more than 3 dimensions.  Finding a way to fit
 those boxes by contorting them, not so.'

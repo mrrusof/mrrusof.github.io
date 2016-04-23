@@ -1,10 +1,10 @@
 # Site settings
-title: '#define code'
+title: 'Ruslan writes code'
 email: mrrusof@gmail.com
-description: "A not very difficult subject, just difficult enough."
+description: "Uebung macht den Meister."
 baseurl: ""
-url: "http://mrrusof.github.io"
-twitter_username:
+url: "http://ruslanledesma.com"
+linkedin_username: rusl%C3%A1n-ledesma-garza-78a65277
 github_username: mrrusof
 
 # Build settings

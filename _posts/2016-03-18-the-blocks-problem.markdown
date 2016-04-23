@@ -2,7 +2,7 @@
 layout: post
 title: 'The Blocks Problem'
 date: 2016-03-18
-author: Ruslán Ledesma-Garza 
+author: Ruslan Ledesma-Garza
 summary: 'Interpret a language of four commands to model the interaction of a robot arm with its environment. An exercise in keeping your solution simple.'
 ---
 

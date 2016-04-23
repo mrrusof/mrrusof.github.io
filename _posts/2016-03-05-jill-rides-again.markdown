@@ -2,7 +2,7 @@
 layout: post
 title: Jill Rides Again
 date: 2016-03-05
-author: Ruslán Ledesma-Garza
+author: Ruslan Ledesma-Garza
 summary: Jill wants to know where to bike. Can you see past the straightforward solution to figure out the fastest solution possible?
 ---
 
