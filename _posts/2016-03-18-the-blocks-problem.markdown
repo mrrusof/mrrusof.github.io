@@ -172,6 +172,7 @@ The preposition indicates the second operation.
 The second operation applies to the complement in an analogous way.
 For the previous state, `over 9` indicates that the blocks on top of 9
 be kept where they are, thus the previous state remains unmodified.
+
 The third operation is the same for all actions and consists in
 placing the object and everything above it on top of the stack that contains the complement.
 For the previous state, the third operation gives the following state.
