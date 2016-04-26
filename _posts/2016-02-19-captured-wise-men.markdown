@@ -50,8 +50,8 @@ The wise men said that there were 8 cities in the kingdom.
 
 When the wise men are imprisoned, we learn two restrictions on the
 answer.
-One rule is that there are either 5 or 8 cities in the kingdom.
-The other rule is that the answer is the sum of what each wise man sees.
+One restriction is that there are either 5 or 8 cities in the kingdom.
+The other restriction is that the answer is the sum of what each wise man sees.
 The following table illustrates feasible solutions to the problem.
 
 ```asciidoc
