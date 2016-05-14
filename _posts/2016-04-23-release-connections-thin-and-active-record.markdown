@@ -60,7 +60,7 @@ To illustrate the situation, consider the following newsletter API.
 To run the API, copy paste the contents in file `newsletter.rb`, give execution permissions, and execute `newsletter.rb` like so.
 
 {% highlight asciidoc %}
-ruslan$ ./example.rb
+ruslan$ ./newsletter.rb
 == Sinatra (v1.4.7) has taken the stage on 4567 for development with backup from Thin
 Thin web server (v1.6.4 codename Gob Bluth)
 Maximum connections set to 1024
@@ -150,7 +150,7 @@ The following line of the call stack indicates that the execution of route handl
 {% endhighlight %}
 
 We are using middleware `ConnectionManagement` because we asked for it in line `newsletter.rb:15`.
-The code of the `ConnectionManagement` in file `connection_pool.rb` is the following.
+The code of `ConnectionManagement` in file `connection_pool.rb` is the following.
 
 {% highlight ruby %}
 645 class ConnectionManagement
@@ -178,7 +178,8 @@ The route handler is executed during execution of line `connection_pool.rb:653` 
 
 
 Line `connnection_pool.rb:655` puportedly clears (releases) active connections, but only only for the current thread.
-The reason is that the call to `ActiveRecord::Base.clear_active_connections!` releases connections for each pool by call to `ConnectionPool.release_connection`.
+The reason is that the sequence of calls that starts in that line eventually releases a default connection identified by a thread id.
+Consider the code for `ActiveRecord::Base.clear_active_connections!` in `connection_pool.rb`.
 
 {% highlight ruby %}
 548 # Returns any connections in use by the current thread back to the pool,
@@ -189,8 +190,8 @@ The reason is that the call to `ActiveRecord::Base.clear_active_connections!` re
 553 end
 {% endhighlight %}
 
-The code for `ActiveRecord::Base.clear_active_connections!` checks into the connection pool the connection for the current thread as follows.
-The connection id for is the id of the current thread and is given by line `connection_pool.rb:442`.
+Line `connection_pool.rb:552` calls `ConnectionPool#release_connection` for each existing thread.
+The code for `ConnectionPool#release_connection` is the following.
 
 {% highlight ruby %}
 276 # Signal that the thread is finished with the current connection.
@@ -202,20 +203,20 @@ The connection id for is the id of the current thread and is given by line `conn
 282     checkin conn if conn
 283   end
 284 end
-...
+{% endhighlight %}
+
+The current connection id is the id of the current thread and is given by line `connection_pool.rb:442`.
+
+{% highlight ruby %}
 441 def current_connection_id #:nodoc:
 442   Base.connection_id ||= Thread.current.object_id
 443 end
 {% endhighlight %}
 
-`ConnectionPool.release_connection` releases the active (reserved) connection for the current thread by checking the connection back in the pool.
-
-{% highlight ruby %}
-TOOD: Code for connection_id and release_connection
-{% endhighlight %}
+Thus, `ConnectionPool#release_connection` releases the connection that has the same id as the current thread id. When you take from a given pool `p` a connection in one thread and try to release that connection in another thread by a call to `p.release_connection`, you will not release anything.
 
 
-Given the way `ActiveRecord::Base.clear_active_connections!` works, you may expect that lines `653` and `655` of `conneciton_pool.rb` execute in the same thread.
+Given the way `ActiveRecord::Base.clear_active_connections!` works, you may expect that lines `653` and `655` of `connection_pool.rb` execute in the same thread.
 They do not.
 You may verify this fact by inspecting the thread id and call stack for those lines in the following way.
 
