@@ -662,7 +662,7 @@ Given that not all boxes are comparable, instead of refining only one solution, 
 The refinement consists in searching for each box a stack where you can place it.
 The procedure for searching a stack for a box is similar to [patiente sorting](https://en.wikipedia.org/wiki/Patience_sorting).
 The difference is that finding the stack for each box cannot be done by binary search applying relation 'fits'.
-Therefore, in the worst case scenario that all boxes in the input sequence are incomparable, my adaptation will take `O(n^2)` steps.
+The worst case scenario is that all boxes in the input sequence are incomparable and for that reason my adaptation belongs to class `O(n^2)`.
 
 Do you have any idea how to solve Stacking Boxes faster? Let me know in the comments.
 
