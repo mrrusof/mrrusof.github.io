@@ -1,0 +1,5 @@
+I.   We solve the problem in O(n^4).
+II.  We consider all cycles of lenght 1, 2, ..., n in order.
+III. We store all subproblems.
+IV.  Algorithm S is more similar to Slow All Paths Shortest Paths than to Floyd-Warshall.
+
