@@ -47,7 +47,7 @@ V: Nice, how did you approach the problem?
 R: I approach the problem by considering all cycles of length 2 before considering any other cycle.
    Then I consider cycles of length 3, then of length 4, and so on.
    The moment I find a cycle that is profitable, I find my answer because there is no shorter cycle that is profitable.
-   If I consider all cycles and don't find a profitable cycle, then there is no profitable sequence.
+   If I consider all cycles and don't find a profitable cycle, then there is no solution.
 V: Makes sense. Just how do you consider cycles of length 2, length 3, and so on in that order? How do you enumerate them?
 R: Well, for each length L, I consider each node R.
    For node R, I consider the paths that start in R and have length L.
@@ -57,21 +57,52 @@ R: Well, for each length L, I consider each node R.
    In each of the trees, each leaf that equals the root corresponds to a cycle.
    If none of those cycles is profitable, then I consider paths of length 3 in Figure 5.
    Some of those cycles are repeated, so I do not consider them.
-   The rule is that a path is repeated if it visits a node N that is less than the current root R.   
-   TODO: Figure 5
-   And no, I do not enumerate all these cycles because even for Kn, n <= 20, the number of cycles may be very large.
+   The rule is that a path is repeated if it visits a node N that is less than the current root R.
+   For example, the paths that are highlighted in Figure 5 are repeated.
+   When I do not find a profitable cycle of length 2, I repeat the process with length 3.
+   Figure 6 shows in yellow the cycles of length 3 and in gray the paths I do not consider.
+   TODO: Figure 6
+   I do not enumerate all these cycles because there are too many.
+   Even for Kn, n <= 20, the number of cycles may be very large.
    Consider the number of cycles.
+   TODO: Table
  K  | Cycle count
 ------------------
  4  | 42
  ...
  10 | 582,508,305
  ...
-
-What what?
-
-
-V: I see other people on the Internet saying that you can solve this problem with Floyd-Warshall.
+   Instead, I save part of the work I do at each length and reuse it in the next.
+   TODO: Figure 7
+   The rule that I apply is that a solution consists of a most profitable cycle of given length l.
+   TODO: Rule
+V: I see, and do you have a program I can try?
+R: Yes, I have the following C implementation.
+   TODO: Figure 8
+   The implementation ranks in the fastest 10 solutions to the problem!
+V: Wow! I see other people on the Internet saying that you can solve this problem with Floyd-Warshall.
    Why did you not solve this with Floyd-Warshall?
 R: I did not use Floyd-Warshall because you can't solve this problem with Floyd-Warshall.
-   TODO: explain
+   A recurring solution on the Internet resembles Floyd-Warshall, but does not correspond to Floyd-Warshall.
+   My solution is actually more similar to the Slow All Pairs Shortest Paths in [Introduction to Algorithms].
+
+   The SAPSP algorithm in Figure 9 is similar to my algorithm because TODO.
+
+   Floyd-Warshall considers intermediate nodes of solutions.
+   F.W. considers these nodes one by one applying this rule.
+   TODO: Rule
+   The iteration on intermediate nodes corresponds to the iteration on m and k in SAPSP.
+
+   When you look at solutions by [A, B, C], they resemble Floyd-Warshall, but in fact they are closer to SAPSP.
+   As an example solution take [Prajogo Tio].
+   His solution iterates over length `s` and then over `k`.
+   Then the candidate benefit is `benefit[s][i][k] * benefit[0][k][j] = benefit[s][i][k] * rate[k][j]`.
+   So the rule he applies considers second-to-last vertex as opposed to an intermediate vertex.
+
+V: Is there any other related work?
+R: Yes, there is one illustrating algorithm by [Robert Tarjan].
+   His algorithm enumerates the simple cycles of graphs.
+   TODO: Explain
+
+V: That's very illustrative, thank you!
+R: Welcome! If you have any questions, ask in the comments section!
