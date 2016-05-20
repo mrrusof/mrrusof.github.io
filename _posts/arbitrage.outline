@@ -1,5 +1,77 @@
 I.   We solve the problem in O(n^4).
 II.  We consider all cycles of lenght 1, 2, ..., n in order.
-III. We store all subproblems.
+III. We memoize all subproblems.
 IV.  Algorithm S is more similar to Slow All Paths Shortest Paths than to Floyd-Warshall.
 
+R: I solved arbitrage in 104.
+V: Nice, what is it about?
+R: The problem is about making a profit by trading currencies.
+   You make a profit when you trade an amount of money in one currency for another, and continue trading until you come back to the initial currency.
+   Given that we have operational costs, there is the restriction that the profit be greater than 1%.
+   Given that trade sequences that are short are easy to understand, we prefer the profitable sequences that are shortest.
+   Given that we want to bound our problem, we do not consider sequences longer than the number of currencies available.
+V: What is the input?
+R: The input is a conversion table, which corresponds to a graph.
+   For example, the following conversion table corresponds to the graph in Figure 1.
+     | USD         | MXN         | EUR
+----------------------------------------------
+ USD | 0           | 1.01^(1/2)  | 1.01^(1/2)
+ MXN | 1.01^(-1/2) | 0           | 1.01^(1/2)
+ EUR | 1.01^(1/2)  | 1.01^(-1/2) | 0
+V: So, is this a graph problem?
+R: Well, yes.
+   You see, each sequence is a path in the graph.
+   A solution is a cycle that is profitable and is shortest.
+   Consider the problem in Figure 1.
+   In that problem, there are 5 cycles of length 2 or 3.
+   Consider the cycles and their corresponding benefit.
+   1          : USD -> MXN -> USD
+   1.01       : USD -> EUR -> USD
+   1          : EUR -> MXN -> EUR
+   1.01^(3/2) : USD -> MXN -> EUR -> USD
+   1.01^(-1/2): USD -> EUR -> MXN -> USD
+   Out of the 5 cycles, only the following are profitable.
+   - USD -> EUR -> USD
+   - USD -> MXN -> EUR -> USD
+   Given that the first of those 2 cycles is shortest, that is the only answer.
+V: Is there any restriction on the cycle? Like, does it have to be a simple cycle?
+R: No, for example the example in the forum.
+   TODO: Figure 2
+   The cycle 1 2 1 2 1 is profitable and 1 2 1 is not.
+   The rate of 1 2 1 is X > 1.
+   The rate of 1 2 1 2 1 is Y >= 1.01.
+V: Is it the case that when the solution is a compound cycle, the solution is a repetition of the same cycle?
+R: Not necessarily, consider this example.
+   TODO: Figure 3
+V: Nice, how did you approach the problem?
+R: I approach the problem by considering all cycles of length 2 before considering any other cycle.
+   Then I consider cycles of length 3, then of length 4, and so on.
+   The moment I find a cycle that is profitable, I find my answer because there is no shorter cycle that is profitable.
+   If I consider all cycles and don't find a profitable cycle, then there is no profitable sequence.
+V: Makes sense. Just how do you consider cycles of length 2, length 3, and so on in that order? How do you enumerate them?
+R: Well, for each length L, I consider each node R.
+   For node R, I consider the paths that start in R and have length L.
+   Consider example in Figure 1.
+   Figure 4 shows the paths of length 2 from each node.
+   TODO: Figure 4
+   In each of the trees, each leaf that equals the root corresponds to a cycle.
+   If none of those cycles is profitable, then I consider paths of length 3 in Figure 5.
+   Some of those cycles are repeated, so I do not consider them.
+   The rule is that a path is repeated if it visits a node N that is less than the current root R.   
+   TODO: Figure 5
+   And no, I do not enumerate all these cycles because even for Kn, n <= 20, the number of cycles may be very large.
+   Consider the number of cycles.
+ K  | Cycle count
+------------------
+ 4  | 42
+ ...
+ 10 | 582,508,305
+ ...
+
+What what?
+
+
+V: I see other people on the Internet saying that you can solve this problem with Floyd-Warshall.
+   Why did you not solve this with Floyd-Warshall?
+R: I did not use Floyd-Warshall because you can't solve this problem with Floyd-Warshall.
+   TODO: explain

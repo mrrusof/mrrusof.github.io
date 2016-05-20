@@ -43,7 +43,7 @@ The table then follows in row major order but with the diagonal
 elements of the table missing (these are assumed to have value 1.0).
 Thus the first row of the table represents the conversion rates
 between country `1` and `n - 1` other countries, i.e. the amount of
-currency of country `i` `(2 <= i <= n` that can be purchased with one
+currency of country `i` `(2 <= i <= n)` that can be purchased with one
 unit of the currency of country `1`.
 
 Thus each table consists of `n + 1` lines in the input file: 1 line
@@ -106,18 +106,51 @@ should be printed.
 no arbitrage sequence exists
 {% endhighlight %}
 
+# Storyboard
+
+{% highlight asciidoc %}
+                ------------->    USD     <-------------
+              /              /           \               \
+  1.01^(-1/2)|   1.01^(1/2) /             \ 1.01^(1/2)    | 1.01^(1/2)
+             |             /               \              |
+              \           v   1.01^(1/2)    v            /
+                ------  MXN --------------> EUR --------
+                         ^                   |
+                         |    1.01^(-1/2)    |
+                          \-----------------/
+{% endhighlight %}
+
+**Figure 1: Problem with two profitable cycles.**
+
 
 # Analysis
 
+- A solution is a path
+  - that is a cycle
+  - that is profitable by 1%
+  - that is shortest
+- A solution may consist of two or more simple cycles.
+- A solution may not consist of most profitable paths.
+
+# Approach
 
 
-# Solution
+
+# Algorithm
+
+
+
+# Implementation
+
 
 
 # Summary
 
 
+
 # Comments
+
+
 
 # References
 
