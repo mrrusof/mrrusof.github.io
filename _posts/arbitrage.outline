@@ -87,7 +87,9 @@ R: I did not use Floyd-Warshall because you can't solve this problem with Floyd-
    My solution is actually more similar to the Slow All Pairs Shortest Paths in [Introduction to Algorithms].
 
    The SAPSP algorithm in Figure 9 is similar to my algorithm because TODO.
+   TODO: Figure 9, SAPSP
 
+   TODO: Figure 10, FW
    Floyd-Warshall considers intermediate nodes of solutions.
    F.W. considers these nodes one by one applying this rule.
    TODO: Rule
