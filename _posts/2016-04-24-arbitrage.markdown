@@ -117,57 +117,94 @@ no arbitrage sequence exists
 - A solution may not consist of most profitable paths.
 
 {% highlight asciidoc %}
-                ------------->    USD     <-------------
-              /              /           \               \
-  1.01^(-1/2)|   1.01^(1/2) /             \ 1.01^(1/2)    | 1.01^(1/2)
-             |             /               \              |
-              \           v   1.01^(1/2)    v            /
-                ------  MXN --------------> EUR --------
-                         ^                   |
-                         |    1.01^(-1/2)    |
-                          \-----------------/
+     | USD         | MXN         | EUR
+----------------------------------------------
+ USD | 0           | 1.01^(1/2)  | 1.01^(1/2)
+ MXN | 1.01^(-1/2) | 0           | 1.01^(1/2)
+ EUR | 1.01^(1/2)  | 1.01^(-1/2) | 0
 {% endhighlight %}
 
-**Figure 1: Problem with two profitable cycles.**
+{% highlight asciidoc %}
+3
+1.004987562112089 1.004987562112089
+0.99503719020999 1.004987562112089
+1.004987562112089 0.99503719020999
+{% endhighlight %}
+
+<img src="/assets/2016-04-24.two-solutions.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+
+{% highlight asciidoc %}
+1          : USD -> MXN -> USD
+1.01       : USD -> EUR -> USD
+1          : EUR -> MXN -> EUR
+1.01^(3/2) : USD -> MXN -> EUR -> USD
+1.01^(-1/2): USD -> EUR -> MXN -> USD
+{% endhighlight %}
+
+{% highlight asciidoc %}
+4
+1 0 0
+1.005 0 0
+0 0 0
+0 0 0
+{% endhighlight %}
+
+<img src="/assets/2016-04-24.repeated-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+
+{% highlight asciidoc %}
+Cycle 1 2 1 2 1 is profitable and 1 2 1 is not.
+The rate of 1 2 1 is 1.005 > 1.
+The rate of 1 2 1 2 1 is 1.010025 >= 1.01.
+{% endhighlight %}
+
+{% highlight asciidoc %}
+5
+1.001992047666533 0 0 1.001992047666533
+1.001992047666533 0 0 0
+1.001992047666533 0 0 0
+0 0 0 0
+0 0 1.001992047666533 0
+{% endhighlight %}
+
+<img src="/assets/2016-04-24.two-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+
+
 
 
 # Approach
 
+<img src="/assets/2016-04-24.two-solutions-trees-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
+<img src="/assets/2016-04-24.two-solutions-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
-# Algorithm
+<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
-{% highlight asciidoc %}
-R(n, W)
- 1: B[0] := Identity matrix n x n
- 2: B[1] := 0
- 3: FOR l := 2 TO n
- 4:     B[l] := 0
- 5:     FOR i := 1 TO n
- 6:         FOR j := i + 1 TO n
- 7:             FOR k := i TO n
- 8:                 IF B[l - 1][j,i] < W[j,k] * B[l - 2][k,i]
- 9:                     B[l - 1][j,i] = W[j,k] * B[l - 2][k,i]
-12:             IF B[l][i,i] < W[i,j] * B[l - 1][j,i]
-13:                 B[l][i,i] = W[i,j] * B[l - 1][j,i]
-14:                 IF B[l][i,i] >= 1.01
-15:                     RETURN B[l][i,i]
-16: RETURN 0
-{% endhighlight %}
+<img src="/assets/2016-04-24.two-solutions-trees-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+<img src="/assets/2016-04-24.two-solutions-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
 {% highlight asciidoc %}
-S(n, W)
- 1: B[1] := W
- 2: FOR l := 2 TO n
- 3:     B[l] := 0
- 4:     FOR i := 1 TO n
- 5:         FOR j := 1 TO n
- 6:             FOR k := 1 TO n
- 7:                 IF B[l][i,j] < W[i,k] * B[l - 1][k,j]
- 8:                     B[l][i,j] = W[i,k] & B[l - 1][k,j]
- 9:                     IF B[l][i,i] >= 1.01
-10:                         RETURN B[l][i,i]
-11: RETURN 0
+ K2:                                       1
+ K3:                                       5
+ K4:                                      42
+ K5:                                     384
+ K6:                                   4,665
+ K7:                                  69,537
+ K8:                               1,230,124
+ K9:                              25,140,552
+K10:                             582,508,305
+K11:                          15,084,077,381
+K12:                         431,646,196,806
+K13:                      13,525,545,361,080
+K14:                     460,576,563,322,057
+K15:                  16,935,036,272,292,001
+K16:                 668,691,718,661,091,000
+K17:              28,220,125,532,003,984,176
+K18:           1,267,597,789,008,779,578,401
+K19:          60,381,304,029,673,985,693,205
+K20:       3,040,239,935,992,309,703,757,730
 {% endhighlight %}
 
 {% highlight asciidoc %}
@@ -186,35 +223,113 @@ C(n) = C(n, 2) + C(n, 2) + ... + C(n, n)
 {% highlight ocaml %}
 #!/usr/bin/env ocaml
 
+#load "nums.cma"
+
+include Big_int
+
 let rec pow b e =
-  if e = 0 then 1
-  else b * pow b (e - 1)
+  if e = 0 then unit_big_int
+  else mult_big_int (big_int_of_int b) (pow b (e - 1))
 
 let rec c i n l =
-  if l < 2 then 0
-  else pow (n - i) (l - 1) - c i n (l - 1)
+  if l < 2 then zero_big_int
+  else sub_big_int (pow (n - i) (l - 1)) (c i n (l - 1))
 
 let rec iter n f acc =
   if n = 0 then acc
   else iter (n - 1) f (f n acc)
 
 let c n l =
-  iter n (fun i acc -> acc + c i n l) 0
+  iter n (fun i acc -> add_big_int acc (c i n l)) zero_big_int
 
 let c n =
-  iter n (fun l acc -> acc + c n l) 0
+  iter n (fun l acc -> add_big_int acc (c n l)) zero_big_int
 
 let rec upto m n f =
-  if m = n then f m
+  if m == n then f m
   else begin f m; upto (m + 1) n f end
 
-let _ =
-  upto 3 16 (fun n -> Printf.printf "K%2d %40d\n" n (c n))
+let rec format_number s =
+  let l = String.length s in
+  if l <= 3 then s
+  else
+    let prefix = String.sub s 0 (l - 3) in
+    let suffix = String.sub s (l - 3) 3 in
+      Printf.sprintf "%s,%s" (format_number prefix) suffix
+
+let (>>) x f = f x
+
+let count n =
+  let count = c n >> string_of_big_int >> format_number in
+  Printf.printf "K%2d %40s\n" n count
+
+let _ = upto 2 20 count
 {% endhighlight %}
 
 {% highlight asciidoc %}
+B[1] = W
 B'[i,j] = max { W[i,k] * B[k,j] | k \in 1 ... n }
 {% endhighlight %}
+
+
+
+
+# Algorithm
+
+{% highlight asciidoc %}
+R(n, W)
+ 1: B[0] := Identity matrix n x n
+ 2: B[1] := 0
+ 3: FOR m := 2 TO n
+ 4:     B[m] := 0
+ 5:     FOR i := 1 TO n
+ 6:         FOR j := i + 1 TO n
+ 7:             FOR k := i TO n
+ 8:                 IF B[m - 1][j,i] < W[j,k] * B[m - 2][k,i]
+ 9:                     B[m - 1][j,i] = W[j,k] * B[m - 2][k,i]
+12:             IF B[m][i,i] < W[i,j] * B[m - 1][j,i]
+13:                 B[m][i,i] = W[i,j] * B[m - 1][j,i]
+14:                 IF B[m][i,i] >= 1.01
+15:                     RETURN B[m][i,i]
+16: RETURN 0
+{% endhighlight %}
+
+{% highlight asciidoc %}
+S(n, W)
+ 1: B[1] := W
+ 2: FOR m := 2 TO n
+ 3:     B[m] := 0
+ 4:     FOR i := 1 TO n
+ 5:         FOR j := 1 TO n
+ 6:             FOR k := 1 TO n
+ 7:                 IF B[m][i,j] < W[i,k] * B[m - 1][k,j]
+ 8:                     B[m][i,j] = W[i,k] & B[m - 1][k,j]
+ 9:                     IF B[m][i,i] >= 1.01
+10:                         RETURN B[m][i,i]
+11: RETURN 0
+{% endhighlight %}
+
+{% highlight asciidoc %}
+S'(n, W)
+ 1: B[1] := W
+ 2: FOR i := 1 TO n
+ 3:     FOR j := 1 TO n
+ 4:         IF W[i,j] > 0
+ 5:             P[1][i,j] := j 
+ 6: FOR m := 2 TO n
+ 7:     B[m] := 0
+ 8:     FOR i := 1 TO n
+ 9:         FOR j := 1 TO n
+10:             FOR k := 1 TO n
+11:                 IF B[m][i,j] < W[i,k] * B[m - 1][k,j]
+12:                     B[m][i,j] = W[i,k] & B[m - 1][k,j]
+13:                     P[m][i,j] = k
+14:                     IF B[m][i,i] >= 1.01
+15:                         RETURN m, i, B, P
+16: RETURN 0, 0, B, P
+{% endhighlight %}
+
+
 
 
 
@@ -400,6 +515,46 @@ FloydWarshall(n, W)
 L'[i,j] = min(L[i,j], L[i,k] + L[k,j])
 {% endhighlight %}
 
+{% highlight asciidoc %}
+global vertex r
+global stack path
+global stack banned
+global map banned_map
+
+TarjanSimpleCycles(n, E)
+ 1: path := empty
+ 2: banned := empty
+ 3: FOR v := 1 TO n
+ 4:     banned_map[v] := FALSE
+ 5: FOR r := 1 TO n
+ 6:     Backtrack(r, n, E)
+ 7:     WHILE banned is not empty
+ 8:         v := POP(banned)
+ 9:         banned_map[v] := FALSE
+
+Backtrack(v, n, E)
+ 1: found_cycle := FALSE
+ 2: PUSH(path, v)
+ 3: PUSH(banned, v)
+ 4: banned_map[v] := TRUE
+ 5: FOR w := r TO n
+ 6:     IF (v, w) not in E
+ 7:         CONTINUE
+ 8:     IF w = v
+ 9:         found_cycle := TRUE
+10:         PRINT_PATH(path)
+11:     ELSE IF not banned_map[w]
+12:         found_cycle := found_cycle || Backtrack(r, w, n, E)
+13: IF found_cycle
+14:    WHILE PEEK(banned) != w
+15:        w := pop(banned)
+16:        banned_map[w] := FALSE
+17:    POP(banned)
+18:    banned_map[v] := FALSE
+19: POP(path)
+20: RETURN found_cycle
+{% endhighlight %}
+
 
 # Summary
 
@@ -408,16 +563,20 @@ L'[i,j] = min(L[i,j], L[i,k] + L[k,j])
 # References
 
 [1] Implementation of Tarjan's algorithm by Johannes Schauer.
+
 - https://blog.mister-muffin.de/2012/07/04/enumerating-elementary-circuits-of-a-directed_graph/
 - https://github.com/josch/cycles_tarjan/blob/master/cycles.py
 
 [2] Tarjan's algorithm is O(V*E), for dense graphs O(N^3).
+
 - http://www.cs.colorado.edu/department/publications/reports/docs/CU-CS-024-73.pdf
 
 [3] Counting cycles is NP hard.
+
 - http://www.cs.umd.edu/~jkatz/complexity/f11/lecture23.pdf
 
 [4] Solution that kind of resembles Floyd-Warshall but it really looks like Slow All Pairs Shortest Paths
+
 - http://abitofcs.blogspot.mx/2014/08/a-bit-of-uva-uva-104-arbitrage.html
 
 
