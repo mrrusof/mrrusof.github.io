@@ -3,7 +3,7 @@ II.  We consider all cycles of lenght 1, 2, ..., n in order.
 III. We memoize all subproblems.
 IV.  Algorithm S is more similar to Slow All Paths Shortest Paths than to Floyd-Warshall.
 
-R: I solved arbitrage in 104.
+R: I solved arbitrage 104.
 V: Nice, what is it about?
 R: The problem is about making a profit by trading currencies.
    You make a profit when you trade an amount of money in one currency for another, and continue trading until you come back to the initial currency.

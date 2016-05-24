@@ -1,0 +1,35 @@
+Research question -> Hypothesis -> Claim (Thesis)
+
+What is your claim?
+What reasons support it?
+What evidence supports those reasons?
+How do you respond to objections and alternative views?
+How are your reasons relevant to your claim?
+
+Claim
+Reasons for accepting the claim
+Evidence that supports those reasons
+Indicate relevance of reasons
+Respond to objections
+Respond to alternative views
+
+- A solution is a path
+  - that is a cycle
+  - that is profitable by 1%
+  - that is shortest
+- A solution may consist of two or more simple cycles.
+- A solution may not consist of most profitable paths.
+
+
+I.   We solve Arbitrage in 10 miliseconds despite an astronomical number of candidates in some cases.
+II.  Solutions are shortest profitable cycles of length less or equal to n.
+     A. The problem is a graph problem
+     B. Cycles are candidates
+     C. Feasible candidates are profitable cycles
+     D. Solutions are shortest profitable cycles.
+     F. Solutions may be simple or compound cycles.
+II.  Considering each cycle is not practical
+     E. Already for K6 there are 4,665 cycles and for K20 there are 3,040,239,935,992,309,703,757,730.
+III. We consider so many candidates with every iteration.
+IV.  Our algorithm is similar to the SAPSP.
+IV.  Our algorithm is not similar to F.W.

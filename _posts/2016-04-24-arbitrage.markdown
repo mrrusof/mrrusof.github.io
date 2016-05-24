@@ -61,16 +61,16 @@ print a sequence of minimal length, i.e. one of the sequences that
 uses the fewest exchanges of currencies to yield a profit.
 
 Because the IRS (United States Internal Revenue Service) taxes long
-transaction sequences with a high rate, all profiting sequences must
+transaction sequences with a high rate, all profitable sequences must
 consist of `n` or fewer transactions where `n` is the dimension of
 the table giving conversion rates.  The sequence `1 2 1` represents
 two conversions.
 
-If a profiting sequence exists you must print the sequence of
+If a profitable sequence exists you must print the sequence of
 exchanges that results in a profit.  The sequence is printed as a
 sequence of integers with the integer `i` representing the `i`-th line
 of the conversion table (country `i`).  The first integer in the
-sequence is the country from which the profiting sequence starts.
+sequence is the country from which the profitable sequence starts.
 This integer also ends the sequence.
 
 If no profiting sequence of `n` or fewer transactions exists, then the line
@@ -109,12 +109,17 @@ no arbitrage sequence exists
 
 # Analysis
 
-- A solution is a path
-  - that is a cycle
-  - that is profitable by 1%
-  - that is shortest
-- A solution may consist of two or more simple cycles.
-- A solution may not consist of most profitable paths.
+For a given problem, the conversion table corresponds to a graph and the solution corresponds to a cycle in that graph.
+Consider the following conversion table over USD, MXN, and EUR.
+
+{% highlight asciidoc %}
+3
+1.004987562112089 1.004987562112089
+0.99503719020999 1.004987562112089
+1.004987562112089 0.99503719020999
+{% endhighlight %}
+
+The table corresponds to the following interpretation.
 
 {% highlight asciidoc %}
      | USD         | MXN         | EUR
@@ -124,22 +129,36 @@ no arbitrage sequence exists
  EUR | 1.01^(1/2)  | 1.01^(-1/2) | 0
 {% endhighlight %}
 
-{% highlight asciidoc %}
-3
-1.004987562112089 1.004987562112089
-0.99503719020999 1.004987562112089
-1.004987562112089 0.99503719020999
-{% endhighlight %}
+The corresponding graph is the following.
 
 <img src="/assets/2016-04-24.two-solutions.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
+A sequence of exchanges may yield a profit only if the sequence is a cycle.
+For example, the cycle `USD -> MXN -> EUR -> USD` yields profit of `1.01^(3/2)`.
+Given that the number of vertices in the graph is 3, we do not consider cycles longer than 3.
+Consider the cycles of length 3 or less.
+
 {% highlight asciidoc %}
-1          : USD -> MXN -> USD
-1.01       : USD -> EUR -> USD
-1          : EUR -> MXN -> EUR
-1.01^(3/2) : USD -> MXN -> EUR -> USD
-1.01^(-1/2): USD -> EUR -> MXN -> USD
+CYCLE                    : RATE
+
+USD -> MXN -> USD        : 1
+USD -> EUR -> USD        : 1.01
+EUR -> MXN -> EUR        : 1
+USD -> MXN -> EUR -> USD : 1.01^(3/2)
+USD -> EUR -> MXN -> USD : 1.01^(-1/2)
 {% endhighlight %}
+
+A cycle profitable when its rate is greater or equal to 1.01.
+Out of the five cycles, only the following two are profitable.
+{% highlight asciidoc %}
+USD -> EUR -> USD
+USD -> MXN -> EUR -> USD
+{% endhighlight %}
+
+Out of the two profitable cycles, `USD -> EUR -> USD` is the only solution because it is the shortest cycle.
+
+A solution may not be a [simple cycle](https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Definitions) like in the previous example.
+For example, consider the following conversion table and its corresponding graph.
 
 {% highlight asciidoc %}
 4
@@ -151,11 +170,19 @@ no arbitrage sequence exists
 
 <img src="/assets/2016-04-24.repeated-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
+For the graph, the cycles of length 4 or less are the following
+
 {% highlight asciidoc %}
-Cycle 1 2 1 2 1 is profitable and 1 2 1 is not.
-The rate of 1 2 1 is 1.005 > 1.
-The rate of 1 2 1 2 1 is 1.010025 >= 1.01.
+CYCLE     : RATE
+1 2 1     : 1.005
+1 2 1 2 1 : 1.010025
 {% endhighlight %}
+
+The only profitable cycle is `1 2 1 2 1` and therefore it is the only solution.
+The cycle is a solution regardless of the fact that it consists of the repetition of simple cycle `1 2 1`.
+
+A solution that is not a simple cycle may not be the repetition of a simple cycle like in the previous example.
+For example, consider the following conversion table and its corresponding graph.
 
 {% highlight asciidoc %}
 5
@@ -167,6 +194,20 @@ The rate of 1 2 1 2 1 is 1.010025 >= 1.01.
 {% endhighlight %}
 
 <img src="/assets/2016-04-24.two-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+
+For the graph, the cycles of length 5 or less are the following.
+
+{% highlight asciidoc %}
+CYCLE       : RATE
+1 2 1       : 1.01^(2/5)
+1 5 3 1     : 1.01^(3/5)
+1 2 1 5 3 1 : 1.01
+{% endhighlight %}
+
+The only profitable cycle is `1 2 1 5 3 1` and therefore it is the only solution.
+The cycle consists of simple cycles `1 2 1` and `1 5 3 1`.
+
+For a given Kn, considering cycles of length less
 
 
 
@@ -217,7 +258,7 @@ C(n, l) = C(1, n, l) + C(2, n, l) + ... + C(n, n, l)
 {% endhighlight %}
 
 {% highlight asciidoc %}
-C(n) = C(n, 2) + C(n, 2) + ... + C(n, n)
+C(n) = C(n, 1) + C(n, 2) + ... + C(n, n)
 {% endhighlight %}
 
 {% highlight ocaml %}
