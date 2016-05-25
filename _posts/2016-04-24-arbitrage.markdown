@@ -207,24 +207,9 @@ CYCLE       : RATE
 The only profitable cycle is `1 2 1 5 3 1` and therefore it is the only solution.
 The cycle consists of simple cycles `1 2 1` and `1 5 3 1`.
 
-For a given Kn, considering cycles of length less
-
-
-
-
-# Approach
-
-<img src="/assets/2016-04-24.two-solutions-trees-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-trees-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+Searching for a solution is difficult because there may be many cycles for a given problem.
+The reason is that a conversion table of length `n` corresponds to [complete graph](https://en.wikipedia.org/wiki/Complete_graph) `Kn`.
+For complete graphs of size `2 <= n <= 20`, the number of cycles of length `n` or less is the following.
 
 {% highlight asciidoc %}
  K2:                                       1
@@ -248,69 +233,59 @@ K19:          60,381,304,029,673,985,693,205
 K20:       3,040,239,935,992,309,703,757,730
 {% endhighlight %}
 
-{% highlight asciidoc %}
-C(i, n, l) = 0                                  if l <  2
-C(i, n, l) = (n - i)^(l - 1) - C(i, n, l - 1)   otherwise
-{% endhighlight %}
+
+
+# Approach
+
+We consider a limited number of candidates for each length.
+
+We consider the paths of length 2 for example 2.
+The cycles of length 2 are paths of length 2.
+
+We consider all cycles of length 2 for example 2.
+For root `1`, we consider child `2` and construct candidate `1 -> 2 -> 1`.
+
+For a given root `i`, we consider each child `j` and construct candidate `i -> j ~> i`.
+
+<img src="/assets/2016-04-24.two-solutions-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+When we do not find a solution, we consider candidates of lenght 3 for example 2.
+For root `1`, we consider child `2` and construct the following candidate.
 
 {% highlight asciidoc %}
-C(n, l) = C(1, n, l) + C(2, n, l) + ... + C(n, n, l)
+1 -> 2 -> 3 -> 1
+^    ^
+|    |
+|    child
+root
 {% endhighlight %}
 
-{% highlight asciidoc %}
-C(n) = C(n, 1) + C(n, 2) + ... + C(n, n)
-{% endhighlight %}
+We construct the rest of the candidates of length 3 in the following way.
+For a given root `i`, we consider each child `j` and construct candidate `i -> j ~> i`.
 
-{% highlight ocaml %}
-#!/usr/bin/env ocaml
+<img src="/assets/2016-04-24.two-solutions-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
-#load "nums.cma"
+When we do not find a solution, we consider the cycles of length 4.
 
-include Big_int
 
-let rec pow b e =
-  if e = 0 then unit_big_int
-  else mult_big_int (big_int_of_int b) (pow b (e - 1))
-
-let rec c i n l =
-  if l < 2 then zero_big_int
-  else sub_big_int (pow (n - i) (l - 1)) (c i n (l - 1))
-
-let rec iter n f acc =
-  if n = 0 then acc
-  else iter (n - 1) f (f n acc)
-
-let c n l =
-  iter n (fun i acc -> add_big_int acc (c i n l)) zero_big_int
-
-let c n =
-  iter n (fun l acc -> add_big_int acc (c n l)) zero_big_int
-
-let rec upto m n f =
-  if m == n then f m
-  else begin f m; upto (m + 1) n f end
-
-let rec format_number s =
-  let l = String.length s in
-  if l <= 3 then s
-  else
-    let prefix = String.sub s 0 (l - 3) in
-    let suffix = String.sub s (l - 3) 3 in
-      Printf.sprintf "%s,%s" (format_number prefix) suffix
-
-let (>>) x f = f x
-
-let count n =
-  let count = c n >> string_of_big_int >> format_number in
-  Printf.printf "K%2d %40s\n" n count
-
-let _ = upto 2 20 count
-{% endhighlight %}
 
 {% highlight asciidoc %}
 B[1] = W
 B'[i,j] = max { W[i,k] * B[k,j] | k \in 1 ... n }
 {% endhighlight %}
+
+<img src="/assets/2016-04-24.two-solutions-trees-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+
+
+<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+<img src="/assets/2016-04-24.two-solutions-trees-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+<img src="/assets/2016-04-24.two-solutions-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
 
 
 
@@ -599,6 +574,68 @@ Backtrack(v, n, E)
 
 # Summary
 
+# How to count cycles for a given complete graph
+
+The number of cycles (simple and not simple) for `Kn` of length `n` or less is given by `C(n)`.
+
+{% highlight asciidoc %}
+C(i, n, l) = 0                                  if l < 2
+C(i, n, l) = (n - i)^(l - 1) - C(i, n, l - 1)   otherwise
+{% endhighlight %}
+
+{% highlight asciidoc %}
+C(n, l) = C(1, n, l) + C(2, n, l) + ... + C(n, n, l)
+{% endhighlight %}
+
+{% highlight asciidoc %}
+C(n) = C(n, 1) + C(n, 2) + ... + C(n, n)
+{% endhighlight %}
+
+{% highlight ocaml %}
+#!/usr/bin/env ocaml
+
+#load "nums.cma"
+
+include Big_int
+
+let rec pow b e =
+  if e = 0 then unit_big_int
+  else mult_big_int (big_int_of_int b) (pow b (e - 1))
+
+let rec c i n l =
+  if l < 2 then zero_big_int
+  else sub_big_int (pow (n - i) (l - 1)) (c i n (l - 1))
+
+let rec iter n f acc =
+  if n = 0 then acc
+  else iter (n - 1) f (f n acc)
+
+let c n l =
+  iter n (fun i acc -> add_big_int acc (c i n l)) zero_big_int
+
+let c n =
+  iter n (fun l acc -> add_big_int acc (c n l)) zero_big_int
+
+let rec upto m n f =
+  if m == n then f m
+  else begin f m; upto (m + 1) n f end
+
+let rec format_number s =
+  let l = String.length s in
+  if l <= 3 then s
+  else
+    let prefix = String.sub s 0 (l - 3) in
+    let suffix = String.sub s (l - 3) 3 in
+      Printf.sprintf "%s,%s" (format_number prefix) suffix
+
+let (>>) x f = f x
+
+let count n =
+  let count = c n >> string_of_big_int >> format_number in
+  Printf.printf "K%2d %40s\n" n count
+
+let _ = upto 2 20 count
+{% endhighlight %}
 
 
 # References
