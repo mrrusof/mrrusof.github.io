@@ -109,7 +109,7 @@ no arbitrage sequence exists
 
 # Analysis
 
-For a given problem, the conversion table corresponds to a graph and the solution corresponds to a cycle in that graph.
+For a given problem, the conversion table corresponds to a graph and the solution corresponds to a shortest profitable cycle in that graph.
 Consider the following conversion table over USD, MXN, and EUR.
 
 {% highlight asciidoc %}
@@ -181,7 +181,7 @@ CYCLE     : RATE
 The only profitable cycle is `1 2 1 2 1` and therefore it is the only solution.
 The cycle is a solution regardless of the fact that it consists of the repetition of simple cycle `1 2 1`.
 
-A solution that is not a simple cycle may not be the repetition of a simple cycle like in the previous example.
+A solution that is not a simple cycle is not necessarilly the repetition of a simple cycle like in the previous example.
 For example, consider the following conversion table and its corresponding graph.
 
 {% highlight asciidoc %}
@@ -237,36 +237,69 @@ K20:       3,040,239,935,992,309,703,757,730
 
 # Approach
 
-We consider a limited number of candidates for each length.
+We approach the problem by searching for a shortest profitable cycle amongst a limited number of candidates.
+We guarantee that the profitable cycle we find is shortest by considering candidates in order of length.
+Consider the following input graph.
 
-We consider the paths of length 2 for example 2.
-The cycles of length 2 are paths of length 2.
+<img src="/assets/2016-04-24.approach-example.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
-We consider all cycles of length 2 for example 2.
-For root `1`, we consider child `2` and construct candidate `1 -> 2 -> 1`.
+The candidates of length 2 are the cycles of length 2.
+Thus, we consider the cycles of length 2 from each one of the vertices.
+These are all the cycles of length 2 because we consider all paths that start and end in each given vertex.
 
-For a given root `i`, we consider each child `j` and construct candidate `i -> j ~> i`.
+<img src="/assets/2016-04-24.approach-example-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
-<img src="/assets/2016-04-24.two-solutions-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+We search for a profitable cycle of length 2 by considering each root and each corresponding child.
+For example, for root `1` and child `2`, we consider the following cycle.
 
-When we do not find a solution, we consider candidates of lenght 3 for example 2.
-For root `1`, we consider child `2` and construct the following candidate.
+<img src="/assets/2016-04-24.approach-example-cycle-1-2-1.png" alt="" style="width: 400px; display: block; margin-left: auto; margin-right: auto;" />
 
+The rate of the cycle is 1.005 which is not profitable and therefore not a solution.
+We search the rest of the cycles by repeating the process for each root and child.
+We find no profitable cycle of length 2.
+
+Given that there is no solution of length 2, we search for a profitable candidate of length 3.
+Each candidate of length 3 consists of a prefix edge `root -> child` and a suffix path `child ~~> root`.
+For example, the candidate for root `1` and child `2` is the following.
+
+[<img src="/assets/2016-04-24.approach-example-candidate-1-2-3-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-04-24.approach-example-candidate-1-2-3-1.png)
+
+The prefix edge `1 -> 2` is given by the input graph.
+The suffix path is the most beneficial path of length 2 from `2` to `1`.
+In this case there is only one most beneficial path of length 2 from `2` to `1`, `2 3 1`.
+The rate of the candidate is 1 which is not profitable and therefore not a solution.
+We search the rest of the candidates by repeating the process for each root and child.
+We find no profitable candidate of length 3.
+
+We may search for a most beneficial path of a given length `m` as soon as we need it or upfront when we consider candidates of length `m`.
+The asymptotic behavior of the execution time is the same either way.
+
+**TODO** We search for most beneficial paths in the following way.
+A most beneficial path consists of a prefix edge `i -> k` for some `k != i` and a suffix path `k ~~> j` of length `m - 1` that is most beneficial.
+We store the path in the matrix
+The most beneficial path of lenght 1 from is edge `i -> j`.
+We search for a most beneficial path `B[l][i,j]` of length `m` from `i` to `j` by applying the following rule.
 {% highlight asciidoc %}
-1 -> 2 -> 3 -> 1
-^    ^
-|    |
-|    child
-root
+B[m][i,j] = max { W[i,k] * B[m - 1][k,j] | k \in 1 ... n }
 {% endhighlight %}
 
-We construct the rest of the candidates of length 3 in the following way.
-For a given root `i`, we consider each child `j` and construct candidate `i -> j ~> i`.
+**TODO** We search a most beneficial path of length 2 for given origin and destination by considering its intermediate vertex `k`.
+For example, for origin `2` and destination `1`, the paths of length 2 are `2 3 1` and `2 4 1`.
+Intermediate vertex `3` corresponds to rate 1 and vertex `4` corresponds to rate 0.
+Therefore the most beneficial path is `2 3 1`.
 
-<img src="/assets/2016-04-24.two-solutions-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+Given that there is no solution of length 3, we search for a profitable candidate of length 4.
+For root 1 and child 2, the candidate is the following.
 
-When we do not find a solution, we consider the cycles of length 4.
+[<img src="/assets/2016-04-24.approach-example-solution-1-2-1-2-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-04-24.approach-example-closeup-solution-1-2-1-2-1.png)
 
+The prefix edge `1 -> 2` is given by the input graph.
+The suffix path is the most beneficial path of length 3 from `2` to `1`.
+In this case there is only one most beneficial path, `2 1 2 1`.
+The rate of the candidate is 1.010025 which is profitable and thus a solution.
+We stop and return the solution.
+If we repeated the process for the other candidates, we would find no other solution.
+Thus, `1 2 1 2 1` is the only solution.
 
 
 {% highlight asciidoc %}
@@ -274,23 +307,31 @@ B[1] = W
 B'[i,j] = max { W[i,k] * B[k,j] | k \in 1 ... n }
 {% endhighlight %}
 
-<img src="/assets/2016-04-24.two-solutions-trees-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-
-
-<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-trees-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-<img src="/assets/2016-04-24.two-solutions-repeated-cycles-len-3.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
-
-
-
 
 
 # Algorithm
+
+Consider algorithm S.
+
+{% highlight asciidoc %}
+S(n, W)
+ 1: B[1] := W
+ 2: FOR m := 2 TO n
+ 3:     B[m] := 0
+ 4:     FOR i := 1 TO n
+ 5:         FOR j := 1 TO n
+ 6:             FOR k := 1 TO n
+ 7:                 IF B[m][i,j] < W[i,k] * B[m - 1][k,j]
+ 8:                     B[m][i,j] = W[i,k] * B[m - 1][k,j]
+ 9:                     IF B[m][i,i] >= 1.01
+10:                         RETURN B[m][i,i]
+11: RETURN 0
+{% endhighlight %}
+
+Algorithm S considers candidates in increasing order of length `m` and searches for most beneficial paths.
+For length `m`, algorithm S considers root `i`, destination `j`, and intermediate node `k`.
+
+
 
 {% highlight asciidoc %}
 R(n, W)
@@ -310,20 +351,6 @@ R(n, W)
 16: RETURN 0
 {% endhighlight %}
 
-{% highlight asciidoc %}
-S(n, W)
- 1: B[1] := W
- 2: FOR m := 2 TO n
- 3:     B[m] := 0
- 4:     FOR i := 1 TO n
- 5:         FOR j := 1 TO n
- 6:             FOR k := 1 TO n
- 7:                 IF B[m][i,j] < W[i,k] * B[m - 1][k,j]
- 8:                     B[m][i,j] = W[i,k] & B[m - 1][k,j]
- 9:                     IF B[m][i,i] >= 1.01
-10:                         RETURN B[m][i,i]
-11: RETURN 0
-{% endhighlight %}
 
 {% highlight asciidoc %}
 S'(n, W)
