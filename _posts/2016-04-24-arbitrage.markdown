@@ -209,6 +209,7 @@ The cycle consists of simple cycles `1 2 1` and `1 5 3 1`.
 
 Searching for a solution is difficult because there may be many cycles for a given problem.
 The reason is that a conversion table of length `n` corresponds to [complete graph](https://en.wikipedia.org/wiki/Complete_graph) `Kn`.
+Even if there are edges with weight 0, we consider them because considering a complete graph makes for a simpler solution.
 For complete graphs of size `2 <= n <= 20`, the number of cycles of length `n` or less is the following.
 
 {% highlight asciidoc %}
@@ -244,7 +245,7 @@ Consider the following input graph.
 <img src="/assets/2016-04-24.approach-example.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
 The candidates of length 2 are the cycles of length 2.
-Thus, we consider the cycles of length 2 from each one of the vertices.
+Thus, we consider the cycles of length 2 from each one of the vertices as illustrated in the following diagram.
 These are all the cycles of length 2 because we consider all paths that start and end in each given vertex.
 
 <img src="/assets/2016-04-24.approach-example-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
@@ -264,8 +265,8 @@ For example, the candidate for root `1` and child `2` is the following.
 
 [<img src="/assets/2016-04-24.approach-example-candidate-1-2-3-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-04-24.approach-example-candidate-1-2-3-1.png)
 
-The prefix edge `1 -> 2` is given by the input graph.
-The suffix path is the most beneficial path of length 2 from `2` to `1`.
+The weight of prefix edge `1 -> 2` is given by the input graph.
+The weight of suffix path is given by the most beneficial path of length 2 from `2` to `1`.
 In this case there is only one most beneficial path of length 2 from `2` to `1`, `2 3 1`.
 The rate of the candidate is 1 which is not profitable and therefore not a solution.
 We search the rest of the candidates by repeating the process for each root and child.
@@ -282,6 +283,13 @@ We search for a most beneficial path `B[l][i,j]` of length `m` from `i` to `j` b
 {% highlight asciidoc %}
 B[m][i,j] = max { W[i,k] * B[m - 1][k,j] | k \in 1 ... n }
 {% endhighlight %}
+
+<!--
+{% highlight asciidoc %}
+B[1] = W
+B'[i,j] = max { W[i,k] * B[k,j] | k \in 1 ... n }
+{% endhighlight %}
+-->
 
 **TODO** We search a most beneficial path of length 2 for given origin and destination by considering its intermediate vertex `k`.
 For example, for origin `2` and destination `1`, the paths of length 2 are `2 3 1` and `2 4 1`.
@@ -302,16 +310,10 @@ If we repeated the process for the other candidates, we would find no other solu
 Thus, `1 2 1 2 1` is the only solution.
 
 
-{% highlight asciidoc %}
-B[1] = W
-B'[i,j] = max { W[i,k] * B[k,j] | k \in 1 ... n }
-{% endhighlight %}
-
-
 
 # Algorithm
 
-Consider algorithm S.
+Consider algorithm S. Algorithm S returns the rate of a solution or zero if there is no solution.
 
 {% highlight asciidoc %}
 S(n, W)
@@ -328,11 +330,12 @@ S(n, W)
 11: RETURN 0
 {% endhighlight %}
 
-Algorithm S considers candidates in increasing order of length `m` and searches for most beneficial paths.
-For length `m`, algorithm S considers root `i`, destination `j`, and intermediate node `k`.
+Algorithm S finds a solution by constructing candidates of increasing length and returning the first rate that is profitable.
+Algorithm S constructs candidates by constructing most beneficial paths.
+The reason is that candidates of are a byproduct of constructing most beneficial paths.
 
 
-
+<!--
 {% highlight asciidoc %}
 R(n, W)
  1: B[0] := Identity matrix n x n
@@ -350,7 +353,7 @@ R(n, W)
 15:                     RETURN B[m][i,i]
 16: RETURN 0
 {% endhighlight %}
-
+-->
 
 {% highlight asciidoc %}
 S'(n, W)
