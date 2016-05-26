@@ -18,7 +18,7 @@ be able to submit your solution to get it judged.
 Arbitrage is the trading of one currency for another with the hopes of
 taking advantage of small differences in conversion rates among
 several currencies in order to achieve a profit.  For example, if
-1.00 in U.S. currency buys 0.7 British pounds currency,  in British
+1.00 in U.S. currency buys 0.7 British pounds currency, 1.00 in British
 currency buys 9.5 French francs, and 1 French franc buys 0.16 in
 U.S. dollars, then an arbitrage trader can start with 1.00 USD and earn
 1 * 0.7 * 9.5 * 0.16 = 1.064 dollars thus earning a profit of 6.4 percent.
@@ -133,6 +133,14 @@ The corresponding graph is the following.
 
 <img src="/assets/2016-04-24.two-solutions.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
+<a name="lassos-are-redundant" />
+When we interpret the conversion table, we write 0 for the rates in the diagonal to indicate that we do not consider edges that start and end in the same vertex.
+The reason is that those edges are redundant.
+A lasso is an edge that starts and ends in the same vertex.
+Lassos are redundant because from a given sequence that includes a lasso you obtain a shorter sequence with the same rate by removing the lasso.
+For example, sequence `USD USD EUR USD` yields profit 1.01, the same profit that the shorter sequence `USD EUR USD` yields.
+
+
 A sequence of exchanges may yield a profit only if the sequence is a cycle.
 For example, the cycle `USD -> MXN -> EUR -> USD` yields profit of `1.01^(3/2)`.
 Given that the number of vertices in the graph is 3, we do not consider cycles longer than 3.
@@ -148,7 +156,7 @@ USD -> MXN -> EUR -> USD : 1.01^(3/2)
 USD -> EUR -> MXN -> USD : 1.01^(-1/2)
 {% endhighlight %}
 
-A cycle profitable when its rate is greater or equal to 1.01.
+A cycle is profitable when its rate is greater or equal to 1.01.
 Out of the five cycles, only the following two are profitable.
 {% highlight asciidoc %}
 USD -> EUR -> USD
@@ -181,7 +189,7 @@ CYCLE     : RATE
 The only profitable cycle is `1 2 1 2 1` and therefore it is the only solution.
 The cycle is a solution regardless of the fact that it consists of the repetition of simple cycle `1 2 1`.
 
-A solution that is not a simple cycle is not necessarilly the repetition of a simple cycle like in the previous example.
+A solution that is not a simple cycle is not necessarily the repetition of a simple cycle like in the previous example.
 For example, consider the following conversion table and its corresponding graph.
 
 {% highlight asciidoc %}
@@ -210,7 +218,8 @@ The cycle consists of simple cycles `1 2 1` and `1 5 3 1`.
 Searching for a solution is difficult because there may be many cycles for a given problem.
 The reason is that a conversion table of length `n` corresponds to [complete graph](https://en.wikipedia.org/wiki/Complete_graph) `Kn`.
 Even if there are edges with weight 0, we consider them because considering a complete graph makes for a simpler solution.
-For complete graphs of size `2 <= n <= 20`, the number of cycles of length `n` or less is the following.
+The exception are lassos, which we do not consider because [they are redundant](#lassos-are-redundant).
+For complete graphs of size `2 <= n <= 20`, [the number of cycles of length `n` or less](#how-to-count-cycles-for-kn) is the following.
 
 {% highlight asciidoc %}
  K2:                                       1
@@ -236,7 +245,7 @@ K20:       3,040,239,935,992,309,703,757,730
 
 
 
-# Approach
+# <a name='approach' /> Approach
 
 We approach the problem by searching for a shortest profitable cycle amongst a limited number of candidates.
 We guarantee that the profitable cycle we find is shortest by considering candidates in order of length.
@@ -250,8 +259,8 @@ These are all the cycles of length 2 because we consider all paths that start an
 
 <img src="/assets/2016-04-24.approach-example-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
-We search for a profitable cycle of length 2 by considering each root and each corresponding child.
-For example, for root `1` and child `2`, we consider the following cycle.
+We search for a profitable candidate of length 2 by considering each root and each corresponding child.
+For example, for root `1` and child `2`, we consider the following candidate.
 
 <img src="/assets/2016-04-24.approach-example-cycle-1-2-1.png" alt="" style="width: 400px; display: block; margin-left: auto; margin-right: auto;" />
 
@@ -259,30 +268,31 @@ The rate of the cycle is 1.005 which is not profitable and therefore not a solut
 We search the rest of the cycles by repeating the process for each root and child.
 We find no profitable cycle of length 2.
 
+Half of the candidates of length 2 are repeated but we consider them anyway.
+The reason is that when we repeat the process for longer candidates, the number of candidates we consider for each length remains 12 while the number of cycles for the length increases.
+For example, when we consider candidates of length 4 for the input graph, we consider 12 candidates instead of the 28 cycles of length 4 that exist.
+
 Given that there is no solution of length 2, we search for a profitable candidate of length 3.
 Each candidate of length 3 consists of a prefix edge `root -> child` and a suffix path `child ~~> root`.
 For example, the candidate for root `1` and child `2` is the following.
 
 [<img src="/assets/2016-04-24.approach-example-candidate-1-2-3-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-04-24.approach-example-candidate-1-2-3-1.png)
 
-The weight of prefix edge `1 -> 2` is given by the input graph.
-The weight of suffix path is given by the most beneficial path of length 2 from `2` to `1`.
+The prefix edge `1 -> 2` is the edge from `1` to `2` given by the input graph.
+The suffix path is a most beneficial path of length 2 from `2` to `1`.
 In this case there is only one most beneficial path of length 2 from `2` to `1`, `2 3 1`.
 The rate of the candidate is 1 which is not profitable and therefore not a solution.
 We search the rest of the candidates by repeating the process for each root and child.
 We find no profitable candidate of length 3.
 
+Most beneficial paths of length `m` are essential to construction of candidates of length `m + 1`.
+The reason is that **TODO**
+
+We construct most beneficial paths by considering each root, child, and destination.
+**TODO**
+
 We may search for a most beneficial path of a given length `m` as soon as we need it or upfront when we consider candidates of length `m`.
 The asymptotic behavior of the execution time is the same either way.
-
-**TODO** We search for most beneficial paths in the following way.
-A most beneficial path consists of a prefix edge `i -> k` for some `k != i` and a suffix path `k ~~> j` of length `m - 1` that is most beneficial.
-We store the path in the matrix
-The most beneficial path of lenght 1 from is edge `i -> j`.
-We search for a most beneficial path `B[l][i,j]` of length `m` from `i` to `j` by applying the following rule.
-{% highlight asciidoc %}
-B[m][i,j] = max { W[i,k] * B[m - 1][k,j] | k \in 1 ... n }
-{% endhighlight %}
 
 <!--
 {% highlight asciidoc %}
@@ -290,11 +300,6 @@ B[1] = W
 B'[i,j] = max { W[i,k] * B[k,j] | k \in 1 ... n }
 {% endhighlight %}
 -->
-
-**TODO** We search a most beneficial path of length 2 for given origin and destination by considering its intermediate vertex `k`.
-For example, for origin `2` and destination `1`, the paths of length 2 are `2 3 1` and `2 4 1`.
-Intermediate vertex `3` corresponds to rate 1 and vertex `4` corresponds to rate 0.
-Therefore the most beneficial path is `2 3 1`.
 
 Given that there is no solution of length 3, we search for a profitable candidate of length 4.
 For root 1 and child 2, the candidate is the following.
@@ -313,7 +318,8 @@ Thus, `1 2 1 2 1` is the only solution.
 
 # Algorithm
 
-Consider algorithm S. Algorithm S returns the rate of a solution or zero if there is no solution.
+Consider algorithm S.
+For given weight matrix `W` of size `n x n`, algorithm S returns the rate of a solution or zero if there is no solution.
 
 {% highlight asciidoc %}
 S(n, W)
@@ -355,6 +361,10 @@ R(n, W)
 {% endhighlight %}
 -->
 
+Consider algorithm S'.
+Algorithm S' returns a solution and its rate when there is one.
+If there is no solution, algorithm S' returns zero.
+
 {% highlight asciidoc %}
 S'(n, W)
  1: B[1] := W
@@ -372,89 +382,17 @@ S'(n, W)
 13:                     P[m][i,j] = k
 14:                     IF B[m][i,i] >= 1.01
 15:                         RETURN m, i, B, P
-16: RETURN 0, 0, B, P
+16: RETURN 0
 {% endhighlight %}
-
 
 
 
 
 # Implementation
 
-{% highlight c %}
-#include <stdio.h>
-
-#define V 20
-#define MIN_PROFIT 1.01
-
-#define Si(n) scanf("%d", &n)
-#define Sf(n) scanf("%f", &n)
-
-void print_path(int s, int t, int l, int succ[V+1][V][V]) {
-  if(l == 0)
-    printf("%d\n", s + 1);
-  else {
-    printf("%d ", s + 1);
-    print_path(succ[l][s][t], t, l - 1, succ);
-  }
-}
-
-void set_to_zero(int n, float m[V][V]) {
-  int i, j;
-  for(i = 0; i < n; i++)
-    for(j = 0; j < n; j++)
-      m[i][j] = 0;
-}
-
-void R(int n, float rate[V][V]) {
-  float benefit[V+1][V][V];
-  int succ[V+1][V][V];
-  int l, i, j, k;
-  set_to_zero(n, benefit[0]);
-  for(i = 0; i < n; i++)
-    benefit[0][i][i] = 1;
-  set_to_zero(n, benefit[1]);
-  for(l = 2; l <= n; l++) {
-    set_to_zero(n, benefit[l]);
-    for(i = 0; i < n; i++)
-      for(j = i + 1; j < n; j++) {
-        for(k = i; k < n; k++)
-          if(benefit[l - 1][j][i] < rate[j][k] * benefit[l - 2][k][i]) {
-            benefit[l - 1][j][i] = rate[j][k] * benefit[l - 2][k][i];
-            succ[l - 1][j][i] = k;
-          }
-        if(benefit[l][i][i] < rate[i][j] * benefit[l - 1][j][i]) {
-          benefit[l][i][i] = rate[i][j] * benefit[l - 1][j][i];
-          succ[l][i][i] = j;
-          if(benefit[l][i][i] >= MIN_PROFIT) {
-            print_path(i, i, l, succ);
-            return;
-          }
-        }
-      }
-  }
-  printf("no arbitrage sequence exists\n");
-}
-
-int main() {
-  int n, i, j;
-  float r;
-  float rate[V][V];
-  while(Si(n) != EOF) {
-    for(i = 0; i < n; i++)
-      for(j = 0; j < n; j++) {
-        if(i == j) {
-          rate[i][i] = 0;
-          continue;
-        }
-        Sf(r);
-        rate[i][j] = r;
-      }
-    R(n, rate);
-  }
-  return 0;
-}
-{% endhighlight %}
+The following C program is our implementation of algorithm S'.
+For a given weight matrix `rate` of size `n x n`, function `S` executes algorithm S' and prints a solution if there is one.
+If there is no solution, function `S` prints "no arbitrage sequence exists."
 
 {% highlight c %}
 #include <stdio.h>
@@ -528,6 +466,97 @@ int main() {
   return 0;
 }
 {% endhighlight %}
+
+We present our C implementation of algorithm R for comparison.
+Our implementation computes the rate of the solution as well as the solution path.
+The main difference is that this program separates the construction of candidates from the construction of most beneficial paths.
+In function `R`, the construction of candidates happens in if block `C` and the construction of most beneficial paths happens in loop `P`.
+The separation corresponds to the construction of most beneficial paths on demand that we explained in section [Approach](#approach).
+
+{% highlight c %}
+#include <stdio.h>
+
+#define V 20
+#define MIN_PROFIT 1.01
+
+#define Si(n) scanf("%d", &n)
+#define Sf(n) scanf("%f", &n)
+
+void print_path(int s, int t, int l, int succ[V+1][V][V]) {
+  if(l == 0)
+    printf("%d\n", s + 1);
+  else {
+    printf("%d ", s + 1);
+    print_path(succ[l][s][t], t, l - 1, succ);
+  }
+}
+
+void set_to_zero(int n, float m[V][V]) {
+  int i, j;
+  for(i = 0; i < n; i++)
+    for(j = 0; j < n; j++)
+      m[i][j] = 0;
+}
+
+void R(int n, float rate[V][V]) {
+  float benefit[V+1][V][V];
+  int succ[V+1][V][V];
+  int l, i, j, k;
+  set_to_zero(n, benefit[0]);
+  for(i = 0; i < n; i++)
+    benefit[0][i][i] = 1;
+  set_to_zero(n, benefit[1]);
+  for(l = 2; l <= n; l++) {
+    set_to_zero(n, benefit[l]);
+    for(i = 0; i < n; i++)
+      for(j = i + 1; j < n; j++) {
+        for(k = i; k < n; k++)  /* ....................................... P */
+          if(benefit[l - 1][j][i] < rate[j][k] * benefit[l - 2][k][i]) {
+            benefit[l - 1][j][i] = rate[j][k] * benefit[l - 2][k][i];
+            succ[l - 1][j][i] = k;
+          }
+        if(benefit[l][i][i] < rate[i][j] * benefit[l - 1][j][i]) { /* .... C */
+          benefit[l][i][i] = rate[i][j] * benefit[l - 1][j][i];
+          succ[l][i][i] = j;
+          if(benefit[l][i][i] >= MIN_PROFIT) {
+            print_path(i, i, l, succ);
+            return;
+          }
+        }
+      }
+  }
+  printf("no arbitrage sequence exists\n");
+}
+
+int main() {
+  int n, i, j;
+  float r;
+  float rate[V][V];
+  while(Si(n) != EOF) {
+    for(i = 0; i < n; i++)
+      for(j = 0; j < n; j++) {
+        if(i == j) {
+          rate[i][i] = 0;
+          continue;
+        }
+        Sf(r);
+        rate[i][j] = r;
+      }
+    R(n, rate);
+  }
+  return 0;
+}
+{% endhighlight %}
+
+The worst time complexity of function `R` is the same as that of function `S`, `O(n^4)`.
+The [UVa Online Judge](https://uva.onlinejudge.org/index.php) reports the same execution time for both programs, 0.010 seconds.
+We obtained 8th place by submitting function `R`.
+Subsequent submission of function `S` produced the same execution time.
+
+<img src="/assets/2016-04-24.uva-verdict.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />
+
+
+
 
 # Related work
 
@@ -604,22 +633,22 @@ Backtrack(v, n, E)
 
 # Summary
 
-# How to count cycles for a given complete graph
+# <a name="how-to-count-cycles-for-kn" /> How to count cycles for a given complete graph
 
-The number of cycles (simple and not simple) for `Kn` of length `n` or less is given by `C(n)`.
+The count of cycles (simple and not simple) for `Kn` of length `n` or less is given by the following function `C(n)`.
+The count consists of the count of cycles for each length `2 <= l <= n` given by `C(n, l)`.
+The count for a given length `l` consists of the count of cycles (simple and not simple) from each vertex `1 <= i <= n` given by `C(i, n, l)`.
 
 {% highlight asciidoc %}
+C(n) = C(n, 2) + C(n, 3) + ... + C(n, n)
+
+C(n, l) = C(1, n, l) + C(2, n, l) + ... + C(n, n, l)
+
 C(i, n, l) = 0                                  if l < 2
 C(i, n, l) = (n - i)^(l - 1) - C(i, n, l - 1)   otherwise
 {% endhighlight %}
 
-{% highlight asciidoc %}
-C(n, l) = C(1, n, l) + C(2, n, l) + ... + C(n, n, l)
-{% endhighlight %}
-
-{% highlight asciidoc %}
-C(n) = C(n, 1) + C(n, 2) + ... + C(n, n)
-{% endhighlight %}
+The following OCaml program counts the number of cycles for complete graphs K2 to K20.
 
 {% highlight ocaml %}
 #!/usr/bin/env ocaml
@@ -665,6 +694,36 @@ let count n =
   Printf.printf "K%2d %40s\n" n count
 
 let _ = upto 2 20 count
+{% endhighlight %}
+
+To run the program in Linux or OSX, install the OCaml interpreter, save the program in a file, and grant execution permission to the file.
+In OSX, when you save the program in file `count-cycles.ml` you install and run the program as follows.
+
+{% highlight asciidoc %}
+ruslan$ brew install ocaml
+==> Downloading https://homebrew.bintray.com/bottles/ocaml-4.02.3.el_capitan.bottle.tar.gz
+...
+ruslan$ chmod a+x count-cycles.ml
+ruslan$ ./count-cycles.ml
+ K2:                                       1
+ K3:                                       5
+ K4:                                      42
+ K5:                                     384
+ K6:                                   4,665
+ K7:                                  69,537
+ K8:                               1,230,124
+ K9:                              25,140,552
+K10:                             582,508,305
+K11:                          15,084,077,381
+K12:                         431,646,196,806
+K13:                      13,525,545,361,080
+K14:                     460,576,563,322,057
+K15:                  16,935,036,272,292,001
+K16:                 668,691,718,661,091,000
+K17:              28,220,125,532,003,984,176
+K18:           1,267,597,789,008,779,578,401
+K19:          60,381,304,029,673,985,693,205
+K20:       3,040,239,935,992,309,703,757,730
 {% endhighlight %}
 
 
