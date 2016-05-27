@@ -734,7 +734,7 @@ Backtrack(v, n, E)
 
 Arbitrage is [problem 104 in the UVa Online
 Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=40).
-Arbitrage is a graph problem that asks for a cycle of minimum weight and that is shortest.
+Arbitrage is a graph problem that asks for a cycle of minimum weight that is shortest.
 The challenge is that the number of cycles for a given input graph is exponential on the number of vertices.
 We approach the challenge by considering a limited set of candidates in increasing order of length.
 Our approach overcomes the challenge because we consider n^4 paths in the worst case, which is a much lower amount of paths than the number of cycles for more than half of the input sizes.
