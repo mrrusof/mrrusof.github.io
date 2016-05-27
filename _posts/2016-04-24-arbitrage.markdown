@@ -252,7 +252,7 @@ K20:       3,040,239,935,992,309,703,757,730
 
 
 
-# <a name='approach' /> Approach
+# Approach
 
 We approach the problem by searching for a shortest profitable cycle amongst a limited number of candidates.
 We guarantee that the profitable cycle we find is shortest by considering candidates in order of length.
@@ -321,7 +321,7 @@ B'[i,j] = W[i,k] * B[k,j]
 <br />
 
 The construction of a most beneficial path corresponds to the calculation of its rate.
-For given start `i` and end `j` vertices, we obtain the rate `B[m][i,j]` of most beneficial path of length `m` from the rates of most beneficial paths of length `m - 1` as follows.
+For given origin `i` and destination `j` vertices, we obtain the rate `B[m][i,j]` of most beneficial path of length `m` from the rates of most beneficial paths of length `m - 1` as follows.
 {% highlight asciidoc %}
 B[m][i,j] = max { W[i,k] * B[m - 1][k,j] | k in 1 ... n }
 {% endhighlight %}
@@ -330,6 +330,58 @@ For the matrix of weights `W` corresponding to the input graph, the rate of most
 
 It is possible to construct most beneficial paths on demand instead of upfront together with candidates.
 We do not explain that approach because [the time complexity of the end-to-end algorithm is the same either way](#algorithm-r).
+We do provide an [implementation of the approach](#implementation-r) for reference.
+
+
+When we construct most beneficial paths, we consider many more paths than the count of candidates.
+While we consider 12 candidates for each length, we consider 48 paths when we compute most beneficial paths (4 roots times 3 children times 4 destination vertices).
+We do so because for a given input graph, the number of candidates is constant for each length and thus the total count of paths that we consider is much less than the count of cycles in the graph.
+Consider the overapproximation of the count of paths that we consider where we consider `n` lengths and for each length we consider `n` roots, `n` children and `n` destination vertices, that is `n^4`.
+The overapproximated count of paths compares to the number of cycles as follows.
+
+{% highlight asciidoc %}
+                NUMBER OF CYCLES                   NUMBER OF PATHS WE CONSIDER
+ K2:                                       1   <                16    
+ K3:                                       5   <                81    
+ K4:                                      42   <               256   
+ K5:                                     384   <               625   
+ K6:                                   4,665   >              1296  
+ K7:                                  69,537   >              2401  
+ K8:                               1,230,124   >              4096  
+ K9:                              25,140,552   >              6561  
+K10:                             582,508,305   >             10000 
+K11:                          15,084,077,381   >             14641 
+K12:                         431,646,196,806   >             20736 
+K13:                      13,525,545,361,080   >             28561 
+K14:                     460,576,563,322,057   >             38416 
+K15:                  16,935,036,272,292,001   >             50625 
+K16:                 668,691,718,661,091,000   >             65536 
+K17:              28,220,125,532,003,984,176   >             83521 
+K18:           1,267,597,789,008,779,578,401   >            104976
+K19:          60,381,304,029,673,985,693,205   >            130321
+K20:       3,040,239,935,992,309,703,757,730   >            160000
+{% endhighlight %}
+<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Given that there is no solution of length 3, we search for a profitable candidate of length 4.
@@ -511,11 +563,11 @@ int main() {
 }
 {% endhighlight %}
 
-We present our C implementation of algorithm R for comparison.
+<a name="implementation-r" />
+We present our C implementation of algorithm R for reference.
 Our implementation computes the rate of the solution as well as the solution path.
 The main difference is that this program separates the construction of candidates from the construction of most beneficial paths.
 In function `R`, the construction of candidates happens in if block `C` and the construction of most beneficial paths happens in loop `P`.
-The separation corresponds to the construction of most beneficial paths on demand that we explained in section [Approach](#approach).
 
 {% highlight c %}
 #include <stdio.h>
@@ -595,6 +647,7 @@ int main() {
 The worst time complexity of function `R` is the same as that of function `S`, `O(n^4)`.
 The [UVa Online Judge](https://uva.onlinejudge.org/index.php) reports the same execution time for both programs, 0.010 seconds.
 We obtained 8th place by submitting function `R`.
+The rank is still the same as of 2016.05.26.
 Subsequent submission of function `S` produced the same execution time.
 
 <img src="/assets/2016-04-24.uva-verdict.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />
@@ -679,7 +732,13 @@ Backtrack(v, n, E)
 
 # Summary
 
-
+Arbitrage is [problem 104 in the UVa Online
+Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=40).
+Arbitrage is a graph problem that asks for a cycle of minimum weight and that is shortest.
+The challenge is that the number of cycles for a given input graph is exponential on the number of vertices.
+We approach the challenge by considering a limited set of candidates in increasing order of length.
+Our approach overcomes the challenge because we consider n^4 paths in the worst case, which is a much lower amount of paths than the number of cycles for more than half of the input sizes.
+The corresponding implementation is ranked 8th place as of 2016.05.26.
 
 
 
