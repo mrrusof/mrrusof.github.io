@@ -1,0 +1,40 @@
+Research question -> Hypothesis -> Claim (Thesis)
+
+What is your claim?
+What reasons support it?
+What evidence supports those reasons?
+How do you respond to objections and alternative views?
+How are your reasons relevant to your claim?
+
+Claim
+Reasons for accepting the claim
+Evidence that supports those reasons
+Indicate relevance of reasons
+Respond to objections
+Respond to alternative views
+
+- A solution is a path
+  - that is a cycle
+  - that is profitable by 1%
+  - that is shortest
+- A solution may consist of two or more simple cycles.
+- A solution may not consist of most profitable paths.
+
+
+I.   We solve Arbitrage in 10 miliseconds despite an astronomical number of cycles in some cases.
+II.  A solution is a shortest profitable cycle.
+     A. The conversion table corresponds to a graph.
+     B. All solutions are cycles.
+     C. All solutions are profitable cycles.
+     D. A solution is a shortest profitable cycle.
+II.  Searching for a solution is difficult because there are a lot of cycles.
+     A. A given conversion table in general is a complete graph.
+     B. The table of cycles for K2 to K20 indicates that the amount of cycles is huge.
+III. We consider a limited number of candidates for each length.
+     A. We consider all paths of length 2.
+     B. When we do not find a solution, we consider the paths of length 3, 4, 5...
+     C. The rule is that at each 
+IV.  Doing only the necessary work at each level is not asymptotically faster.
+     A. Algorithm R
+IV.  Our algorithm is similar to the SAPSP.
+IV.  Our algorithm is not similar to F.W.

@@ -211,7 +211,7 @@ subsequences that end in positions 2, 3, 4, and 5, each sum is not
 bigger than 5 and thus ignored.  The sum of subsequence `[0, 6]` is 8
 and becomes the maximum.  The remaining two subsequences are ignored.
 
-![TODO](/assets/2016-03-05-jill-rides-again-subsequences-for-first.png)
+![Figure 2](/assets/2016-03-05-jill-rides-again-subsequences-for-first.png)
 
 **Figure 2: State of program in Listing 1 for the
   subsequences that start in the first position.  The line
@@ -228,7 +228,7 @@ For the maximum sequence length considered by the problem statement of
 Jill Rides Again (i.e. 20,000), the solution considers 100,010,000
 subsequences and thus timeouts in the UVa Online Judge.
 
-![TODO](/assets/2016-03-05-jill-rides-again-cuadratic.png)
+![Figure 3](/assets/2016-03-05-jill-rides-again-cuadratic.png)
 
 **Figure 3: State of program in Listing 1 for all subsequences.  Each
   line corresponds to a start position.  For each line, each data
@@ -280,7 +280,7 @@ the sequence, Kadane's Algorithm considers only one subsequence.  That
 subsequence is the longest subsequence that ends in the
 position and has the maximum sum (i.e. `max_here`).
 
-![TODO](/assets/2016-03-05-jill-rides-again-max_here.png)
+![Figure 5](/assets/2016-03-05-jill-rides-again-max_here.png)
 
 **Figure 5: The 9 subsequences considered by Kadane's Algorithm.**
 
@@ -312,7 +312,7 @@ For the first position, there is no update.
 For the second position, there is an update and that corresponds to
 the star to the left in Figure 6.
 
-![TODO](/assets/2016-03-05-jill-rides-again-kadane.png)
+![Figure 6](/assets/2016-03-05-jill-rides-again-kadane.png)
 
 **Figure 6: State of Kadane's Algorithm in Listing 4 laid over the
   state of solution in Listing 1.  Triangles
@@ -379,7 +379,7 @@ When that disjunct is satisfied, our solution pushes the right
 boundary of the maximum sum so far but not its value.
 That is what happens in the rightmost star in Figure 8.
 
-![TODO](/assets/2016-03-05-jill-rides-again-our-solution.png)
+![Figure 8](/assets/2016-03-05-jill-rides-again-our-solution.png)
 
 **Figure 8: Execution of our solution to Jill Rides Again in Listing 7.
   Triangles indicate reset of the beginning of
