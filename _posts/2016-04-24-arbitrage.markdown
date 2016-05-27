@@ -132,6 +132,7 @@ The table corresponds to the following interpretation.
 The corresponding graph is the following.
 
 <img src="/assets/2016-04-24.two-solutions.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+<br />
 
 <a name="lassos-are-redundant" />
 When we interpret the conversion table, we write 0 for the rates in the diagonal to indicate that we do not consider edges that start and end in the same vertex.
@@ -155,6 +156,8 @@ EUR -> MXN -> EUR        : 1
 USD -> MXN -> EUR -> USD : 1.01^(3/2)
 USD -> EUR -> MXN -> USD : 1.01^(-1/2)
 {% endhighlight %}
+<br />
+
 
 A cycle is profitable when its rate is greater or equal to 1.01.
 Out of the five cycles, only the following two are profitable.
@@ -163,7 +166,9 @@ USD -> EUR -> USD
 USD -> MXN -> EUR -> USD
 {% endhighlight %}
 
+
 Out of the two profitable cycles, `USD -> EUR -> USD` is the only solution because it is the shortest cycle.
+
 
 A solution may not be a [simple cycle](https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Definitions) like in the previous example.
 For example, consider the following conversion table and its corresponding graph.
@@ -188,6 +193,7 @@ CYCLE     : RATE
 
 The only profitable cycle is `1 2 1 2 1` and therefore it is the only solution.
 The cycle is a solution regardless of the fact that it consists of the repetition of simple cycle `1 2 1`.
+
 
 A solution that is not a simple cycle is not necessarily the repetition of a simple cycle like in the previous example.
 For example, consider the following conversion table and its corresponding graph.
@@ -214,6 +220,7 @@ CYCLE       : RATE
 
 The only profitable cycle is `1 2 1 5 3 1` and therefore it is the only solution.
 The cycle consists of simple cycles `1 2 1` and `1 5 3 1`.
+
 
 Searching for a solution is difficult because there may be many cycles for a given problem.
 The reason is that a conversion table of length `n` corresponds to [complete graph](https://en.wikipedia.org/wiki/Complete_graph) `Kn`.
@@ -249,6 +256,8 @@ K20:       3,040,239,935,992,309,703,757,730
 
 We approach the problem by searching for a shortest profitable cycle amongst a limited number of candidates.
 We guarantee that the profitable cycle we find is shortest by considering candidates in order of length.
+
+
 Consider the following input graph.
 
 <img src="/assets/2016-04-24.approach-example.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
@@ -258,6 +267,8 @@ Thus, we consider the cycles of length 2 from each one of the vertices as illust
 These are all the cycles of length 2 because we consider all paths that start and end in each given vertex.
 
 <img src="/assets/2016-04-24.approach-example-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+<br />
+
 
 We search for a profitable candidate of length 2 by considering each root and each corresponding child.
 For example, for root `1` and child `2`, we consider the following candidate.
@@ -268,9 +279,11 @@ The rate of the cycle is 1.005 which is not profitable and therefore not a solut
 We search the rest of the cycles by repeating the process for each root and child.
 We find no profitable cycle of length 2.
 
+
 Half of the candidates of length 2 are repeated but we consider them anyway.
 The reason is that when we repeat the process for longer candidates, the number of candidates we consider for each length remains 12 while the number of cycles for the length increases.
 For example, when we consider candidates of length 4 for the input graph, we consider 12 candidates instead of the 28 cycles of length 4 that exist.
+
 
 Given that there is no solution of length 2, we search for a profitable candidate of length 3.
 Each candidate of length 3 consists of a prefix edge `root -> child` and a suffix path `child ~~> root`.
@@ -279,27 +292,61 @@ For example, the candidate for root `1` and child `2` is the following.
 [<img src="/assets/2016-04-24.approach-example-candidate-1-2-3-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-04-24.approach-example-candidate-1-2-3-1.png)
 
 The prefix edge `1 -> 2` is the edge from `1` to `2` given by the input graph.
-The suffix path is a most beneficial path of length 2 from `2` to `1`.
-In this case there is only one most beneficial path of length 2 from `2` to `1`, `2 3 1`.
+The suffix path `1 ~~> 2` is a most beneficial path of length 2 from `2` to `1`.
+In this case there is only one most beneficial path of length 2 from `2` to `1`, `2 -> 3 -> 1`.
 The rate of the candidate is 1 which is not profitable and therefore not a solution.
+There is a candidate for each root and child.
 We search the rest of the candidates by repeating the process for each root and child.
 We find no profitable candidate of length 3.
 
-Most beneficial paths of length `m` are essential to construction of candidates of length `m + 1`.
-The reason is that **TODO**
+The candidates that we consider are most beneficial cycles.
+The reason is that by considering most beneficial cycles of length 3, we find a solution of length 3 if there is one.
+For a given length, the candidates of that length are most beneficial cycles.
 
-We construct most beneficial paths by considering each root, child, and destination.
 **TODO**
 
-We may search for a most beneficial path of a given length `m` as soon as we need it or upfront when we consider candidates of length `m`.
-The asymptotic behavior of the execution time is the same either way.
+- How do you construct candidates?
+- What options do you have to construct most beneficial paths?
+- What is the tradeoff between those options?
+- How much time does each option take?
+- Is construction of most beneficial paths really fast? How fast?
 
-<!--
+<a name="candidates-are-byproducts" />
+We construct candidates from most beneficial paths.
+
+
+
+Most beneficial paths of length 2 are essential to construction of candidates of length 3.
+The reason is that a candidate is a most beneficial cycle.
+When we know all beneficial paths of length 2, construction of most beneficial paths of length 3 proceeds in the following way.
+Consider the structure of a most beneficial cycle of length 3.
+{% highlight asciidoc %}
+i -> j -> k -> i
+{% endhighlight %}
+The candidate consists of a prefix edge `i -> j` and a suffix path `j -> k -> i`.
+The suffix path is a most beneficial path of length 2 from `j` to `i`.
+If it were not, the candidate would not be a most beneficial cycle of length 3.
+Given the weight `W[i,j]` of the prefix path and the rate `B[2][j,i]` of the suffix path, the rate `B[3][i,i]` of the candidate is the following.
+{% highlight asciidoc %}
+B[3][i,i] = W[i,j] * B[2][j,i]
+{% endhighlight %}
+<br />
+
+
+We apply our method that constructs candidates to construction of most beneficial paths of length 3.
+We will require those paths when we construct candidates of length 4.
+
+When we construct most beneficial paths we also construct candidates.
+The reason is that a candidate is a most beneficial path.
 {% highlight asciidoc %}
 B[1] = W
 B'[i,j] = max { W[i,k] * B[k,j] | k \in 1 ... n }
 {% endhighlight %}
--->
+
+
+We may search for a most beneficial path of a given length `m` as soon as we need it or upfront when we consider candidates of length `m`.
+[The time complexity of the end-to-end algorithm is the same either way](#algorithm-r).
+
 
 Given that there is no solution of length 3, we search for a profitable candidate of length 4.
 For root 1 and child 2, the candidate is the following.
@@ -338,10 +385,14 @@ S(n, W)
 
 Algorithm S finds a solution by constructing candidates of increasing length and returning the first rate that is profitable.
 Algorithm S constructs candidates by constructing most beneficial paths.
-The reason is that candidates of are a byproduct of constructing most beneficial paths.
+The reason is that [candidates are a byproduct of constructing most beneficial paths](#candidates-are-byproducts).
 
 
-<!--
+<a name="algorithm-r" />
+Consider algorithm R.
+Algorithm R computes the same result as algorithm S by constructing most beneficial paths on demand.
+We include algorithm R to illustrate that the time complexity of constructing most beneficial paths on demand is the same as the complexity of constructing them upfront.
+
 {% highlight asciidoc %}
 R(n, W)
  1: B[0] := Identity matrix n x n
@@ -359,7 +410,6 @@ R(n, W)
 15:                     RETURN B[m][i,i]
 16: RETURN 0
 {% endhighlight %}
--->
 
 Consider algorithm S'.
 Algorithm S' returns a solution and its rate when there is one.
@@ -697,7 +747,7 @@ let _ = upto 2 20 count
 {% endhighlight %}
 
 To run the program in Linux or OSX, install the OCaml interpreter, save the program in a file, and grant execution permission to the file.
-In OSX, when you save the program in file `count-cycles.ml` you install and run the program as follows.
+In OSX with [Homebrew](http://brew.sh/), when you save the program in file `count-cycles.ml` you install and run the program as follows.
 
 {% highlight asciidoc %}
 ruslan$ brew install ocaml
