@@ -131,7 +131,7 @@ The table corresponds to the following interpretation.
 
 The corresponding graph is the following.
 
-<img src="/assets/2016-04-24.two-solutions.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+<img src="/assets/2016-05-26.two-solutions.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 <br />
 
 <a name="lassos-are-redundant" />
@@ -181,7 +181,7 @@ For example, consider the following conversion table and its corresponding graph
 0 0 0
 {% endhighlight %}
 
-<img src="/assets/2016-04-24.repeated-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+<img src="/assets/2016-05-26.repeated-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
 For the graph, the cycles of length 4 or less are the following
 
@@ -207,7 +207,7 @@ For example, consider the following conversion table and its corresponding graph
 0 0 1.001992047666533 0
 {% endhighlight %}
 
-<img src="/assets/2016-04-24.two-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+<img src="/assets/2016-05-26.two-simple-cycle-solution.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
 For the graph, the cycles of length 5 or less are the following.
 
@@ -260,20 +260,20 @@ We guarantee that the profitable cycle we find is shortest by considering candid
 
 Consider the following input graph.
 
-<img src="/assets/2016-04-24.approach-example.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+<img src="/assets/2016-05-26.approach-example.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
 
 The candidates of length 2 are the cycles of length 2.
 Thus, we consider the cycles of length 2 from each one of the vertices as illustrated in the following diagram.
 These are all the cycles of length 2 because we consider all paths that start and end in each given vertex.
 
-<img src="/assets/2016-04-24.approach-example-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+<img src="/assets/2016-05-26.approach-example-cycles-len-2.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 <br />
 
 
 We search for a profitable candidate of length 2 by considering each root and each corresponding child.
 For example, for root `1` and child `2`, we consider the following candidate.
 
-<img src="/assets/2016-04-24.approach-example-cycle-1-2-1.png" alt="" style="width: 400px; display: block; margin-left: auto; margin-right: auto;" />
+<img src="/assets/2016-05-26.approach-example-cycle-1-2-1.png" alt="" style="width: 400px; display: block; margin-left: auto; margin-right: auto;" />
 
 The rate of the candidate is 1.005 which is not profitable and therefore not a solution.
 We search the rest of the candidates by repeating the process for each root and child.
@@ -291,7 +291,7 @@ The candidates of length 3 are most beneficial cycles of length 3.
 The structure of each candidate consists of a prefix edge `i -> j` and a suffix path `j -> k -> i`.
 For example, the candidate for root `1` and child `2` is the following.
 
-[<img src="/assets/2016-04-24.approach-example-candidate-1-2-3-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-04-24.approach-example-candidate-1-2-3-1.png)
+[<img src="/assets/2016-05-26.approach-example-candidate-1-2-3-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-05-26.approach-example-candidate-1-2-3-1.png)
 
 The prefix edge `1 -> 2` is the edge from `1` to `2` given by the input graph.
 The suffix path `2 -> 3 -> 1` is a most beneficial path of length 2 from `2` to `1`.
@@ -387,7 +387,7 @@ K20:       3,040,239,935,992,309,703,757,730   >            160000
 Given that there is no solution of length 3, we search for a profitable candidate of length 4.
 For root 1 and child 2, the candidate is the following.
 
-[<img src="/assets/2016-04-24.approach-example-solution-1-2-1-2-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-04-24.approach-example-closeup-solution-1-2-1-2-1.png)
+[<img src="/assets/2016-05-26.approach-example-solution-1-2-1-2-1.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />](/assets/2016-05-26.approach-example-closeup-solution-1-2-1-2-1.png)
 
 The prefix edge `1 -> 2` is given by the input graph.
 The suffix path is the most beneficial path of length 3 from `2` to `1`.
@@ -650,7 +650,7 @@ We obtained 8th place by submitting function `R`.
 The rank is still the same as of 2016.05.26.
 Subsequent submission of function `S` produced the same execution time.
 
-<img src="/assets/2016-04-24.uva-verdict.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />
+<img src="/assets/2016-05-26.uva-verdict.png" alt="" style="width: 700px; display: block; margin-left: auto; margin-right: auto;" />
 
 
 
