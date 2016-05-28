@@ -102,7 +102,7 @@ R: I did not use Floyd-Warshall because you can't solve this problem with Floyd-
    So the rule he applies considers second-to-last vertex as opposed to an intermediate vertex.
 
 V: Is there any other related work?
-R: Yes, there is one illustrating algorithm by [Robert Tarjan].
+R: Yes, there is one illustrative algorithm by [Robert Tarjan].
    His algorithm enumerates the simple cycles of graphs.
    TODO: Explain
 

@@ -407,6 +407,7 @@ Algorithm S is a summary of algorithm S' and is easier to understand.
 Algorithm R is an alternative to algorithm R that computes most beneficial paths on demand.
 The execution time of the three algorithms is `O(n^4)`.
 
+<a name="algorithm-s" />
 The following is algorithm S.
 
 {% highlight asciidoc %}
@@ -654,8 +655,20 @@ Subsequent submission of function `S` produced the same execution time.
 
 
 
-<!--
 # Related work
+
+Algorithm S is not similar to Floyd-Warshall.
+
+- For a given graph, Floyd-Warshall constructs shortest paths for all pairs of vertices.
+- Floyd-Warshall considers that the structure of a shortest path consists of a shortest prefix and a shortest suffix.
+- 
+
+
+Algorithm S is similar to All Pairs Shortest Paths by [Cormen et al](#cormen).
+
+
+The way algorithm R considers paths is similar to the way of Tarjan's Algorithm for Simple Cycles [
+
 
 {% highlight asciidoc %}
 SlowAllPairsShortestPath(n, W)
@@ -726,7 +739,6 @@ Backtrack(v, n, E)
 19: POP(path)
 20: RETURN found_cycle
 {% endhighlight %}
--->
 
 
 
@@ -742,9 +754,47 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
 
 
 
-<!--
 # References
 
+<table>
+  <tr>
+    <td>
+      <a name="cormen" />
+      [Cormen et al]
+    </td><td>
+      Introduction to Algorithms.
+    </td>
+  </tr><tr>
+    <td>
+      <a name="algorithmist-104" />
+      [Algorithmist]
+    </td><td>
+    <td>
+  </tr><tr>
+    <td>
+      [UVa 104](http://www.algorithmist.com/index.php/UVa_104).
+    </td><td>
+    </td>
+  </tr><tr>
+    <td>
+      <a name="questtosolve" />
+      [QuestToSolve]
+    </td><td>
+      [#104 - Arbitrage](http://www.questtosolve.com/browse.php?pid=104).
+    <td>
+  </tr><tr>
+    <td>
+      <a name="tarjan" />
+      [Tarjan]
+    </td><td>
+      [Enumeration of the elementary circuits of a directed graph](https://ecommons.cornell.edu/bitstream/handle/1813/5941/72-145.pdf)
+      R. Tarjan, SIAM Journal on Computing, 2 (1973), pp. 211-216
+      http://dx.doi.org/10.1137/0202017
+    </td>
+  </tr>
+</table>
+
+<!--
 [1] Implementation of Tarjan's algorithm by Johannes Schauer.
 
 - https://blog.mister-muffin.de/2012/07/04/enumerating-elementary-circuits-of-a-directed_graph/
