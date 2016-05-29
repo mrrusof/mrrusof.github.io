@@ -80,7 +80,7 @@ changes or remains the same when we flip a coin because we either gain
 pairs, lose pairs, or keep the same amount of pairs.  Consider the
 following sequence and the delta adjacency for each coin.
 
-```asciidoc
+{% highlight asciidoc %}
 Index  | Coin | Delta adjacency
 -------------------------------
 0      | 1    | -1
@@ -91,7 +91,7 @@ Index  | Coin | Delta adjacency
 5      | 0    |  0
 6      | 1    |  0
 7      | 1    | -1
-```
+{% endhighlight %}
 
 The adjacency for the sequence is 3.  If we flip the first or last
 coin, we lose one pair and the adjacency becomes 2.  If we flip
@@ -139,7 +139,7 @@ We compute the maximum delta adjacency by computing the delta
 adjacency for each coin and keeping the maximum.  For the first and
 last coins, we apply the following rule and keep the maximum.
 
-```asciidoc
+{% highlight asciidoc %}
 The first or last coin
 | Adjacent coin
 |/      Delta adjacency
@@ -151,12 +151,12 @@ vv     v
 01 ->  1
 10 ->  1
 11 -> -1
-```
+{% endhighlight %}
 
 When there are coins in the middle, we apply the following rule to
 each coin and update the maximum delta.
 
-```asciidoc
+{% highlight asciidoc %}
 Coin to the left
 | A coin in the middle
 |/ Coin to the right
@@ -173,7 +173,7 @@ vvv     v
 101 ->  2
 110 ->  0
 111 -> -2
-```
+{% endhighlight %}
 
 Our implementation is the following.
 

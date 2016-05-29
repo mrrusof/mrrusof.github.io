@@ -76,19 +76,19 @@ segments, choose the segment that begins with the earliest stop
 (lowest `i`).
 For each route `r` in the input file, print a line in the form:
 
-```asciidoc
+{% highlight asciidoc %}
 The nicest part of route r is between stops i and j
-```
+{% endhighlight %}
 
 However, if the maximal sum is not positive, your program should print:
 
-```asciidoc
+{% highlight asciidoc %}
 Route r has no nice parts
-```
+{% endhighlight %}
 
 ## Sample Input
 
-```asciidoc
+{% highlight asciidoc %}
 3
 3
   -1
@@ -107,15 +107,15 @@ Route r has no nice parts
   -2
   -3
   -4
-```
+{% endhighlight %}
 
 ## Sample Output
 
-```asciidoc
+{% highlight asciidoc %}
 The nicest part of route 1 is between stops 2 and 3
 The nicest part of route 2 is between stops 3 and 9
 Route 3 has no nice parts
-```
+{% endhighlight %}
 
 # Analysis
 
@@ -133,13 +133,13 @@ For example, consider the following sequence.
 The maximum sum for the sequence is positive and is 11.
 The maximum sum corresponds to subsequences A and B.
 
-```asciidoc
+{% highlight asciidoc %}
  -1   6  -6   2  -4   5   6  -6   6
                      -------
                         A
                      ---------------
                             B
-```
+{% endhighlight %}
 
 
 A straightforward solution consists of computing the sum for each
@@ -188,7 +188,7 @@ sum of each subsequence that starts there by means of loop `END`.
 For example, when the start position is the first position (`i = 0`),
 the solution computes the sum of the following subsequences.
 
-```asciidoc
+{% highlight asciidoc %}
           -1   6  -6   2  -4   5   6  -6   6
 [0, 0]   ----
 [0, 1]   --------
@@ -199,7 +199,7 @@ the solution computes the sum of the following subsequences.
 [0, 6]   ----------------------------
 [0, 7]   --------------------------------
 [0, 8]   ------------------------------------
-```
+{% endhighlight %}
 
 The solution selects the maximum sum `max_sum` after computing the sum
 for each subsequence.  The following graph illustrates how the
@@ -282,7 +282,7 @@ position and has the maximum sum (i.e. `max_here`).
 
 ![Figure 5](/assets/2016-03-05-jill-rides-again-max_here.png)
 
-**Figure 5: The 9 subsequences considered by Kadane's Algorithm.**
+**Figure 5: The 9 subsequences considered by Kadane's Algorithm. The dotted line in pink indicates the 9 subsequences. Consider any position in the sequence. When the dotted line is not over a gray line, the current sequence is the empty sequence. That is the case for positions 0 (element -1) and 5 (element -4). When the dotted pink line is over a gray line, the prefix of the gray line is the subsequence for that position. That subsequence is the longest subsequence that ends in the position.**
 
 As Kadane's Algorithm iterates over positions, it preserves the
 invariant condition that `max_sum` is the maximum sum so far.  The
