@@ -756,6 +756,53 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
 
 # References
 
+
+<dl>
+  <dt id="algorithmist-104">
+    [Algorithmist]
+  </dt>
+  <dd>
+    "UVa 104." Algorithmist. N.p., 28 Jan. 2013. Web. 26 May 2016. <a href="http://www.algorithmist.com/index.php/UVa_104">http://www.algorithmist.com/index.php/UVa_104</a>.
+  </dd>
+  <dt id="cormen">
+    [Cormen et al]
+  </dt>
+  <dd>
+    Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill. pp. 684-699. ISBN 0-262-03384-4.
+  </dd>
+  <dt id="questtosolve">
+    [QuestToSolve]
+  </dt>
+  <dd>
+    "#104 - Arbitrage." Our Quest to Solve Them All. N.p., 2008. Web. 26 May 2016. <a href="http://www.questtosolve.com/browse.php?pid=104">http://www.questtosolve.com/browse.php?pid=104</a>.
+  </dd>
+  <dt id="sedgewick">
+    [Sedgewick et al]
+  </dt>
+  <dd>
+    Sedgewick, Robert; Wayne, Kevin (2011). Algorithms (4th ed.). Addison-Wesley Professional. pp. 679-681. ISBN 978-0-321-57351-3.
+  </dd>
+  <dt id="tarjan">
+    [Tarjan]
+  </dt>
+  <dd>
+    <a href="https://ecommons.cornell.edu/bitstream/handle/1813/5941/72-145.pdf">Enumeration of the elementary circuits of a directed graph</a>.
+    R. Tarjan, SIAM Journal on Computing, 2 (1973), pp. 211-216
+    http://dx.doi.org/10.1137/0202017
+  </dd>
+</dl>
+
+<!--
+<dl>
+  <dt>
+    <a name="cormen" />
+    [Cormen et al]
+  </dt>
+
+
+</dl>
+-->
+<!--
 <table>
   <tr>
     <td>
@@ -793,6 +840,7 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
     </td>
   </tr>
 </table>
+-->
 
 <!--
 [1] Implementation of Tarjan's algorithm by Johannes Schauer.

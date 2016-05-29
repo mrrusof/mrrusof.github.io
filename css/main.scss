@@ -50,3 +50,14 @@ $on-laptop:        800px;
         "layout",
         "syntax-highlighting"
 ;
+
+dt {
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
+}
+
+dd {
+  display: inline-block;
+  width: 79%;
+}
