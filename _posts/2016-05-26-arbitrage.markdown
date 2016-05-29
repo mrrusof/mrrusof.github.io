@@ -665,8 +665,9 @@ Subsequent submission of function `S` produced the same execution time.
 
 # Related work
 
-[Algorithmist](#algorithmist), [OurQuestToSolve](#ourquesttosolve), and ??? suggest that this problem can be solved by modifying Floyd-Warshall.
+[Algorithmist](#algorithmist), [OurQuestToSolve](#ourquesttosolve), and [Chang](#chang) suggest that this problem can be solved by modifying Floyd-Warshall.
 Algorithm S is the algorithm described by those sites.
+We agree with [Prajogo Tio](#prajogotio) in that Algorithm S only resembles Floyd-Warshall.
 We explain that a more similar algorithm is Slow All Pairs Shortest Paths by [Cormen et al](#cormen).
 <br /><br />
 
@@ -911,17 +912,29 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
   <dd>
     "UVa 104." Algorithmist. N.p., 28 Jan. 2013. Web. 26 May 2016. <a href="http://www.algorithmist.com/index.php/UVa_104">http://www.algorithmist.com/index.php/UVa_104</a>.
   </dd>
+  <dt id="chang">
+    [Chang]
+  </dt>
+  <dd>
+    "[ACM] Some hints about uva 104 (Modified Floyd-Warshall)." 調和的靈感. N.p., 12 Jan. 2008. Web. 26 May 2016. <a href="http://chchwy.blogspot.mx/2008/12/acm-some-hint-about-uva-104.html">http://chchwy.blogspot.mx/2008/12/acm-some-hint-about-uva-104.html</a>.
+  </dd>
   <dt id="cormen">
     [Cormen et al]
   </dt>
   <dd>
     Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill. pp. 684-699. ISBN 0-262-03384-4.
   </dd>
+  <dt id="prajogotio">
+    [Prajogo Tio]
+  </dt>
+  <dd>
+    "a bit of uva: UVa 104 - Arbitrage." A Bit of Cs. N.p., 8 Aug. 2014. Web. 26 May 2016. <a href="http://abitofcs.blogspot.mx/2014/08/a-bit-of-uva-uva-104-arbitrage.html">http://abitofcs.blogspot.mx/2014/08/a-bit-of-uva-uva-104-arbitrage.html</a>.
+  </dd>
   <dt id="ourquesttosolve">
     [OurQuestToSolve]
   </dt>
   <dd>
-    "#104 - Arbitrage." Our Quest to Solve Them All. N.p., 2008. Web. 26 May 2016. <a href="http://www.questtosolve.com/browse.php?pid=104">http://www.questtosolve.com/browse.php?pid=104</a>.
+    "#104 - Arbitrage." Our Quest to Solve Them All. N.p. 2008. Web. 26 May 2016. <a href="http://www.questtosolve.com/browse.php?pid=104">http://www.questtosolve.com/browse.php?pid=104</a>.
   </dd>
   <dt id="sedgewick">
     [Sedgewick and Wayne]
@@ -938,75 +951,6 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
     http://dx.doi.org/10.1137/0202017
   </dd>
 </dl>
-
-<!--
-<dl>
-  <dt>
-    <a name="cormen" />
-    [Cormen et al]
-  </dt>
-
-
-</dl>
--->
-<!--
-<table>
-  <tr>
-    <td>
-      <a name="cormen" />
-      [Cormen et al]
-    </td><td>
-      Introduction to Algorithms.
-    </td>
-  </tr><tr>
-    <td>
-      <a name="algorithmist-104" />
-      [Algorithmist]
-    </td><td>
-    <td>
-  </tr><tr>
-    <td>
-      [UVa 104](http://www.algorithmist.com/index.php/UVa_104).
-    </td><td>
-    </td>
-  </tr><tr>
-    <td>
-      <a name="questtosolve" />
-      [QuestToSolve]
-    </td><td>
-      [#104 - Arbitrage](http://www.questtosolve.com/browse.php?pid=104).
-    <td>
-  </tr><tr>
-    <td>
-      <a name="tarjan" />
-      [Tarjan]
-    </td><td>
-      [Enumeration of the elementary circuits of a directed graph](https://ecommons.cornell.edu/bitstream/handle/1813/5941/72-145.pdf)
-      R. Tarjan, SIAM Journal on Computing, 2 (1973), pp. 211-216
-      http://dx.doi.org/10.1137/0202017
-    </td>
-  </tr>
-</table>
--->
-
-<!--
-[1] Implementation of Tarjan's algorithm by Johannes Schauer.
-
-- https://blog.mister-muffin.de/2012/07/04/enumerating-elementary-circuits-of-a-directed_graph/
-- https://github.com/josch/cycles_tarjan/blob/master/cycles.py
-
-[2] Tarjan's algorithm is O(V*E), for dense graphs O(N^3).
-
-- http://www.cs.colorado.edu/department/publications/reports/docs/CU-CS-024-73.pdf
-
-[3] Counting cycles is NP hard.
-
-- http://www.cs.umd.edu/~jkatz/complexity/f11/lecture23.pdf
-
-[4] Solution that kind of resembles Floyd-Warshall but it really looks like Slow All Pairs Shortest Paths
-
-- http://abitofcs.blogspot.mx/2014/08/a-bit-of-uva-uva-104-arbitrage.html
--->
 
 
 
