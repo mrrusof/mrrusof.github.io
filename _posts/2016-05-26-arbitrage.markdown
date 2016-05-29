@@ -880,7 +880,7 @@ Backtrack(v, n, E)
 The way algorithm R considers paths is similar to the way of Tarjan's algorithm enumerates simple cycles.
 Algorithm R avoids repeated candidates by iterating all children `j` greater than root `i` in [line 6 of `R`](#algorithm-r).
 Algorithm R avoids considering most beneficial paths that have been considered in previous candidates by iterating all intermediate nodes `k` greater or equal than root `i` in [line 7 of `R`](#algorithm-r).
-The candidates and paths that algorithm R avoids correspond to the paths that Tarjan avoids by considering paths for to all children greater or equal than root `r` in line 5 of `Backtrack`.
+The candidates and paths that algorithm R avoids correspond to the paths that Tarjan avoids by considering paths to all destinations `w` greater or equal than root `r` in line 5 of `Backtrack`.
 <br /><br />
 
 Algorithm R considers non-simple cycles and Tarjan does not. For that reason the cycles that Tarjan avoids by means of `mark_map` in line 11 are considered by algorithm R.
