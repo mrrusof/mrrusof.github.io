@@ -808,7 +808,7 @@ p = i -> ... -> k -> j
 <br />
 
 
-All Pairs Shortest Paths refines shortest paths with each iteration of its outer loop by extending current shortest path `i -> ,,, -> k` with one more edge `k -> j`.
+All Pairs Shortest Paths refines shortest paths with each iteration of its outer loop by extending current shortest path `i -> ... -> k` with one more edge `k -> j`.
 The algorithm starts with the identity matrix in line 1.
 The algorithm applies the following refinement rule.
 
