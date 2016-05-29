@@ -6,7 +6,7 @@ author: Ruslan Ledesma-Garza
 summary: Do you want to make easy money? Maybe currency trading is what you are looking for.
 ---
 
-Arbitrage is the trading of one currencies for a profit.
+Arbitrage is the trading of currencies for a profit.
 Arbitrage is a very real problem that promises a lot of money, if it were not for fees, taxes, and other imposed bounds.
 The challenge in arbitrage is finding an optimal solution despite the size of the search space.
 For example, for a set of 20 currencies, the search space consists of 3 x 10^24 (read "three septillion" in [the short scale](https://en.wikipedia.org/wiki/Orders_of_magnitude_(numbers)#1024)) different ways to trade currencies.
