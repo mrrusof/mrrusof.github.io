@@ -6,6 +6,14 @@ author: Ruslan Ledesma-Garza
 summary: Do you want to make easy money? Maybe currency trading is what you are looking for.
 ---
 
+Arbitrage is the trading of one currency for another with the hopes of
+taking advantage of small differences in conversion rates among
+several currencies in order to achieve a profit.
+Arbitrage is a very real problem that promises a lot of money, if it were not for fees, taxes, and other imposed bounds.
+The challenge in arbitrage is finding an optimal solution despite the size of the search space.
+For example, for a set of 20 currencies, the search space consists of 3 x 10^24 (read "three septillion" in [the short scale](https://en.wikipedia.org/wiki/Orders_of_magnitude_(numbers)#1024)) different ways to trade currencies.
+In this article we explain how to solve the problem Arbitrage by [UVa Online Judge](https://uva.onlinejudge.org/index.php).
+
 Arbitrage is [problem 104 in the UVa Online
 Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=40).
 Even though I include the problem description in this post, I
@@ -140,6 +148,7 @@ The reason is that those edges are redundant.
 A lasso is an edge that starts and ends in the same vertex.
 Lassos are redundant because from a given sequence that includes a lasso you obtain a shorter sequence with the same rate by removing the lasso.
 For example, sequence `USD USD EUR USD` yields profit 1.01, the same profit that the shorter sequence `USD EUR USD` yields.
+<br /><br />
 
 
 A sequence of exchanges may yield a profit only if the sequence is a cycle.
@@ -161,13 +170,14 @@ USD -> EUR -> MXN -> USD : 1.01^(-1/2)
 
 A cycle is profitable when its rate is greater or equal to 1.01.
 Out of the five cycles, only the following two are profitable.
+
 {% highlight asciidoc %}
 USD -> EUR -> USD
 USD -> MXN -> EUR -> USD
 {% endhighlight %}
 
-
 Out of the two profitable cycles, `USD -> EUR -> USD` is the only solution because it is the shortest cycle.
+<br /><br />
 
 
 A solution may not be a [simple cycle](https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Definitions) like in the previous example.
@@ -193,6 +203,7 @@ CYCLE     : RATE
 
 The only profitable cycle is `1 2 1 2 1` and therefore it is the only solution.
 The cycle is a solution regardless of the fact that it consists of the repetition of simple cycle `1 2 1`.
+<br /><br />
 
 
 A solution that is not a simple cycle is not necessarily the repetition of a simple cycle like in the previous example.
@@ -220,6 +231,7 @@ CYCLE       : RATE
 
 The only profitable cycle is `1 2 1 5 3 1` and therefore it is the only solution.
 The cycle consists of simple cycles `1 2 1` and `1 5 3 1`.
+<br /><br />
 
 
 Searching for a solution is difficult because there may be many cycles for a given problem.
@@ -256,6 +268,7 @@ K20:       3,040,239,935,992,309,703,757,730
 
 We approach the problem by searching for a shortest profitable cycle amongst a limited number of candidates.
 We guarantee that the profitable cycle we find is shortest by considering candidates in order of length.
+<br /><br />
 
 
 Consider the following input graph.
@@ -278,12 +291,14 @@ For example, for root `1` and child `2`, we consider the following candidate.
 The rate of the candidate is 1.005 which is not profitable and therefore not a solution.
 We search the rest of the candidates by repeating the process for each root and child.
 We find no profitable candidate of length 2.
+<br /><br />
 
 
 Half of the candidates of length 2 are repeated but we consider them anyway.
 For example, candidate for root `2` and child `1` (`2 -> 1 -> 2`) is the same cycle and candidate for root `1` and child `2` (`1 -> 2 -> 1`).
 The reason we consider repetitions is that when we apply the process to longer candidates, the number of candidates we consider for each length remains 12 while the number of cycles for the length increases.
 For example, when we consider candidates of length 4 for the input graph, we consider 12 candidates instead of the 28 cycles of length 4 that exist.
+<br /><br />
 
 
 Given that there is no solution of length 2, we search for a profitable candidate of length 3.
@@ -299,9 +314,13 @@ In this case the suffix is the most beneficial path of length 2 from `2` to `1`.
 The rate of the candidate is 1 which is not profitable and therefore not a solution.
 Given that there is a candidate for each root and child, we search the rest of the candidates by repeating the process for each root and child.
 We find no profitable candidate of length 3.
+<br /><br />
+
 
 <a name="candidates-are-most-beneficial-paths" />
 Candidates are most beneficial paths, for that reason we construct candidates by constructing most beneficial paths.
+<br /><br />
+
 
 The construction of most beneficial paths is determined by their structure.
 Consider the structure a most beneficial path.
@@ -320,17 +339,20 @@ B'[i,j] = W[i,k] * B[k,j]
 {% endhighlight %}
 <br />
 
+
 The construction of a most beneficial path corresponds to the calculation of its rate.
 For given origin `i` and destination `j` vertices, we obtain the rate `B[m][i,j]` of most beneficial path of length `m` from the rates of most beneficial paths of length `m - 1` as follows.
 {% highlight asciidoc %}
 B[m][i,j] = max { W[i,k] * B[m - 1][k,j] | k in 1 ... n }
 {% endhighlight %}
 For the matrix of weights `W` corresponding to the input graph, the rate of most beneficial paths of length 1 `B[1]` is `W`.
+<br /><br />
 
 
 It is possible to construct most beneficial paths on demand instead of upfront together with candidates.
 We do not explain that approach because [the time complexity of the end-to-end algorithm is the same either way](#algorithm-r).
 We do provide an [implementation of the approach](#implementation-r) for reference.
+<br /><br />
 
 
 When we construct most beneficial paths, we consider many more paths than the count of candidates.
@@ -364,26 +386,6 @@ K20:       3,040,239,935,992,309,703,757,730   >            160000
 <br />
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Given that there is no solution of length 3, we search for a profitable candidate of length 4.
 For root 1 and child 2, the candidate is the following.
 
@@ -406,7 +408,10 @@ Our solution is algorithm S'.
 Algorithm S is a summary of algorithm S' and is easier to understand.
 Algorithm R is an alternative to algorithm R that computes most beneficial paths on demand.
 The execution time of the three algorithms is `O(n^4)`.
+<br /><br />
 
+
+<a name="algorithm-s" />
 The following is algorithm S.
 
 {% highlight asciidoc %}
@@ -428,6 +433,7 @@ Algorithm S returns the rate of a solution or zero if there is no solution for g
 Algorithm S finds a solution rate by constructing rates of candidates of increasing length and returning the first rate that is profitable.
 Algorithm S constructs rates of candidates by constructing rates of most beneficial paths.
 The reason is that [candidates are most beneficial paths](#candidates-are-most-beneficial-paths).
+<br /><br />
 
 
 The following is algorithm S'.
@@ -457,6 +463,7 @@ If there is no solution, algorithm S' returns zero.
 Algorithm S' computes rates of most beneficial paths in the way algorithm S does and at the same time constructs a solution in successor matrix `P`.
 Algorithm S' constructs a solution by recording the successor `k` of vertex `i` in `P[m][i,j]` in line 13.
 Algorithm S' stops as soon as it finds a profitable candidate in line 14.
+<br /><br />
 
 
 <a name="algorithm-r" />
@@ -523,22 +530,22 @@ void S(int n, float rate[V][V]) {
     for(j = 0; j < n; j++) {
       benefit[1][i][j] = rate[i][j];
       if(rate[i][j] > 0)
-	succ[1][i][j] = j;
+        succ[1][i][j] = j;
     }
   for(l = 2; l <= n; l++) {
     set_to_zero(n, benefit[l]);
     for(i = 0; i < n; i++)
       for(j = 0; j < n; j++)
-	for(k = 0; k < n; k++) {
-	  if(benefit[l][i][j] < rate[i][k] * benefit[l - 1][k][j]) {
-	    benefit[l][i][j] = rate[i][k] * benefit[l - 1][k][j];
-	    succ[l][i][j] = k;
-	    if(benefit[l][i][i] >= MIN_PROFIT) {
-	      print_path(i, i, l, succ);
-	      return;
-	    }
-	  }
-	}
+        for(k = 0; k < n; k++) {
+          if(benefit[l][i][j] < rate[i][k] * benefit[l - 1][k][j]) {
+            benefit[l][i][j] = rate[i][k] * benefit[l - 1][k][j];
+            succ[l][i][j] = k;
+            if(benefit[l][i][i] >= MIN_PROFIT) {
+              print_path(i, i, l, succ);
+              return;
+            }
+          }
+        }
   }
   printf("no arbitrage sequence exists\n");
 }
@@ -550,18 +557,20 @@ int main() {
   while(Si(n) != EOF) {
     for(i = 0; i < n; i++)
       for(j = 0; j < n; j++) {
-	if(i == j) {
-	  rate[i][i] = 0;
-	  continue;
-	}
-	Sf(r);
-	rate[i][j] = r;
+        if(i == j) {
+          rate[i][i] = 0;
+          continue;
+        }
+        Sf(r);
+        rate[i][j] = r;
       }
     S(n, rate);
   }
   return 0;
 }
 {% endhighlight %}
+<br />
+
 
 <a name="implementation-r" />
 We present our C implementation of algorithm R for reference.
@@ -643,6 +652,8 @@ int main() {
   return 0;
 }
 {% endhighlight %}
+<br />
+
 
 The worst time complexity of function `R` is the same as that of function `S`, `O(n^4)`.
 The [UVa Online Judge](https://uva.onlinejudge.org/index.php) reports the same execution time for both programs, 0.010 seconds.
@@ -654,79 +665,227 @@ Subsequent submission of function `S` produced the same execution time.
 
 
 
-<!--
 # Related work
 
-{% highlight asciidoc %}
-SlowAllPairsShortestPath(n, W)
-1: L[0] = Identity matrix n x n
-2: FOR m := 1 TO n
-3:     L[m] := INFINITY
-4:     FOR i := 1 TO n
-5:         FOR j := 1 TO n
-6:             FOR k := 1 TO n
-7:                 IF L[m][i,j] > L[m - 1][i,k] + W[k,j]
-8:                     L[m][i,j] = L[m - 1][i,j] + W[k,j]
-9: RETURN L[n]
-{% endhighlight %}
+[Algorithmist](#algorithmist), [OurQuestToSolve](#ourquesttosolve), and ??? suggest that this problem can be solved by modifying Floyd-Warshall.
+Algorithm S is the algorithm described by those sites.
+We explain that a more similar algorithm is Slow All Pairs Shortest Paths by [Cormen et al](#cormen).
+<br /><br />
+
+
+Consider Floyd-Warshall.
 
 {% highlight asciidoc %}
 FloydWarshall(n, W)
-1: L[0] = W
+1: D[0] = W
 2: FOR k := 1 TO n
 3:     FOR i := 1 TO n
 4:         FOR j := 1 TO n
-5:             IF L[k - 1][i,j] > L[k - 1][i,k] + L[k - 1][k,j]
-6:                 L[k][i,j] = L[k - 1][i,j]
+5:             IF D[k - 1][i,j] > D[k - 1][i,k] + D[k - 1][k,j]
+6:                 D[k][i,j] = D[k - 1][i,j]
 7:             ELSE
-8:                 L[k][i,j] = L[k - 1][i,k] + L[k - 1][k,j]
-9: RETURN L[n]
+8:                 D[k][i,j] = D[k - 1][i,k] + D[k - 1][k,j]
+9: RETURN D[n]
 {% endhighlight %}
+[Cormen et al](#cormen) explain how Floyd-Warshall constructs shortest paths for all pairs of vertices for a graph given by adjacency matrix `W` of size `n x n`.
+Algorithm S is not similar to Floyd-Warshall because Floyd-Warshall considers intermediate vertices in each iteration of its outer loop instead of an increasing number of edges.
+<br /><br />
+
+
+Floyd-Warshall considers that the structure of a shortest path consists of a shortest prefix, an intermediate vertex, and a shortest suffix.
 
 {% highlight asciidoc %}
-L'[i,j] = min(L[i,j], L[i,k] + L[k,j])
+           suffix
+             |
+          -------
+p = i ~~> k ~~> j
+    -------\
+       |    \
+    prefix   \
+           intermediate
+             vertex
 {% endhighlight %}
+
+The intermediate vertex `k` is neither the origin vertex of `p` nor the destination vertex.
+<br /><br />
+
+
+Floyd-Warshall refines shortest paths with each iteration of its outer loop by considering the paths corresponding to each intermediate vertex.
+In the first iteration, the shortest distance `D[0][i,j]` from `i` to `j` is the value given by given adjacency matrix `W`.
+
+{% highlight asciidoc %}
+D[0][i,j] = W[i,j]
+{% endhighlight %}
+
+The assignment is implemented in line 1.
+In iteration `k`, Floyd-Warshall considers the paths that visit vertex `k` as intermediate vertex and applies the refinement rule `FW-REF`.
+
+{% highlight asciidoc %}
+D[k][i,j] = min { D[k - 1][i,j], D[k - 1][i,k] + D[k - 1][k,j] }     (FW-REF)
+{% endhighlight %}
+
+The refinement rule indicates that the shortest distance `D[k][i,j]` from `i` to `j` is either the previous shortest distance or the distance of the shortest path that goes from `i` to `j` through `k`.
+The refinement is implemented in lines 5 to 8.
+After iteration `k`, shortest path `D[k][i,j]` may or may not consist of `k` edges.
+<br /><br />
+
+Considering intermediate vertices like Floyd-Warshall does is not an effective approach to solving Arbitrage.
+Consider the following graph.
+
+<img src="/assets/2016-05-26.floyd-warshall-approach.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
+
+The solution is `1 -> 3 -> 1`.
+The application of the Floyd-Warshall approach is the following.
+We start with no intermediate vertices and thus the most beneficial paths are the edges of the graph.
+We consider vertex 2.
+
+{% highlight asciidoc %}
+ ORIG | DEST | PREV PATH | PREV RATE | REFINED PATH | REFINED RATE
+-------------------------------------------------------------------
+  1   |  1   | N/A       | N/A       | N/A          | N/A
+  1   |  3   | 1 -> 3    | 1.01^1/2  | 1 -> 2 -> 3  | 1.01
+  3   |  1   | 3 -> 1    | 1.01^1/2  | 3 -> 1       | 1.01^1/2
+  3   |  3   | N/A       | N/A       | N/A          | N/A
+{% endhighlight %}
+
+We refine the most beneficial path from `1` to `3` because it is more beneficial than the edge `1 -> 3`.
+We do not refine the path from from `1` to `3` because it is not more beneficial than the edge `3 -> 1`.
+There is no path from `1` to `1` or `3` to `3` because we have not considered enough intermediate vertices.
+Paths that begin or end in `2` remain the same because `2` is not an intermediate vertex.
+We consider vertex 3.
+
+{% highlight asciidoc %}
+ ORIG | DEST | PREV PATH | PREV RATE | REFINED PATH     | REFINED RATE
+-------------------------------------------------------------------
+  1   |  1   | N/A       | N/A       | 1 -> 2 -> 3 -> 1 | 1.01^3/2
+  1   |  2   | 1 -> 2    | 1.01^1/2  | 1 -> 2           | 1.01^1/2
+  2   |  1   | 2 -> 1    | 1.01^-1/2 | 2 -> 3 -> 1      | 1.01
+  2   |  2   | N/A       | N/A       | 1 -> 2 -> 3 -> 1 | 1.01^3/2
+{% endhighlight %}
+
+The refined path from `1` to `1` consists of prefix `1 -> 2 -> 3` and suffix `3 -> 1` because we apply refinement rule `FW-REF`.
+That path is profitable so we return it as a solution.
+But `1 -> 2 -> 3 -> 1` is not a solution because the only solution is `1 -> 3 -> 1`.
+<br /><br />
+
+
+Algorithm S does consider an intermediate node `k`, but it always constructs a most profitable path of a particular length.
+The reason is that in every iteration of the outer loop, a most profitable path is constructed by prepending one more edge to a previous most profitable path.
+<br /><br />
+
+
+Consider All Pairs Shortest Paths.
+
+{% highlight asciidoc %}
+SlowAllPairsShortestPath(n, W)
+1: D[0] = Identity matrix n x n
+2: FOR m := 1 TO n
+3:     D[m] := INFINITY
+4:     FOR i := 1 TO n
+5:         FOR j := 1 TO n
+6:             FOR k := 1 TO n
+7:                 IF D[m][i,j] > D[m - 1][i,k] + W[k,j]
+8:                     D[m][i,j] = D[m - 1][i,j] + W[k,j]
+9: RETURN D[n]
+{% endhighlight %}
+
+[Cormen et al](#cormen) explain that All Pairs Shortest Paths constructs shortest paths that consist of at most `m` edges.
+Algorithm S is similar to All Pairs Shortest Paths because both consider an increasing number of edges in each iteration of its outer loop.
+<br /><br />
+
+
+All Pairs Shortest Paths considers that the structure of a shortest path consists of a shortest prefix and a suffix edge.
+
+{% highlight asciidoc %}
+             suffix edge
+                  |
+                ------
+p = i -> ... -> k -> j
+    -------------
+          |
+       prefix path
+  that is a shortest path
+{% endhighlight %}
+<br />
+
+
+All Pairs Shortest Paths refines shortest paths with each iteration of its outer loop by extending current shortest path `i ~~> k` with one more edge `k -> j`.
+The algorithm starts with the identity matrix in line 1.
+The algorithm applies the following refinement rule.
+
+{% highlight asciidoc %}
+D[m][i,j] = min( { D[m-1][i,j] } U { D[m-1][i,k] + W[k,j] | k in 1..n } )
+{% endhighlight %}
+
+The refinement rule indicates that the shortest distance `D[m][i,j]` from `i` to `j` is either the previous shortest distance or the distance of extending some shortest path with and edge.
+<br /><br />
+
+
+Algorithm S prepends one more edge to each most beneficial path in every iteration of its outer loop.
+This is similar to the way Slow All Pairs Shortest Paths refines shortest paths.
+<br /><br />
+
+
+There is a problem called Arbitrage by [Sedgewick and Wayne](#sedgewick) that is similar to UVa's Arbitrage problem.
+Both ask for a sequence of exchanges that is profitable (i.e. with rate greater than 1).
+The difference is that Sedgewick and Wayne ask for any simple cycle that is profitable and UVa asks for a cycle that is profitable by 1% and consists of the least amount of edges possible.
+Because of the difference, Sedgewick and Wayne's problem corresponds to finding a negative cycle and UVa's problem does not.
+<br /><br />
+
+
+For reference, we include work related to algorithm R.
+Consider the following algorithm for enumerating simple cycles by [Tarjan](#tarjan).
 
 {% highlight asciidoc %}
 global vertex r
 global stack path
-global stack banned
-global map banned_map
+global stack mark
+global map mark_map
 
 TarjanSimpleCycles(n, E)
  1: path := empty
- 2: banned := empty
+ 2: mark := empty
  3: FOR v := 1 TO n
- 4:     banned_map[v] := FALSE
+ 4:     mark_map[v] := FALSE
  5: FOR r := 1 TO n
  6:     Backtrack(r, n, E)
- 7:     WHILE banned is not empty
- 8:         v := POP(banned)
- 9:         banned_map[v] := FALSE
+ 7:     WHILE mark is not empty
+ 8:         v := POP(mark)
+ 9:         mark_map[v] := FALSE
 
 Backtrack(v, n, E)
  1: found_cycle := FALSE
  2: PUSH(path, v)
- 3: PUSH(banned, v)
- 4: banned_map[v] := TRUE
+ 3: PUSH(mark, v)
+ 4: mark_map[v] := TRUE
  5: FOR w := r TO n
  6:     IF (v, w) not in E
  7:         CONTINUE
  8:     IF w = v
  9:         found_cycle := TRUE
 10:         PRINT_PATH(path)
-11:     ELSE IF not banned_map[w]
+11:     ELSE IF not mark_map[w]
 12:         found_cycle := found_cycle || Backtrack(r, w, n, E)
 13: IF found_cycle
-14:    WHILE PEEK(banned) != w
-15:        w := pop(banned)
-16:        banned_map[w] := FALSE
-17:    POP(banned)
-18:    banned_map[v] := FALSE
+14:    WHILE PEEK(mark) != w
+15:        w := pop(mark)
+16:        mark_map[w] := FALSE
+17:    POP(mark)
+18:    mark_map[v] := FALSE
 19: POP(path)
 20: RETURN found_cycle
 {% endhighlight %}
--->
+<br />
+
+
+The way algorithm R considers paths is similar to the way of Tarjan's algorithm enumerates simple cycles.
+Algorithm R avoids repeated candidates by iterating all children `j` greater than root `i` in [line 6 of `R`.](#algorithm-r).
+Algorithm R avoids considering most beneficial paths that have been considered in previous candidates by iterating all intermediate nodes `k` greater or equal than root `i` in [line 7 of `R`](#algorithm-r).
+The candidates and paths that algorithm R avoids correspond to the paths that Tarjan avoids by considering paths for to all children greater or equal than root `r` in line 5 of `Backtrack`.
+<br /><br />
+
+Algorithm R considers non-simple cycles and Tarjan does not. For that reason the cycles that Tarjan avoids by means of `mark_map` in line 11 are considered by algorithm R.
+<br /><br />
 
 
 
@@ -738,13 +897,101 @@ Arbitrage is a graph problem that asks for a cycle of minimum weight that is sho
 The challenge is that the number of cycles for a given input graph is exponential on the number of vertices.
 We approach the challenge by considering a limited set of candidates in increasing order of length.
 Our approach overcomes the challenge because we consider n^4 paths in the worst case, which is a much lower amount of paths than the number of cycles for more than half of the input sizes.
+Our approach corresponds to a popular solution found on the Internet that is usually considered similar to Floyd-Warshall when in reality only resembles Floyd-Warshall.
+Our approach is more similar to Slow All Pairs Shortest Paths by [Cormen et al](#cormen).
 The corresponding implementation is ranked 8th place as of 2016.05.26.
 
 
 
-<!--
 # References
 
+
+<dl>
+  <dt id="algorithmist">
+    [Algorithmist]
+  </dt>
+  <dd>
+    "UVa 104." Algorithmist. N.p., 28 Jan. 2013. Web. 26 May 2016. <a href="http://www.algorithmist.com/index.php/UVa_104">http://www.algorithmist.com/index.php/UVa_104</a>.
+  </dd>
+  <dt id="cormen">
+    [Cormen et al]
+  </dt>
+  <dd>
+    Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill. pp. 684-699. ISBN 0-262-03384-4.
+  </dd>
+  <dt id="ourquesttosolve">
+    [OurQuestToSolve]
+  </dt>
+  <dd>
+    "#104 - Arbitrage." Our Quest to Solve Them All. N.p., 2008. Web. 26 May 2016. <a href="http://www.questtosolve.com/browse.php?pid=104">http://www.questtosolve.com/browse.php?pid=104</a>.
+  </dd>
+  <dt id="sedgewick">
+    [Sedgewick and Wayne]
+  </dt>
+  <dd>
+    Sedgewick, Robert; Wayne, Kevin (2011). Algorithms (4th ed.). Addison-Wesley Professional. pp. 679-681. ISBN 978-0-321-57351-3.
+  </dd>
+  <dt id="tarjan">
+    [Tarjan]
+  </dt>
+  <dd>
+    <a href="https://ecommons.cornell.edu/bitstream/handle/1813/5941/72-145.pdf">Enumeration of the elementary circuits of a directed graph</a>.
+    R. Tarjan, SIAM Journal on Computing, 2 (1973), pp. 211-216
+    http://dx.doi.org/10.1137/0202017
+  </dd>
+</dl>
+
+<!--
+<dl>
+  <dt>
+    <a name="cormen" />
+    [Cormen et al]
+  </dt>
+
+
+</dl>
+-->
+<!--
+<table>
+  <tr>
+    <td>
+      <a name="cormen" />
+      [Cormen et al]
+    </td><td>
+      Introduction to Algorithms.
+    </td>
+  </tr><tr>
+    <td>
+      <a name="algorithmist-104" />
+      [Algorithmist]
+    </td><td>
+    <td>
+  </tr><tr>
+    <td>
+      [UVa 104](http://www.algorithmist.com/index.php/UVa_104).
+    </td><td>
+    </td>
+  </tr><tr>
+    <td>
+      <a name="questtosolve" />
+      [QuestToSolve]
+    </td><td>
+      [#104 - Arbitrage](http://www.questtosolve.com/browse.php?pid=104).
+    <td>
+  </tr><tr>
+    <td>
+      <a name="tarjan" />
+      [Tarjan]
+    </td><td>
+      [Enumeration of the elementary circuits of a directed graph](https://ecommons.cornell.edu/bitstream/handle/1813/5941/72-145.pdf)
+      R. Tarjan, SIAM Journal on Computing, 2 (1973), pp. 211-216
+      http://dx.doi.org/10.1137/0202017
+    </td>
+  </tr>
+</table>
+-->
+
+<!--
 [1] Implementation of Tarjan's algorithm by Johannes Schauer.
 
 - https://blog.mister-muffin.de/2012/07/04/enumerating-elementary-circuits-of-a-directed_graph/
