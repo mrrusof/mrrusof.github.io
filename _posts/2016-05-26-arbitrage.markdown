@@ -6,6 +6,14 @@ author: Ruslan Ledesma-Garza
 summary: Do you want to make easy money? Maybe currency trading is what you are looking for.
 ---
 
+Arbitrage is the trading of one currency for another with the hopes of
+taking advantage of small differences in conversion rates among
+several currencies in order to achieve a profit.
+Arbitrage is a very real problem that promises a lot of money, if it were not for fees, taxes, and other imposed bounds.
+The challenge in arbitrage is finding an optimal solution despite the size of the search space.
+For example, for a set of 20 currencies, the search space consists of 3 x 10^24 (read "three septillion" in [the short scale](https://en.wikipedia.org/wiki/Orders_of_magnitude_(numbers)#1024)) different ways to trade currencies.
+In this article we explain how to solve the problem Arbitrage by [UVa Online Judge](https://uva.onlinejudge.org/index.php).
+
 Arbitrage is [problem 104 in the UVa Online
 Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=40).
 Even though I include the problem description in this post, I
