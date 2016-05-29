@@ -694,15 +694,15 @@ Algorithm S is not similar to Floyd-Warshall because Floyd-Warshall considers in
 Floyd-Warshall considers that the structure of a shortest path consists of a shortest prefix, an intermediate vertex, and a shortest suffix.
 
 {% highlight asciidoc %}
-           suffix
-             |
-          -------
-p = i ~~> k ~~> j
-    -------\
-       |    \
-    prefix   \
-           intermediate
-             vertex
+                    suffix
+                      |
+                -------------
+p = i -> ... -> k -> ... -> j
+    -------------\
+          |       \
+       prefix      \
+               intermediate
+                  vertex
 {% endhighlight %}
 
 The intermediate vertex `k` is neither the origin vertex of `p` nor the destination vertex.
@@ -808,7 +808,7 @@ p = i -> ... -> k -> j
 <br />
 
 
-All Pairs Shortest Paths refines shortest paths with each iteration of its outer loop by extending current shortest path `i ~~> k` with one more edge `k -> j`.
+All Pairs Shortest Paths refines shortest paths with each iteration of its outer loop by extending current shortest path `i -> ,,, -> k` with one more edge `k -> j`.
 The algorithm starts with the identity matrix in line 1.
 The algorithm applies the following refinement rule.
 
