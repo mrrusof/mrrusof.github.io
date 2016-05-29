@@ -884,7 +884,6 @@ The candidates and paths that algorithm R avoids correspond to the paths that Ta
 <br /><br />
 
 Algorithm R considers non-simple cycles and Tarjan does not. For that reason the cycles that Tarjan avoids by means of `mark_map` in line 11 are considered by algorithm R.
-<br /><br />
 
 
 
