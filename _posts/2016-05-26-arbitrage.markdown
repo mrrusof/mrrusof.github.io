@@ -832,7 +832,7 @@ Because of the difference, Sedgewick and Wayne's problem corresponds to finding 
 <br /><br />
 
 
-For reference, we include work related to algorithm R.
+We include work related to algorithm R for reference.
 Consider the following algorithm for enumerating simple cycles by [Tarjan](#tarjan).
 
 {% highlight asciidoc %}
