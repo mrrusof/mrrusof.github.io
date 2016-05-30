@@ -6,7 +6,7 @@ author: Ruslan Ledesma-Garza
 summary: An example of a question whose answer is an exponential function.
 ---
 
-The count of cycles (simple and not simple) for `Kn` of length `n` or less is given by the following function `C(n)`.
+The count of cycles (simple and not simple) of length `n` or less for `Kn` is given by the following function `C(n)`.
 The count consists of the count of cycles for each length `2 <= l <= n` given by `C(n, l)`.
 The count for a given length `l` consists of the count of cycles (simple and not simple) from each vertex `1 <= i <= n` given by `C(i, n, l)`.
 
