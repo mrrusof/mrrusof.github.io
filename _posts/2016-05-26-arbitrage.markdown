@@ -759,7 +759,7 @@ We consider vertex 3.
   1   |  1   | N/A       | N/A       | 1 -> 2 -> 3 -> 1 | 1.01^3/2
   1   |  2   | 1 -> 2    | 1.01^1/2  | 1 -> 2           | 1.01^1/2
   2   |  1   | 2 -> 1    | 1.01^-1/2 | 2 -> 3 -> 1      | 1.01
-  2   |  2   | N/A       | N/A       | 1 -> 2 -> 3 -> 1 | 1.01^3/2
+  2   |  2   | N/A       | N/A       | N/A              | N/A
 {% endhighlight %}
 
 The refined path from `1` to `1` consists of prefix `1 -> 2 -> 3` and suffix `3 -> 1` because we apply refinement rule `FW-REF`.
