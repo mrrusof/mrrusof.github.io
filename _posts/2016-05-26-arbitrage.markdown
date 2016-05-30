@@ -2,6 +2,7 @@
 layout: post
 title: Arbitrage
 date: 2016-05-26
+edited: 2016-05-29
 author: Ruslan Ledesma-Garza
 summary: Do you want to make easy money? Maybe currency trading is what you are looking for.
 ---
