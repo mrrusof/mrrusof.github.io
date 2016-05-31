@@ -2,6 +2,7 @@
 layout: post
 title: Release ActiveRecord connections in Sinatra + Thin
 date: 2016-04-23
+edited: 2016-05-31
 author: Ruslan Ledesma-Garza 
 summary: 'Are you experiencing database connection timeouts in your Sinatra + Thin + ActiveRecord application? Then you want to have a look at this.'
 ---
@@ -22,6 +23,12 @@ One possible reason for the timeout is that connections do not return to ActiveR
 If you are not using `ConnectionManagement` or you want to try a solution right away, go to [How do I release ActiveRecord connections?](#solution).
 If you are using `ConnectionManagement`, you may be running Thin in threaded mode and thus not closing or returning to the pool any connections.
 Keep reading for an explanation.
+
+**EDIT 2016-05-31**
+
+[I followed up the issue with macournoyer](https://github.com/macournoyer/thin/issues/307) and the problem is fixed in version 1.7.0 of Thin.
+The newsletter API example does not run out of connections with that version of Thin.
+Kudos to [macournoyer](https://github.com/macournoyer/)!
 
 # ActiveRecord 4.2 and Thin 1.6 threaded mode do not get along
 
