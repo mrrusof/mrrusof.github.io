@@ -224,6 +224,10 @@ solution out of six candidate solutions.  Given that the candidate
 solutions are few, we consider all candidate solutions and select the
 best.
 
+
+{% include subscribe.ext %}
+
+
 # Comments
 
 <div id="disqus_thread"></div>

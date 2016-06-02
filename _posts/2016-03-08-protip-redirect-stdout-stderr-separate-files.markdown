@@ -105,6 +105,10 @@ The following Bash line illustrates the technique.
 Do you have any interesting techniques for redirecting output? Let me
 know in the comments.
 
+
+{% include subscribe.ext %}
+
+
 # Comments
 
 <div id="disqus_thread"></div>

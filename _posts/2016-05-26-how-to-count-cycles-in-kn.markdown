@@ -97,6 +97,10 @@ K19:          60,381,304,029,673,985,693,205
 K20:       3,040,239,935,992,309,703,757,730
 {% endhighlight %}
 
+
+{% include subscribe.ext %}
+
+
 # Comments
 
 <div id="disqus_thread"></div>

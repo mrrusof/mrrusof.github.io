@@ -449,6 +449,10 @@ We avoid searching for blocks by keeping a reference to each block.
 We avoid computing the location of blocks on the table by tagging each
 block with its location.
 
+
+{% include subscribe.ext %}
+
+
 # Comments
 
 <div id="disqus_thread"></div>

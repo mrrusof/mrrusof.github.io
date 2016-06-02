@@ -405,6 +405,9 @@ What was your experience solving this problem? Let me know in the
 comments.
 
 
+{% include subscribe.ext %}
+
+
 # References
 
 <a name="Bentley84"></a> [Bentley84] Bentley, Jon (1984), "Programming
