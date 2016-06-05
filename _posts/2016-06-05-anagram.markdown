@@ -1,0 +1,389 @@
+---
+layout: post
+title: Anagram
+date: 2016-05-29
+author: Ruslan Ledesma-Garza
+summary: Anagrams are easy, right?
+---
+
+Anagram is [problem 195 in the UVa Online
+Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=131).
+Even though I include the problem description in this post, I
+encourage you to visit the [UVa Online
+Judge](https://uva.onlinejudge.org/index.php) because there you will
+be able to submit your solution to get it judged.
+
+# Problem
+
+You are to write a program that has to construct all possible words from a given set of letters.
+For example, given the word "abc", your program should output the words "abc", "acb", "bac", "bca", "cab" and "cba".
+
+In the word taken from the input file, some letters may appear more than once. For a given word, your program should not produce the same word more than once, and the words should be output in alphabetically ascending order.
+
+# Input
+
+The input file consists of several words. The first line contains a number giving the number of words to follow. Each following line contains one word. A word consists of uppercase or lowercase letters from A to Z. Uppercase and lowercase letters are to be considered different.
+
+# Output
+
+For each word in the input file, the output file should contain all different words that can be constructed with the letters of the given word. The words constructed from the same input word should be output in alphabetically ascending order. An upper case letter goes before the corresponding lower case letter.
+
+# Sample Input
+
+{% highlight asciidoc %}
+3
+aAb
+abc
+acba
+{% endhighlight %}
+
+# Sample Output
+
+{% highlight asciidoc %}
+Aab
+Aba
+aAb
+abA
+bAa
+baA
+abc
+acb
+bac
+bca
+cab
+cba
+aabc
+aacb
+abac
+abca
+acab
+acba
+baac
+baca
+bcaa
+caab
+caba
+cbaa
+{% endhighlight %}
+
+
+# Analysis
+
+Consider the following input word.
+
+{% highlight asciidoc %}
+aAba
+{% endhighlight %}
+
+The corresponding solution is the following sequence of words.
+
+{% highlight asciidoc %}
+Aaab
+Aaba
+Abaa
+aAab
+aAba
+aaAb
+aabA
+abAa
+abaA
+bAaa
+baAa
+baaA
+{% endhighlight %}
+
+The reasons are the following.
+
+- The list contains all words that can be constructed with the letters of the input word.
+- The list is lexicographically sorted according to the following order on letters.
+  - `AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz`
+  - For letters that are the same and have different casing (e.g. A and a), the uppercase letter is smaller than the lowercase one (e.g. A is less than a).
+  - For anything else apply alphabetical order (e.g. a is less than B).
+- Each word in the list appears once.
+
+
+# Approach
+
+- Do deep first search on the solution tree.
+
+<img src="/assets/2016-06-05-solution-tree.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+<img src="/assets/2016-06-05-solution-first-path.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
+
+- Take smallest word.
+- Select successor word.
+
+
+# Algorithm
+
+- For the empty word, there are no permutations
+- For the 
+
+{% highlight asciidoc %}
+PRINT_ANAGRAMS(W, P)
+ 10: IF W is empty
+ 20:   PRINT P
+ 30:   RETURN
+ 40: prev := NULL
+ 50: FOR EACH e IN W
+ 60:   IF e = prev THEN CONTINUE
+ 70:   REMOVE e FROM W
+ 80:   PUSH e INTO P
+ 90:   PRINT_ANAGRAMS(W, P) 
+100:   POP P
+110:   INSERT e SORTED INTO W
+120:   prev := e
+{% endhighlight %}
+
+# Implementation
+
+- Sort
+- Build linked list
+- Deep first search
+
+We sort the input word according to following order.
+
+{% highlight asciidoc %}
+AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz
+{% endhighlight %}
+
+Function `le_char` implements the corresponding "less or equal than" order relation.
+
+{% highlight c %}
+#define UPCASE(c, u) if(c >= 'a') u = c - ('a' - 'A'); else u = c;
+
+int le_char(char a, char b) {
+  char A, B;
+  UPCASE(a, A);
+  UPCASE(b, B);
+  if(A == B) return a <= b;
+  return A < B;
+}
+{% endhighlight %}
+
+- Implements less than or equal relation given by order `AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz`.
+  - For letters that are the same letter regardless of their case (e.g. C and c), compare their case by `<=`.
+    - If they are the same case, `a <= b` will be true.
+    - If they are not (e.g. C and c), `a <= b` will be true if `a` is uppercase because `<=` considers the uppercase letter smaller.
+  - For letters that are different, compare their corresponding upper case letters.
+
+{% highlight asciidoc %}
+A < a
+A < B
+a < B
+A < b
+a < b
+{% endhighlight %}
+<br />
+
+
+We store the sorted word in a single linked list by applying function `create_linked_list`.
+
+{% highlight c %}
+typedef struct letter {
+  char letter;
+  struct letter *next;
+} letter;
+
+letter *create_linked_list(char *s, int s_len) {
+  int i;
+  letter *first;
+  letter *prev;
+  letter *curr;
+  first = (letter *)malloc(sizeof(letter));
+  first->letter = s[0];
+  first->next = NULL;
+  prev = first;
+  for(i = 1; i < s_len; i++) {
+    curr = (letter *)malloc(sizeof(letter));
+    curr->letter = s[i];
+    curr->next = NULL;
+    prev->next = curr;
+    prev = curr;
+  }
+  return first;
+}
+{% endhighlight %}
+<br />
+
+
+We implement algorithm `PRINT_ANAGRAMS` in the following function.
+
+{% highlight c %}
+/*  1 */ char p[MAX_LEN];
+/*  2 */ 
+/*  3 */ void print_anagrams(letter *first, int l) {
+/*  4 */   letter *prev;
+/*  5 */   letter *curr;
+/*  6 */   int i;
+/*  7 */   if(first == NULL) {
+/*  8 */     p[l] = '\0';
+/*  9 */     printf("%s\n", p);
+/* 10 */     return;
+/* 11 */   }
+/* 12 */   p[l] = first->letter;
+/* 13 */   print_anagrams(first->next, l+1);
+/* 14 */   prev = first;
+/* 15 */   curr = first->next;
+/* 16 */   while(curr != NULL) {
+/* 17 */     if(prev->letter != curr->letter) {
+/* 18 */       p[l] = curr->letter;
+/* 19 */       prev->next = curr->next;
+/* 20 */       print_anagrams(first, l+1);
+/* 21 */       prev->next = curr;
+/* 22 */     }
+/* 23 */     prev = curr;
+/* 24 */     curr = curr->next;
+/* 25 */   }
+/* 26 */ }
+{% endhighlight %}
+
+- Function `print_anagrams` takes two parameters that correspond to the parameters of algorithm `PRINT_ANAGRAM` in the following way.
+  - Linked list `first` corresponds to list `W`.
+  - Integer `l` and array `p` correspond to stack `P`.
+    We use array `p` as a stack by considering position `l` the top of the stack and position 0 the bottom.
+- Before each recursive call, we remove the current element from linked list `first`.
+  - For the first recursive call in line 13, we pass the list that starts in the second element.
+  - For the call in line 20, we remove the current element from the list in line 19 and restore it in line 21.
+- Lines 13 and 18 push the current element into the stack before their corresponding recursive call.
+- The skip of repeated elements in line 17 corresponds to the skip in lines 60 of algorithm `PRINT_ANAGRAMS`.
+<br /><br />
+
+Our full implementation is the following.
+
+{% highlight c %}
+#include <stdio.h>
+#include <stdlib.h>
+
+#define DEBUG 0
+#define MAX_LEN 1000
+
+#define Si(i) scanf("%d", &i)
+#define Ss(s) scanf("%s", s)
+#define UPCASE(c, u) if(c >= 'a') u = c - ('a' - 'A'); else u = c;
+
+typedef struct letter {
+  char letter;
+  struct letter *next;
+} letter;
+
+char p[MAX_LEN];
+
+letter *create_linked_list(char *s, int s_len) {
+  int i;
+  letter *first;
+  letter *prev;
+  letter *curr;
+  first = (letter *)malloc(sizeof(letter));
+  first->letter = s[0];
+  first->next = NULL;
+  prev = first;
+  for(i = 1; i < s_len; i++) {
+    curr = (letter *)malloc(sizeof(letter));
+    curr->letter = s[i];
+    curr->next = NULL;
+    prev->next = curr;
+    prev = curr;
+  }
+  return first;
+}
+
+void destroy_linked_list(letter *curr) {
+  letter *prev;
+  while(curr != NULL) {
+    prev = curr;
+    free(prev);
+    curr = curr->next;
+  }
+}
+
+int le_char(char a, char b) {
+  char A, B;
+  UPCASE(a, A);
+  UPCASE(b, B);
+  if(A == B) return a <= b;
+  return A <= B;
+}
+
+void mergesort_chars(char *a, int n) {
+  int i, j, k;
+  int m = n / 2;
+  if(n <= 1) return;
+  mergesort_chars(a, m);
+  mergesort_chars(a + m, n - m);
+  for(i = k = 0, j = m; k < n; k++)
+    if(i < m && j < n)
+      if(le_char(a[i], a[j]))
+	p[k] = a[i++];
+      else
+	p[k] = a[j++];
+    else if(i < m)
+      p[k] = a[i++];
+    else
+      p[k] = a[j++];
+  for(k = 0; k < n; k++)
+    a[k] = p[k];
+}
+
+void print_anagrams(letter *first, int l) {
+  letter *prev;
+  letter *curr;
+  int i;
+  if(first == NULL) {
+    p[l] = '\0';
+    printf("%s\n", p);
+    return;
+  }
+  p[l] = first->letter;
+  print_anagrams(first->next, l+1);
+  prev = first;
+  curr = first->next;
+  while(curr != NULL) {
+    if(prev->letter != curr->letter) {
+      p[l] = curr->letter;
+      prev->next = curr->next;
+      print_anagrams(first, l+1);
+      prev->next = curr;
+    }
+    prev = curr;
+    curr = curr->next;
+  }
+}
+
+int main() {
+  int n, s_len;
+  char s[MAX_LEN];
+  letter *first;
+  Si(n);
+  while(n-- > 0) {
+    Ss(s);
+    for(s_len = 0; s[s_len] != '\0'; s_len++);
+    mergesort_chars(s, s_len);
+    first = create_linked_list(s, s_len);
+    print_anagrams(first, 0);
+    destroy_linked_list(first);
+  }
+  return 0;
+}
+{% endhighlight %}
+
+
+
+# Related work
+
+- C++ stdlib
+- Apply `next_permutation()` to solve the magic square.
+  - http://marknelson.us/2002/03/01/next-permutation/
+
+
+
+# Summary
+
+
+
+# References
+
+
+
+# Comments
+
