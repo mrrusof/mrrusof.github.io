@@ -94,7 +94,14 @@ baaA
 
 The reasons are the following.
 
-- The list contains all words that can be constructed with the letters of the input word.
+- The list contains all permutations that can be constructed with the letters of the input word.
+  - Explanation 1
+    - Each permutation corresponds to a sequence of decisions, one for each letter in the permutation.
+    - We make all possible sequences of decisions because for each prefix of decisions, we make all possible decisions on the suffix.
+  - Explanation 2
+    - The first permutation is the smallest because it is sorted in ascending order.
+    - The last permutation is the largest because it is sorted in descending order.
+    - For each permutation and the next, there is no permutation in between.
 - The list is lexicographically sorted according to the following order on letters.
   - `AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz`
   - For letters that are the same and have different casing (e.g. A and a), the uppercase letter is smaller than the lowercase one (e.g. A is less than a).
@@ -102,19 +109,14 @@ The reasons are the following.
 - Each word in the list appears once.
 
 
-# Approach
-
-- Do deep first search on the solution tree.
+# Approach 1
 
 <img src="/assets/2016-06-05-solution-tree.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
 <img src="/assets/2016-06-05-solution-first-path.png" alt="" style="width: 600px; display: block; margin-left: auto; margin-right: auto;" />
 
-- Take smallest word.
-- Select successor word.
 
-
-# Algorithm
+# Algorithm 1
 
 - For the empty word, there are no permutations
 - For the 
@@ -135,7 +137,7 @@ PRINT_ANAGRAMS(W, P)
 120:   prev := e
 {% endhighlight %}
 
-# Implementation
+# Implementation 1
 
 - Sort
 - Build linked list
@@ -369,12 +371,84 @@ int main() {
 
 
 
+# Approach 2
+
+The permutation with letters in descending order is the largest permutation.
+The reason is that rearranging two or more letters produces a smaller permutation.
+Given that any other permutation is a rearrangement of the permutation, it is impossible to produce a bigger permutation.
+Consider `baaA` and letter `A`.
+Rearranging `A` consists in swapping places with another letter, for example `b`.
+When we swap `A` and `b` we produce `Aaab` which is smaller than `baaA` because the magnitude of the first position is smaller.
+
+- Start with smallest permutation 1 2 3 4.
+- Construct the smallest permutation that is greater than 1 2 3 4.
+  - Find the last element of the head
+  - Find the smallest member of the tail that is greater than the last element of the head.
+  - Swap those two numbers.
+  - Reverse the tail.
+
+
+
+{% highlight asciidoc %}
+1 2 3 4
+1 2 4 3
+1 3 4 4
+
+
+   1 3 2 4
+   ^     ^
+0        i
+1        ii
+       i
+2      ii
+     i
+{% endhighlight %}
+
+
+# Algorithm 2
+
+# Implementation 2
+
+Next permutation with C operator `<` gives all permutations unordered.
+
+{% highlight asciidoc %}
+AaBb
+AabB
+AbBa
+AbaB
+BAab
+BAba
+BaAb
+BabA
+BbAa
+BbaA
+aABb
+aAbB
+aBAb
+aBbA
+abAB
+abBA
+bABa
+bAaB
+bBAa
+bBaA
+baAB
+baBA
+{% endhighlight %}
+
+
 # Related work
 
 - C++ stdlib
+
 - Apply `next_permutation()` to solve the magic square.
   - http://marknelson.us/2002/03/01/next-permutation/
 
+- Code Jam's "Next permutation" problem
+  - http://wordaligned.org/articles/next-permutation
+
+- C++ implementation of next permutation algorithm.
+  - http://www.geeksforgeeks.org/find-the-next-lexicographically-greater-word-than-a-given-word/
 
 
 # Summary
@@ -382,6 +456,7 @@ int main() {
 
 
 # References
+
 
 
 
