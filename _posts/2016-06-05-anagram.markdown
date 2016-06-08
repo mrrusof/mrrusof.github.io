@@ -542,6 +542,7 @@ int main() {
   - http://www.geeksforgeeks.org/find-the-next-lexicographically-greater-word-than-a-given-word/
 
 - Sedgewick says that Heaps algorithm is the fastest
+  - Generating permutations fast is not always necessary.
   - http://homepage.math.uiowa.edu/~goodman/22m150.dir/2007/Permutation%20Generation%20Methods.pdf
 
 - Johnson explains his algorithm
