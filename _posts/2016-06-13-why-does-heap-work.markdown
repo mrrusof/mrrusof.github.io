@@ -6,14 +6,51 @@ author: Ruslan Ledesma-Garza
 summary: Permutations are easy, right?
 ---
 
-Example 1.
+Heap's algorithm enumerates all permutations of a sequence of `n` elements.
+For a sequence, Heap's algorithm constructs a permutation by swapping two elements.
+For example, for the sequence `123`, Heap's algorithm constructs permutation `213` by swapping the first and second elements.
+Heap's algorithm constructs the rest of the permutations of `123` as illustrated in the following diagram.
 
-Consider the input sequence `1234`
+{% highlight asciidoc %}
+ 1 |  |  | 123
+ 2 |--|  | 213
+ 3 |-----| 312
+ 4 |--|  | 132
+ 5 |-----| 231
+ 6 |--|  | 321
+{% endhighlight %}
+
+Heap's algorithm applies $$5$$ swaps for `123` to generate each of the remaining permutations once.
+When Heap's algorithm receives sequence `123`, there are $$5 = 3! - 1$$ permutations remaining.
+When Heap's algorithm receives sequence `12...n`, there are $$n! - 1$$ permutations remaining, thus Heap's algorithm applies $$n! - 1$$ swaps.
+
+Each of the swaps for `123` corresponds to a sequence of 
+For example, the first two permutations correspond to 
+Pairs of permutations (1, 2), (3, 4), and (5, 6) correspond 
+Heap's algorithm obtains those permutations by applying itself to the first two positions as follows.
 
 {% highlight asciidoc %}
  1 |  | 12
- 2 |--| 21 N =     2
+ 2 |--| 21
 {% endhighlight %}
+
+The same happens for the pair of permutations 3 and 4 and the pair 5 and 6.
+
+The sequence of swaps corresponds to the application of the following procedure.
+
+1. Apply the following steps `N-1` times for sequence `1 2 ... N`.
+   1. Swap element in position `N` with one of the other elements in the following way.
+      a. If `N` is odd, swap elements in positions `1` and `N`.
+      b. If `N` is even, swap elemnts in position `i` and `N`.
+   2. Permute the elements in positions 1 to N-1 by applying this procedure.
+3. Finally, permute the elements in positions 1 to N-1 one last time by applying this procedure.
+
+The procedure constructs `N!` permutations because the loop constructs `(N - 1)(N - 1)!` permutations and the last application of the procedure constructs `(N - 1)!` permutations. Those permutations add to `N!`.
+
+Given the way Heap's selects the last element, what is the reason why it enumerates all permutations?
+
+
+
 
 {% highlight asciidoc %}
  1 |  |  | 123
@@ -23,6 +60,7 @@ Consider the input sequence `1234`
  5 |-----| 231 N =     3
  6 |--|  | 321 N =     2
 {% endhighlight %}
+
 
 {% highlight asciidoc %}
  1 |  |  |  | 1234
