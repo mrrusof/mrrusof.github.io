@@ -35,7 +35,7 @@ For example, for sequence `123`, Heap's algorithm applies the following 5 swaps.
 Given sequence `123`, swap 1 constructs the other permutation where `3` is in the last position.
 Swap 2 moves `2` to the last position to construct one permutation with `2` in the last position and swap 3 constructs the other permutation.
 Swap 4 moves `1` to the last position to construct one permutation with `1` in the last position and swap 5 constructs the other.
-By moving each element to the last position and constructing the remaining permutation, Heap's algorithm adjoins each element to all permutations of the other $$n - 1$$ elements.
+By moving each element to the last position and constructing the remaining permutations, Heap's algorithm adjoins each element to all permutations of the other two elements.
 
 Heap's algorithm consists of the following steps.
 For given input sequence `12...n` do the following.
@@ -48,8 +48,10 @@ For given input sequence `12...n` do the following.
    2. Permute the elements in positions $$1$$ to $$n - 1$$ by applying this algorithm to those elements.
 
 The algorithm applies $$n! - 1$$ swaps because step 1 applies $$(n - 1)! - 1$$ swaps and the loop applies $$(n - 1)(n - 1)!$$ swaps. For example, for input sequence `123`, step 1 corresponds to swap 1, the first iteration of the loop corresponds to swaps 2 and 3, and the second iteration of the loop corresponds to swaps 4 and 5.
-Given a permutation where the element in position $$n$$ is $$e$$, recursive steps 1 and 2.2 construct the remaining $$(n - 1)! - 1$$ permutations where $$e$$ is in the last position by adjoining $$e$$ to the $$(n - 1)! - 1$$ permutations of the rest of the elements.
-To construct all permutations of $$n$$ elements, it is crucial that step 2.1 places a different element in position $$n$$ every time, which it does and the next section explains.
+Given a permutation where the element in position $$n$$ is $$e$$, recursive steps 1 and 2.2 construct the remaining $$(n - 1)! - 1$$ permutations where $$e$$ is in the last position by adjoining $$e$$ to the remaining $$(n - 1)! - 1$$ permutations of the rest of the elements.
+
+**TODO** To construct all permutations of $$n$$ elements, it is crucial that step 2.1 places a different element in position $$n$$ every time, which it does.
+Understanding this property is fundamental to understanding why Heap's algorithm works.
 
 The corresponding pseudocode is the following.
 Given input sequence `S` and its corresponding length `n`, procedure `Heap` constructs the remaining $$n! - 1$$ permutaitons of `S`.
