@@ -49,19 +49,19 @@ For given input sequence `12...n` do the following.
 
 The algorithm applies $$n! - 1$$ swaps because step 1 applies $$(n - 1)! - 1$$ swaps and the loop applies $$(n - 1)(n - 1)!$$ swaps. For example, for input sequence `123`, step 1 corresponds to swap 1, the first iteration of the loop corresponds to swaps 2 and 3, and the second iteration of the loop corresponds to swaps 4 and 5.
 Given a permutation where the element in position $$n$$ is $$e$$, recursive steps 1 and 2.2 construct the remaining $$(n - 1)! - 1$$ permutations where $$e$$ is in the last position by adjoining $$e$$ to the remaining $$(n - 1)! - 1$$ permutations of the rest of the elements.
-
-**TODO** To construct all permutations of $$n$$ elements, it is crucial that step 2.1 places a different element in position $$n$$ every time, which it does.
+To construct all permutations of $$n$$ elements, it is crucial that step 2.1 places a different element in position $$n$$ every time, which it does.
 Understanding this property is fundamental to understanding why Heap's algorithm works.
+We explain this property in the next section.
 
 The corresponding pseudocode is the following.
 Given input sequence `S` and its corresponding length `n`, procedure `Heap` constructs the remaining $$n! - 1$$ permutaitons of `S`.
 
 {% highlight asciidoc %}
 Heap(S, n)
- 10: FOR i := 1 TO n - 1
- 20: IF n > 2 THEN
- 30:   Heap(S, n - 1)
- 40: IF n > 2 THEN
+ 10: IF n > 2 THEN
+ 20:   Heap(S, n - 1)
+ 30: FOR i := 1 TO n - 1
+ 40:   IF n > 2 THEN
  50:     Heap(S, n - 1)
  60:   IF n is even THEN
  70:     swap S[i] and S[n]
@@ -71,8 +71,8 @@ Heap(S, n)
 {% endhighlight %}
 
 Lines 20 and 30 correspond to step 1 of the algorithm.
-Lines 40 to 90 correspond to the loop in the algorithm.
-Line 100 is an instruction that corresponds to the processing of the current permutation to solve a particular problem, for example [brute search all solutions of another problem](http://marknelson.us/2002/03/01/next-permutation/).
+Lines 40 to 90 correspond to the loop of the algorithm.
+Line 100 is an instruction that corresponds to the processing of the current permutation to solve a particular problem, for example [brute search all solution candidates of another problem](http://marknelson.us/2002/03/01/next-permutation/).
 
 Consider the following C implementation for reference.
 
@@ -147,11 +147,69 @@ int main() {
 # Why does Heap's algorithm construct all permutations?
 
 Heap's algorithm constructs all permutations because it adjoins each element to each permutation of the rest of the elements.
-Steps 1 and 2.2 take care of adjoining.
+Steps 1 and 2.2 of the algorithm take care of adjoining.
 Step 2.1 takes care of placing a different element in the last position each time.
-Understanding how that happens is crucial to understanding why Heap's algorithm works.
 
-There are two cases for step 2.1.
+It may not be evident that Heap's algorithm places a different element in the last position each time.
+There are two cases for a given input sequence `12...n`, either `n` is odd or even.
+When `n` is odd, the sequence of elements for position `n` is the following.
+
+{% highlight asciidoc %}
+n, 2, 3, ..., n - 1, 1
+{% endhighlight %}
+
+The sequence consists of all elements.
+For example, consider the execution of Heap's algorithm for sequence `12345`.
+
+{% highlight asciidoc %}
+   1 |  |  |  |  | 12345
+...
+  24 |--|  |  |  | 23415
+  25 |-----------| 53412
+...
+  48 |--|  |  |  | 34152
+  49 |-----------| 24153
+...
+  72 |--|  |  |  | 41523
+  73 |-----------| 31524
+...
+  96 |--|  |  |  | 15234
+  97 |-----------| 45231
+...
+ 120 |--|  |  |  | 52341
+{% endhighlight %}
+
+The sequence of elements for the last position is `5, 2, 3, 4, 1`.
+When `n` is even, the sequence of elements for position `n` is the following.
+
+{% highlight asciidoc %}
+n, n - 1, 2, 3, ..., n - 2, 1
+{% endhighlight %}
+
+This sequence also consists of all elements.
+For example, consider the execution of Heap's algorithm for sequence `123456`.
+
+{% highlight asciidoc %}
+   1 |  |  |  |  |  | 123456
+...
+ 120 |--|  |  |  |  | 523416
+ 121 |--------------| 623415
+...
+ 240 |--|  |  |  |  | 123465
+ 241 |  |-----------| 153462
+...
+ 360 |--|  |  |  |  | 653412
+ 361 |  |  |--------| 652413
+...
+ 480 |--|  |  |  |  | 152463
+ 481 |  |  |  |-----| 152364
+...
+ 600 |--|  |  |  |  | 652314
+ 601 |  |  |  |  |--| 652341
+...
+ 720 |--|  |  |  |  | 452361
+{% endhighlight %}
+
 
 
 # References
