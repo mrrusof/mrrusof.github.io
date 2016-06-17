@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Why does Heap's algorithm work?
-date: 2016-06-16
+date: 2016-06-17
 author: Ruslan Ledesma-Garza
-summary: Permutations are easy, right?
+summary: Heap's algorithm for constructing all permutations is efficient and simple but not easy to understand. This article explains Heap's algorithm by example.
 ---
 
 If you are looking for an explanation of why Heap's algorithm constructs all permutations, keep reading.
@@ -14,13 +14,16 @@ Heap's algorithm is more simple than the also efficient [Steinhaus-Johnson-Trott
 
 Despite its virtues, it is not evident why Heap's algorithm constructs all permutations.
 [Heap](#heap) did give a reason why his algorithm works, but did not explain the reason.
-Popular references on the Internet do not provide an explanation either.
+Popular references on the Internet like [Wikipedia](https://en.wikipedia.org/wiki/Heap%27s_algorithm) do not provide an explanation either.
+A thorough search reveals [Eric Martin's lecture notes on Heap's algorithm](#martin).
+The notes explain Heap's algorithm using a formal approach.
+This article explains Heap's algorithm by example.
 
 If we understand why Heap's algorithm works, we might understand other problems like how to modify Heap's algorithm to distribute work amongst several parallel jobs or compute only relevant permutations efficiently.
 
 # How does Heap's algorithm work?
 
-For an input sequence of $$n$$ elements, Heap's algorithm applies a sequence of $$n! - 1$$ swaps to produce the remaining $$n! - 1$$ permutations.
+For an input sequence of $@n@$ elements, Heap's algorithm applies a sequence of $@n! - 1@$ swaps to produce the remaining $@n! - 1@$ permutations.
 For example, for sequence `123`, Heap's algorithm applies the following 5 swaps.
 
 {% highlight asciidoc %}
@@ -40,21 +43,39 @@ By moving each element to the last position and constructing the remaining permu
 Heap's algorithm consists of the following steps.
 For given input sequence `12...n` do the following.
 
-1. Permute the elements in positions $$1$$ to $$n - 1$$ by applying this algorithm to those elements.
-2. Apply the following steps $$n - 1$$ times. Increment counter $$i = 1$$ after each iteration.
-   1. Swap element in position $$n$$ with one of the other jjelements in the following way.
-      1. If $$n$$ is odd, swap elements in positions $$1$$ and $$n$$.
-      2. If $$n$$ is even, swap elements in position $$i$$ and $$n$$.
-   2. Permute the elements in positions $$1$$ to $$n - 1$$ by applying this algorithm to those elements.
+<ol class="numbered-ol">
+  <li class="numbered-li">
+    Permute the elements in positions $@1@$ to $@n - 1@$ by applying this algorithm to those elements.
+  </li>
+  <li class="numbered-li">
+    Apply the following steps $@n - 1@$ times. Increment counter $@i = 1@$ after each iteration.
+    <ol class="numbered-ol">
+      <li class="numbered-li">
+        Swap element in position $@n@$ with one of the other elements in the following way.
+        <ol class="numbered-ol">
+          <li class="numbered-li">
+            If $@n@$ is odd, swap elements in positions $@1@$ and $@n@$.
+          </li>
+          <li class="numbered-li">
+            If $@n@$ is even, swap elements in position $@i@$ and $@n@$.
+          </li>
+        </ol>
+      </li>
+      <li class="numbered-li">
+        Permute the elements in positions $@1@$ to $@n - 1@$ by applying this algorithm to those elements.
+      </li>
+    </ol>
+  </li>
+</ol>
 
-The algorithm applies $$n! - 1$$ swaps because step 1 applies $$(n - 1)! - 1$$ swaps and the loop applies $$(n - 1)(n - 1)!$$ swaps. For example, for input sequence `123`, step 1 corresponds to swap 1, the first iteration of the loop corresponds to swaps 2 and 3, and the second iteration of the loop corresponds to swaps 4 and 5.
-Given a permutation where the element in position $$n$$ is $$e$$, recursive steps 1 and 2.2 construct the remaining $$(n - 1)! - 1$$ permutations where $$e$$ is in the last position by adjoining $$e$$ to the remaining $$(n - 1)! - 1$$ permutations of the rest of the elements.
-To construct all permutations of $$n$$ elements, it is crucial that step 2.1 places a different element in position $$n$$ every time, which it does.
+The algorithm applies $@n! - 1@$ swaps because step 1 applies $@(n - 1)! - 1@$ swaps and the loop applies $@(n - 1)(n - 1)!@$ swaps. For example, for input sequence `123`, step 1 corresponds to swap 1, the first iteration of the loop corresponds to swaps 2 and 3, and the second iteration of the loop corresponds to swaps 4 and 5.
+Given a permutation where the element in position $@n@$ is $@e@$, recursive steps 1 and 2.2 construct the remaining $@(n - 1)! - 1@$ permutations where $@e@$ is in the last position by adjoining $@e@$ to the remaining $@(n - 1)! - 1@$ permutations of the rest of the elements.
+To construct all permutations of $@n@$ elements, it is crucial that step 2.1 places a different element in position $@n@$ every time, which it does.
 Understanding this property is fundamental to understanding why Heap's algorithm works.
 We explain this property in the next section.
 
 The corresponding pseudocode is the following.
-Given input sequence `S` and its corresponding length `n`, procedure `Heap` constructs the remaining $$n! - 1$$ permutaitons of `S`.
+Given input sequence `S` and its corresponding length `n`, procedure `Heap` constructs the remaining $@n! - 1@$ permutaitons of `S`.
 
 {% highlight asciidoc %}
 Heap(S, n)
@@ -70,9 +91,9 @@ Heap(S, n)
 100:   process S
 {% endhighlight %}
 
-Lines 20 and 30 correspond to step 1 of the algorithm.
-Lines 40 to 90 correspond to the loop of the algorithm.
-Line 100 is an instruction that corresponds to the processing of the current permutation to solve a particular problem, for example [brute search all solution candidates of another problem](http://marknelson.us/2002/03/01/next-permutation/).
+Lines 10 and 20 correspond to step 1 of the algorithm.
+Lines 30 to 90 correspond to the loop of the algorithm.
+Line 100 is an instruction that processes the current permutation to solve a particular problem, for example [brute search all solution candidates of another problem](http://marknelson.us/2002/03/01/next-permutation/).
 
 Consider the following C implementation for reference.
 
@@ -453,11 +474,43 @@ Do you have any questions, comments, suggestions? Let me know in the comments.
 
 <dl>
   <dt id="heap">
-  Heap
+    Heap
   </dt>
   <dd>
-  http://comjnl.oxfordjournals.org/content/6/3/293.full.pdf
+    <a href="http://comjnl.oxfordjournals.org/content/6/3/293.full.pdf">Permutations by interchanges</a>.
+    B. R. Heap, The Computer Journal, 6(3) (1963), pp. 293-298
+  </dd>
+  <dt id="martin">
+    Martin
+  </dt>
+  <dd>
+    Martin, Eric. "Notes on Cryptarithm Solver and Perutations." Principles of Programming. University of South Wales, n.d. Web. 11 June 2016. <a href="https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544">https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544</a>.
   </dd>
 </dl>
-- Eric Martin's lecture notes on Principles of Programming.
-https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544
+
+
+
+# Comments
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'http://ruslanledesma.com/2016/06/17/why-does-heap-work.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '2016-06-17-why-does-heap-work'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//definecode.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a
+        href="https://disqus.com/?ref_noscript"
+        rel="nofollow">comments powered by Disqus.</a></noscript>
