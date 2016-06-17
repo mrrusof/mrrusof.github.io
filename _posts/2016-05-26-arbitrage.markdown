@@ -951,8 +951,7 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
   </dt>
   <dd>
     <a href="https://ecommons.cornell.edu/bitstream/handle/1813/5941/72-145.pdf">Enumeration of the elementary circuits of a directed graph</a>.
-    R. Tarjan, SIAM Journal on Computing, 2 (1973), pp. 211-216
-    http://dx.doi.org/10.1137/0202017
+    R. Tarjan, SIAM Journal on Computing, 2(3) (1973), pp. 211-216
   </dd>
 </dl>
 

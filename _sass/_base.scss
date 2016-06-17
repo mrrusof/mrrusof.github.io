@@ -74,6 +74,10 @@ li {
     }
 }
 
+.numbered-ol { counter-reset: item }
+.numbered-li { display: block }
+.numbered-li:before { content: counters(item, ".") ". "; counter-increment: item }
+
 dt {
   display: inline-block;
   vertical-align: top;
@@ -84,6 +88,8 @@ dd {
   display: inline-block;
   width: 79%;
 }
+
+
 
 /**
  * Headings
