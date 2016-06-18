@@ -2,7 +2,7 @@
 layout: post
 title: Arbitrage
 date: 2016-05-26
-edited: 2016-05-29
+edited: 2016-06-18
 author: Ruslan Ledesma-Garza
 summary: Do you want to make easy money? Maybe currency trading is what you are looking for.
 ---
@@ -487,6 +487,7 @@ R(n, W)
 
 Algorithm R computes the same result as algorithm S by constructing most beneficial paths on demand.
 We include algorithm R to illustrate that the time complexity of constructing most beneficial paths on demand is the same as the complexity of constructing them upfront.
+The reason is that algorithms S and R both run in time $@O(n^4)@$ because each has four nested loops.
 
 
 
