@@ -10,7 +10,7 @@ summary: Do you want to make easy money? Maybe currency trading is what you are 
 Arbitrage is the trading of currencies for a profit.
 Arbitrage is a very real problem that promises a lot of money, if it were not for fees, taxes, and other imposed bounds.
 The challenge in arbitrage is finding an optimal solution despite the size of the search space.
-For example, for a set of 20 currencies, the search space consists of 3 x 10^24 (read "three septillion" in [the short scale](https://en.wikipedia.org/wiki/Orders_of_magnitude_(numbers)#1024)) different ways to trade currencies.
+For example, for a set of 20 currencies, the search space consists of $@3 \times 10^{24}@$ (read "three septillion" in [the short scale](https://en.wikipedia.org/wiki/Orders_of_magnitude_(numbers)#1024)) different ways to trade currencies.
 In this article we explain how to solve the problem Arbitrage by [UVa Online Judge](https://uva.onlinejudge.org/index.php).
 
 Arbitrage is [problem 104 in the UVa Online
@@ -42,19 +42,19 @@ considered.
 
 The input file consists of one or more conversion tables.  You must
 solve the arbitrage problem for each of the tables in the input file.
-Each table is preceded by an integer `n` on a line by itself giving
+Each table is preceded by an integer $@n@$ on a line by itself giving
 the dimensions of the table.  The maximum dimension is 20. The minimum
 dimension is 2.
 
 The table then follows in row major order but with the diagonal
 elements of the table missing (these are assumed to have value 1.0).
 Thus the first row of the table represents the conversion rates
-between country `1` and `n - 1` other countries, i.e. the amount of
-currency of country `i` `(2 <= i <= n)` that can be purchased with one
-unit of the currency of country `1`.
+between country 1 and $@n - 1@$ other countries, i.e. the amount of
+currency of country $@i@$ constrained to $@2 \leq i \leq n@$ that can be purchased with one
+unit of the currency of country 1.
 
-Thus each table consists of `n + 1` lines in the input file: 1 line
-containing `n` and `n` lines representing the conversion table.
+Thus each table consists of $@n + 1@$ lines in the input file: 1 line
+containing $@n@$ and $@n@$ lines representing the conversion table.
 
 
 # Output
@@ -69,18 +69,18 @@ uses the fewest exchanges of currencies to yield a profit.
 
 Because the IRS (United States Internal Revenue Service) taxes long
 transaction sequences with a high rate, all profitable sequences must
-consist of `n` or fewer transactions where `n` is the dimension of
+consist of $@n@$ or fewer transactions where $@n@$ is the dimension of
 the table giving conversion rates.  The sequence `1 2 1` represents
 two conversions.
 
 If a profitable sequence exists you must print the sequence of
 exchanges that results in a profit.  The sequence is printed as a
-sequence of integers with the integer `i` representing the `i`-th line
-of the conversion table (country `i`).  The first integer in the
+sequence of integers with the integer $@i@$ representing the $@i@$-th line
+of the conversion table (country $@i@$).  The first integer in the
 sequence is the country from which the profitable sequence starts.
 This integer also ends the sequence.
 
-If no profiting sequence of `n` or fewer transactions exists, then the line
+If no profiting sequence of $@n@$ or fewer transactions exists, then the line
 {% highlight asciidoc %}
 no arbitrage sequence exists
 {% endhighlight %}
@@ -151,7 +151,7 @@ For example, sequence `USD USD EUR USD` yields profit 1.01, the same profit that
 
 
 A sequence of exchanges may yield a profit only if the sequence is a cycle.
-For example, the cycle `USD -> MXN -> EUR -> USD` yields profit of `1.01^(3/2)`.
+For example, the cycle `USD -> MXN -> EUR -> USD` yields profit of $@1.01^{3/2}@$.
 Given that the number of vertices in the graph is 3, we do not consider cycles longer than 3.
 Consider the cycles of length 3 or less.
 
@@ -234,10 +234,10 @@ The cycle consists of simple cycles `1 2 1` and `1 5 3 1`.
 
 
 Searching for a solution is difficult because there may be many cycles for a given problem.
-The reason is that a conversion table of length `n` corresponds to [complete graph](https://en.wikipedia.org/wiki/Complete_graph) `Kn`.
+The reason is that a conversion table of length $@n@$ corresponds to [complete graph $@K_n@$](https://en.wikipedia.org/wiki/Complete_graph).
 Even if there are edges with weight 0, we consider them because considering a complete graph makes for a simpler solution.
 The exception are lassos, which we do not consider because [they are redundant](#lassos-are-redundant).
-For complete graphs of size `2 <= n <= 20`, [the number of cycles of length `n` or less](/2016/05/26/how-to-count-cycles-in-kn.html) is the following.
+For complete graphs of size $@2 \leq n \leq 20@$, [the number of cycles of length $@n@$ or less](/2016/05/26/how-to-count-cycles-in-kn.html) is the following.
 
 {% highlight asciidoc %}
  K2:                                       1
@@ -357,8 +357,7 @@ We do provide an [implementation of the approach](#implementation-r) for referen
 When we construct most beneficial paths, we consider many more paths than the count of candidates.
 While we consider 12 candidates for each length, we consider 48 paths when we compute most beneficial paths (4 roots times 3 children times 4 destination vertices).
 We do so because for a given input graph, the number of candidates is constant for each length and thus the total count of paths that we consider is much less than the count of cycles in the graph.
-Consider the overapproximation of the count of paths that we consider where we consider `n` lengths and for each length we consider `n` roots, `n` children and `n` destination vertices, that is `n^4`.
-The overapproximated count of paths compares to the number of cycles as follows.
+Compare the overapproximation $@n^4@$ of count of paths we consider to the number of cycles in the input graph.
 
 {% highlight asciidoc %}
                 NUMBER OF CYCLES                   NUMBER OF PATHS WE CONSIDER
@@ -382,7 +381,9 @@ K18:           1,267,597,789,008,779,578,401   >            104976
 K19:          60,381,304,029,673,985,693,205   >            130321
 K20:       3,040,239,935,992,309,703,757,730   >            160000
 {% endhighlight %}
-<br />
+
+The overapproximation corresponds to our nested iteration of $@n@$ lengths, $@n@$ roots, $@n@$ children, and $@n@$ destination vertices.
+
 
 
 Given that there is no solution of length 3, we search for a profitable candidate of length 4.
@@ -406,7 +407,7 @@ We present algorithms S, S', and R.
 Our solution is algorithm S'.
 Algorithm S is a summary of algorithm S' and is easier to understand.
 Algorithm R is an alternative to algorithm R that computes most beneficial paths on demand.
-The execution time of the three algorithms is `O(n^4)`.
+The execution time of the three algorithms is $@O(n^4)@$.
 <br /><br />
 
 
@@ -428,7 +429,7 @@ S(n, W)
 11: RETURN 0
 {% endhighlight %}
 
-Algorithm S returns the rate of a solution or zero if there is no solution for given weight matrix `W` of size `n x n`,
+Algorithm S returns the rate of a solution or zero if there is no solution for given weight matrix `W` of size $@n \times n@$,
 Algorithm S finds a solution rate by constructing rates of candidates of increasing length and returning the first rate that is profitable.
 Algorithm S constructs rates of candidates by constructing rates of most beneficial paths.
 The reason is that [candidates are most beneficial paths](#candidates-are-most-beneficial-paths).
@@ -494,7 +495,7 @@ The reason is that algorithms S and R both run in time $@O(n^4)@$ because each h
 # Implementation
 
 The following C program is our implementation of algorithm S'.
-For a given weight matrix `rate` of size `n x n`, function `S` executes algorithm S' and prints a solution if there is one.
+For a given weight matrix `rate` of size $@n \times n@$, function `S` executes algorithm S' and prints a solution if there is one.
 If there is no solution, function `S` prints "no arbitrage sequence exists."
 
 {% highlight c %}
@@ -655,7 +656,7 @@ int main() {
 <br />
 
 
-The worst time complexity of function `R` is the same as that of function `S`, `O(n^4)`.
+The worst time complexity of function `R` is the same as that of function `S`, $@O(n^4)@$.
 The [UVa Online Judge](https://uva.onlinejudge.org/index.php) reports the same execution time for both programs, 0.010 seconds.
 We obtained 8th place by submitting function `R`.
 The rank is still the same as of 2016.05.26.
@@ -688,7 +689,7 @@ FloydWarshall(n, W)
 8:                 D[k][i,j] = D[k - 1][i,k] + D[k - 1][k,j]
 9: RETURN D[n]
 {% endhighlight %}
-[Cormen et al](#cormen) explain how Floyd-Warshall constructs shortest paths for all pairs of vertices for a graph given by adjacency matrix `W` of size `n x n`.
+[Cormen et al](#cormen) explain how Floyd-Warshall constructs shortest paths for all pairs of vertices for a graph given by adjacency matrix `W` of size $@n \times n@$.
 Algorithm S is not similar to Floyd-Warshall because Floyd-Warshall considers intermediate vertices in each iteration of its outer loop instead of an increasing number of edges.
 <br /><br />
 
