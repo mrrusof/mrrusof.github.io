@@ -493,7 +493,7 @@ Do you have any questions, comments, suggestions? Let me know in the comments.
     Martin
   </dt>
   <dd>
-    Martin, Eric. "Notes on Cryptarithm Solver and Perutations." Principles of Programming. University of South Wales, n.d. Web. 11 June 2016. <a href="https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544">https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544</a>.
+    Martin, Eric. "Notes on Cryptarithm Solver and Permutations." Principles of Programming. University of South Wales, n.d. Web. 11 June 2016. <a href="https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544">https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544</a>.
   </dd>
 </dl>
 
