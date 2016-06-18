@@ -87,7 +87,7 @@ Heap(S, n)
  60:   IF n is even THEN
  70:     swap S[i] and S[n]
  80:   ELSE
- 90:     swap S[0] and S[n]
+ 90:     swap S[1] and S[n]
 100:   process S
 {% endhighlight %}
 
