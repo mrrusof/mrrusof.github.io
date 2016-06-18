@@ -2,6 +2,7 @@
 layout: post
 title: Why does Heap's algorithm work?
 date: 2016-06-17
+edited: 2016-06-18
 author: Ruslan Ledesma-Garza
 summary: Heap's algorithm for constructing all permutations is efficient and simple but not easy to understand. This article explains Heap's algorithm by example.
 ---
@@ -82,18 +83,20 @@ Heap(S, n)
  10: IF n > 2 THEN
  20:   Heap(S, n - 1)
  30: FOR i := 1 TO n - 1
- 40:   IF n > 2 THEN
- 50:     Heap(S, n - 1)
- 60:   IF n is even THEN
- 70:     swap S[i] and S[n]
- 80:   ELSE
- 90:     swap S[1] and S[n]
-100:   process S
+ 40:   IF n is even THEN
+ 50:     swap S[i] and S[n]
+ 60:   ELSE
+ 70:     swap S[1] and S[n]
+ 80:   process S
+ 90:   IF n > 2 THEN
+100:     Heap(S, n - 1)
 {% endhighlight %}
 
 Lines 10 and 20 correspond to step 1 of the algorithm.
-Lines 30 to 90 correspond to the loop of the algorithm.
-Line 100 is an instruction that processes the current permutation to solve a particular problem, for example [brute search all solution candidates of another problem](http://marknelson.us/2002/03/01/next-permutation/).
+Lines 30 to 100 correspond to the loop of the algorithm.
+Line 80 is a call to a procedure that processes the current permutation to solve a particular problem, for example [brute search all solution candidates of another problem](http://marknelson.us/2002/03/01/next-permutation/).
+Line 80 applies `process` to $@n! - 1@$ permutations of input sequence `S` but not to `S`.
+To apply procedure `process` to all permutations of `S`, apply `process` to `S` before or after calling `Heap`.
 
 Consider the following C implementation for reference.
 
