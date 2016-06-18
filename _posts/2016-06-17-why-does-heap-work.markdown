@@ -75,7 +75,7 @@ Understanding this property is fundamental to understanding why Heap's algorithm
 We explain this property in the next section.
 
 The corresponding pseudocode is the following.
-Given input sequence `S` and its corresponding length `n`, procedure `Heap` constructs the remaining $@n! - 1@$ permutaitons of `S`.
+Given input sequence `S` and its corresponding length `n`, procedure `Heap` constructs the remaining $@n! - 1@$ permutations of `S`.
 
 {% highlight asciidoc %}
 Heap(S, n)
