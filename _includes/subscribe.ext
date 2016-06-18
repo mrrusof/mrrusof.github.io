@@ -1,18 +1,7 @@
-# Want to follow me?
+# Want to read more?
 
-I am a professional that likes to explain technical topics clearly.
 I love explaining by example and answering questions.
-I've got a range of topics that I am interested in.
-
-- Algorithms and problem solving
-- Development in Ruby, Javascript, HTML, and CSS
-- API design and implementation
-- Design and implementation of architectures for web applications
-- Continuous integration and delivery
-- Project management and consulting
-
-If you'd like to read from time to time a fresh article on any of these topics, subscribe to the email newsletter or via RSS.
-
+Subscribe to this blog if you are interested reading from time to time about algorithms and software development tools and techniques that you can add to your bag of tricks.
 
 <div style="width: 90%; text-align: center; margin-left: auto; margin-right: auto;">
   <div style="display: inline-block; vertical-align: middle; width: 40%;">
@@ -23,4 +12,4 @@ If you'd like to read from time to time a fresh article on any of these topics, 
   </div>
 </div>
 
-If you'd like to connect, you can find me in <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">LinkedIn</a> and <a href="https://github.com/{{ site.github_username }}">GitHub</a>.
+You can also follow me on <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">LinkedIn</a> and <a href="https://github.com/{{ site.github_username }}">GitHub</a>.
