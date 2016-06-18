@@ -472,6 +472,12 @@ We explained by example the reason Heap's algorithm works, which is that it adjo
 
 Do you have any questions, comments, suggestions? Let me know in the comments.
 
+
+
+{% include subscribe.ext %}
+
+
+
 # References
 
 
