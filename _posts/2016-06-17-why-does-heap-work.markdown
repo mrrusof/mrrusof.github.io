@@ -9,7 +9,7 @@ summary: Heap's algorithm for constructing all permutations is efficient and sim
 
 If you are looking for an explanation of why Heap's algorithm constructs all permutations, keep reading.
 
-Heap's algorithm constructs all permutations of a given sequence.
+[Heap](#heap)'s algorithm constructs all permutations of a given sequence.
 Heap's algorithm is efficient because it constructs each permutation from the previous by swapping two elements.
 Heap's algorithm is more simple than the also efficient [Steinhaus-Johnson-Trotter algorithm](https://en.wikipedia.org/wiki/Steinhaus%E2%80%93Johnson%E2%80%93Trotter_algorithm)  because it does not compute an offset for the pairs that swaps.
 
@@ -45,7 +45,7 @@ Swap 2 moves `2` to the last position to construct one permutation with `2` in t
 Swap 4 moves `1` to the last position to construct one permutation with `1` in the last position and swap 5 constructs the other.
 By moving each element to the last position and constructing the remaining permutations, Heap's algorithm adjoins each element to all permutations of the other two elements.
 
-Heap's algorithm consists of the following steps.
+[Heap](#heap)'s algorithm consists of the following steps.
 For given input sequence `12...n` do the following.
 
 <ol class="numbered-ol">
