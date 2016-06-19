@@ -45,7 +45,7 @@ Swap 2 moves `2` to the last position to construct one permutation with `2` in t
 Swap 4 moves `1` to the last position to construct one permutation with `1` in the last position and swap 5 constructs the other.
 By moving each element to the last position and constructing the remaining permutations, Heap's algorithm adjoins each element to all permutations of the other two elements.
 
-[Heap](#heap)'s algorithm consists of the following steps.
+[Heap](#heap)'s algorithm as explained in his original work consists of the following steps.
 For given input sequence `12...n` do the following.
 
 <ol class="numbered-ol">
