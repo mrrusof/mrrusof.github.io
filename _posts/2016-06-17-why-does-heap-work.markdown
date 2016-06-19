@@ -19,6 +19,7 @@ Popular references on the Internet like [Wikipedia](https://en.wikipedia.org/wik
 A thorough search reveals [Eric Martin's lecture notes on Heap's algorithm](#martin).
 The notes explain Heap's algorithm using a formal approach.
 This article explains Heap's algorithm by example.
+This article also provides a sample C implementation.
 
 If we understand why Heap's algorithm works, we might understand other problems like how to modify Heap's algorithm to distribute work amongst several parallel jobs or compute only relevant permutations efficiently.
 
