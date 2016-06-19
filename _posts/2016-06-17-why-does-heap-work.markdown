@@ -2,7 +2,7 @@
 layout: post
 title: Why does Heap's algorithm work?
 date: 2016-06-17
-edited: 2016-06-18
+edited: 2016-06-19
 author: Ruslan Ledesma-Garza
 summary: Heap's algorithm for constructing all permutations is efficient and simple but not easy to understand. This article explains Heap's algorithm by example.
 ---
@@ -15,13 +15,16 @@ Heap's algorithm is more simple than the also efficient [Steinhaus-Johnson-Trott
 
 Despite its virtues, it is not evident why Heap's algorithm constructs all permutations.
 [Heap](#heap) did give a reason why his algorithm works, but did not explain the reason.
-Popular references on the Internet like [Wikipedia](https://en.wikipedia.org/wiki/Heap%27s_algorithm) do not provide an explanation either.
+Popular references on the Internet like [Wikipedia](https://en.wikipedia.org/wiki/Heap%27s_algorithm) and [Sedgewick](#sedgewick) do not provide an explanation either.
 A thorough search reveals [Eric Martin's lecture notes on Heap's algorithm](#martin).
 The notes explain Heap's algorithm using a formal approach.
 This article explains Heap's algorithm by example.
 This article also provides a sample C implementation.
 
 If we understand why Heap's algorithm works, we might understand other problems like how to modify Heap's algorithm to distribute work amongst several parallel jobs or compute only relevant permutations efficiently.
+
+If you are interested in an iterative version of Heap's algorithm or permutation algorithms in general, have a look at [Sedgewick's survey on permutation algorithms](#sedgewick).
+
 
 # How does Heap's algorithm work?
 
@@ -495,6 +498,13 @@ Do you have any questions, comments, suggestions? Let me know in the comments.
   </dt>
   <dd>
     Martin, Eric. "Notes on Cryptarithm Solver and Permutations." Principles of Programming. University of South Wales, n.d. Web. 11 June 2016. <a href="https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544">https://webcms3.cse.unsw.edu.au/COMP9021/15s2/resources/1544</a>.
+  </dd>
+  <dt id="sedgewick">
+    Sedgewick
+  </dt>
+  <dd>
+    <a href="http://homepage.math.uiowa.edu/~goodman/22m150.dir/2007/Permutation%20Generation%20Methods.pdf">Permutation Generation Methods</a>.
+    R. Sedgewick, Computing Surveys, 9(2) (1977), pp. 137-164
   </dd>
 </dl>
 
