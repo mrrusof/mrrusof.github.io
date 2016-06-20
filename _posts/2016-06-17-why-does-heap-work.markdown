@@ -2,7 +2,7 @@
 layout: post
 title: Why does Heap's algorithm work?
 date: 2016-06-17
-edited: 2016-06-19
+edited: 2016-06-20
 author: Ruslan Ledesma-Garza
 summary: Heap's algorithm for constructing all permutations is efficient and simple but not easy to understand. This article explains Heap's algorithm by example.
 ---
@@ -28,8 +28,8 @@ If you are interested in an iterative version of Heap's algorithm or permutation
 
 # How does Heap's algorithm work?
 
-For an input sequence of $@n@$ elements, Heap's algorithm applies a sequence of $@n! - 1@$ swaps to produce the remaining $@n! - 1@$ permutations.
-For example, for sequence `123`, Heap's algorithm applies the following 5 swaps.
+For an input sequence of $@n@$ elements, Heap's algorithm fixes the element in the last position and constructs all permutations for the rest of the elements in place. After that, the algorithm swaps the element in the last position with one of the rest and repeats the process.
+For example, for sequence `123`, Heap's algorithm proceeds in the following way.
 
 {% highlight asciidoc %}
  0 |  |  | 123
@@ -73,7 +73,7 @@ For given input sequence `12...n` do the following.
   </li>
 </ol>
 
-The algorithm applies $@n! - 1@$ swaps because step 1 applies $@(n - 1)! - 1@$ swaps and the loop applies $@(n - 1)(n - 1)!@$ swaps. For example, for input sequence `123`, step 1 corresponds to swap 1, the first iteration of the loop corresponds to swaps 2 and 3, and the second iteration of the loop corresponds to swaps 4 and 5.
+The algorithm applies $@n! - 1@$ swaps. The reason is that step 1 applies $@(n - 1)! - 1@$ swaps and the loop applies $@(n - 1)(n - 1)!@$ swaps. For example, for input sequence `123`, step 1 corresponds to swap 1, the first iteration of the loop corresponds to swaps 2 and 3, and the second iteration of the loop corresponds to swaps 4 and 5.
 Given a permutation where the element in position $@n@$ is $@e@$, recursive steps 1 and 2.2 construct the remaining $@(n - 1)! - 1@$ permutations where $@e@$ is in the last position by adjoining $@e@$ to the remaining $@(n - 1)! - 1@$ permutations of the rest of the elements.
 To construct all permutations of $@n@$ elements, it is crucial that step 2.1 places a different element in position $@n@$ every time, which it does.
 Understanding this property is fundamental to understanding why Heap's algorithm works.
