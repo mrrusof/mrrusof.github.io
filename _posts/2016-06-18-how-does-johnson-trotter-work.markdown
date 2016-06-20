@@ -1,81 +1,196 @@
 ---
 layout: post
-title: How does Johnson-Trotter algorithm work?
+title: Yes, yes, it is known, but how does the Johnson-Trotter algorithm work?
 date: 2016-06-18
 author: Ruslan Ledesma-Garza
 summary: Something something
 ---
 
-If you are looking for an explanation of how Johnson-Trotter algorithm constructs all permutations, keep reading.
+**TODO**
 
-- Recursive formulation
-- Iterative formulation
+- Read Johnson's rules.
+- Read Trotter's pseudocode.
+- Read Sedgewicks part on Johnson-Trotter
+  - What is the iterative version?
+  - What are the inefficient formulations that Sedgewick talks about?
+- Write pseudocode for iterative algorithm
+- Implement iterative algorithm
+- Create story
+- Write
+- Publish
+
+Q: What is the Johnson-Trotter algorithm?
+
+If you are looking for an explanation of how Steinhaus-Johnson-Trotter algorithm constructs all permutations, keep reading.
+
+There is a recursive approach and an iterative approach to generating the list of permutations.
+
+- Recursive algorithm here is not found anywhere else.
+- Iterative algorithm here is found in [Levitin] (and Segewick?)
+  - Is my implementation efficient?
+
+[Johnson](#johnson) formulated two rules that explain how to obtain a permutation from another and a state by swapping two adjacent elements.
+
+- Rules in terms of marks:
+  - For largest mark `m` such that `T(m)` exists, Apply exchange `T(m)`.
+  - Flip direction of marks greater than `m`.
+- Method is the following.
+  - Set all directions to the left.
+  - Apply the rules until there is no `m` such that `T(m)` exists.
+- We apply `T(m)` only when all larger marks are at the extreme left or right.
+- The method stops at permutation `2, 1, 3, 4, 5, 6, ..., n`.
+- Rules in terms of positions:
+  - **TODO**
+
+[Trotter](#trotter) formulated an algorithm that creates the same list of permutations than Johnson.
+
+- **TODO**
+
+Related work
+
+- Wikipedia does not give pseudocode.
+- [Yorgey](#yorgey) does not give pseudocode.
+- [Yorgey](#yorgey) explains by example Johnson-Trotter sequences.
+- [Sedgewick](#sedgewick) presents an iterative algorithm that constructs Johnson-Trotter lists of permutations.
+- [Levitin] says that element `m` is mobile when `T(m)` exists.
+- Formulations that are not efficient?
+  - [Levitin] explains a formulation based in search that is not efficient?
+  - [Bogomolny](#bogomolny) presents the algorithm that [Levitin] presents.
 
 
-
-# How does Johnson-Trotter algorithm work?
-
-
-Move element 1 from left to right.
-Take a step for elements 2 and 3.
-That is, move element 2 from left to right.
-Move element 1 from right to left.
+For input sequence `1234`, the corresponding list of permutations is the following.
 
 {% highlight asciidoc %}
- 0 |  |  | 123
- 1 |--|  | 213 L = 3
- 2 |  |--| 231 L = 3
- 3 |--|  | 321 L = 2
- 4 |  |--| 312 L = 3
- 5 |--|  | 132 L = 3
+ 0 |  |  |  | 1234
+ 1 |  |  |--| 1243
+ 2 |  |--|  | 1423
+ 3 |--|  |  | 4123
+ 4 |  |  |--| 4132
+ 5 |--|  |  | 1432
+ 6 |  |--|  | 1342
+ 7 |  |  |--| 1324
+ 8 |--|  |  | 3124
+ 9 |  |  |--| 3142
+10 |  |--|  | 3412
+11 |--|  |  | 4312
+12 |  |  |--| 4321
+13 |--|  |  | 3421
+14 |  |--|  | 3241
+15 |  |  |--| 3214
+16 |--|  |  | 2314
+17 |  |  |--| 2341
+18 |  |--|  | 2431
+19 |--|  |  | 4231
+20 |  |  |--| 4213
+21 |--|  |  | 2413
+22 |  |--|  | 2143
+23 |  |  |--| 2134
 {% endhighlight %}
 
+
+
+The list of permutations for `1234` corresponds to the list of permutations for `123` in the following way.
+
 {% highlight asciidoc %}
- 0 |  |  |  | 1234        -->   0 |  |  |  | 1234
-                                1 |--|  |  | 2134 L = 4
-                                2 |  |--|  | 2314 L = 4
-                                3 |  |  |--| 2341 L = 4
- 1 |--|  |  | 3241 L = 3  -->   4 |--|  |  | 3241 L = 3
-                                5 |  |  |--| 3214 L = 4
-                                6 |  |--|  | 3124 L = 4
-                                7 |--|  |  | 1324 L = 4
- 2 |  |  |--| 1342 L = 3  -->   8 |  |  |--| 1342 L = 3
-                                9 |--|  |  | 3142 L = 4
-                               10 |  |--|  | 3412 L = 4
-                               11 |  |  |--| 3421 L = 4
- 3 |--|  |  | 4321 L = 2  -->  12 |--|  |  | 4321 L = 2
-                               13 |  |  |--| 4312 L = 4
-                               14 |  |--|  | 4132 L = 4
-                               15 |--|  |  | 1432 L = 4
- 4 |  |  |--| 1423 L = 3  -->  16 |  |  |--| 1423 L = 3
-                               17 |--|  |  | 4123 L = 4
-                               18 |  |--|  | 4213 L = 4
-                               19 |  |  |--| 4231 L = 4
- 5 |--|  |  | 2431 L = 3  -->  20 |--|  |  | 2431 L = 3
-                               21 |  |  |--| 2413 L = 4
-                               22 |  |--|  | 2143 L = 4
-                               23 |--|  |  | 1243 L = 4
+ 0 |  |  |  | 1234
+ 1 |  |  |--| 1243		       		       
+ 2 |  |--|  | 1423		       		       
+ 3 |--|  |  | 4123		       		       
+ 4 |  |  |--| 4132  -->   1 |--|  | 132
+ 5 |--|  |  | 1432		       		       
+ 6 |  |--|  | 1342		       		       
+ 7 |  |  |--| 1324		       		       
+ 8 |--|  |  | 3124  -->   2 |  |--| 312
+ 9 |  |  |--| 3142		       		       
+10 |  |--|  | 3412		       		       
+11 |--|  |  | 4312		       		       
+12 |  |  |--| 4321  -->   3 |--|  | 321  -->   1 |--| 21
+13 |--|  |  | 3421		       		       
+14 |  |--|  | 3241		       		       
+15 |  |  |--| 3214		       		       
+16 |--|  |  | 2314  -->   4 |  |--| 231
+17 |  |  |--| 2341		       		       
+18 |  |--|  | 2431		       		       
+19 |--|  |  | 4231		       		       
+20 |  |  |--| 4213  -->   5 |--|  | 213
+21 |--|  |  | 2413
+22 |  |--|  | 2143
+23 |  |  |--| 2134
 {% endhighlight %}
 
 
+
+# Recursive approach
+
+
+
 {% highlight asciidoc %}
-JohnsonTrotter(S, L, N)
+ 0 |  | 12
+ 1 |--| 21 L = 2
+{% endhighlight %}
+
+
+
+{% highlight asciidoc %}
+ 0 |  | 12	        -->  0 |  |  | 123
+                             1 |  |--| 132 L = 3
+                             2 |--|  | 312 L = 3
+ 1 |--| 21 L = 2        -->  3 |  |--| 321 L = 2
+                             4 |--|  | 231 L = 3
+                             5 |  |--| 213 L = 3
+{% endhighlight %}
+
+
+
+{% highlight asciidoc %}
+ 0 |  |  | 123         -->   0 |  |  |  | 1234	   
+                             1 |  |  |--| 1243 L = 4
+                             2 |  |--|  | 1423 L = 4
+                             3 |--|  |  | 4123 L = 4
+ 1 |--|  | 132 L = 3   -->   4 |  |  |--| 4132 L = 3
+                             5 |--|  |  | 1432 L = 4
+                             6 |  |--|  | 1342 L = 4
+                             7 |  |  |--| 1324 L = 4
+ 2 |  |--| 312 L = 3   -->   8 |--|  |  | 3124 L = 3
+                             9 |  |  |--| 3142 L = 4
+                            10 |  |--|  | 3412 L = 4
+                            11 |--|  |  | 4312 L = 4
+ 3 |--|  | 321 L = 2   -->  12 |  |  |--| 4321 L = 2
+                            13 |--|  |  | 3421 L = 4
+                            14 |  |--|  | 3241 L = 4
+                            15 |  |  |--| 3214 L = 4
+ 4 |  |--| 231 L = 3   -->  16 |--|  |  | 2314 L = 3
+                            17 |  |  |--| 2341 L = 4
+                            18 |  |--|  | 2431 L = 4
+                            19 |--|  |  | 4231 L = 4
+ 5 |--|  | 213 L = 3   -->  20 |  |  |--| 4213 L = 3
+                            21 |--|  |  | 2413 L = 4
+                            22 |  |--|  | 2143 L = 4
+                            23 |  |  |--| 2134 L = 4
+{% endhighlight %}
+
+
+
+
+
+{% highlight asciidoc %}
+JohnsonTrotter(S, L, N, D)
  10: o := 0
  20: IF L < N THEN
- 30:  o := JohnsonTrotter(S, L, N)
- 40: IF D[L] = forwards
- 50:  FOR i := 1 TO L - 1
+ 30:  o := JohnsonTrotter(S, L, N, D)
+ 40: IF D[L] = right
+ 50:   FOR i := 1 TO L - 1
  60:    swap_with_next(S, o + i)
  70:    IF L < N THEN
- 80:      o := JohnsonTrotter(S, L, N)
- 90:   D[L] := backwards
+ 80:      o := JohnsonTrotter(S, L, N, D)
+ 90:   D[L] := left
 110:   RETURN o
 120: ELSE
 130:   FOR i := L - 1 DOWN TO 1
 140:     swap_with_next(S, o + i)
 150:     IF L < N THEN
-160:       o := JohnsonTrotter(S, L, N)  
-170:   D[L] := forwards
+160:       o := JohnsonTrotter(S, L, N, D)
+170:   D[L] := right
 180:   RETURN o + 1
 {% endhighlight %}
 
@@ -87,7 +202,6 @@ JohnsonTrotter(S, L, N)
 #define MAX_LEN 30
 
 #define Ss(s) scanf("%s", s)
-
 
 int count = 1;
 void print_swap(int i, int n) {
@@ -138,7 +252,7 @@ void johnson_trotter(char *s, int n) {
   int i;
   int d[MAX_LEN + 1];
   for(i = 0; i < MAX_LEN + 1; i++)
-    d[i] = 1;
+    d[i] = 0;
   print_swap(-1, n);
   printf(" %s\n", s);
   jt(s, 2, n, d);
@@ -154,26 +268,136 @@ int main() {
 }
 {% endhighlight %}
 
-{% highlight c %}
 
+# Iterative approach
+
+
+{% highlight asciidoc %}
+JohnsonTrotter(S, N)
+ 10: FOR e := 1 TO N
+ 20:   I[e] := e
+ 30:   O[e] := e
+ 40:   D[e] := -1
+ 50: DO
+ 60:   FOR e := N TO 1
+ 70:     IF 0 < I[e] + D[e] <= n AND e > O[I[e] + D[e]]
+ 80:       BREAK
+ 90:   IF e = 1
+110:     RETURN
+120:   SWAP(S, I[e], I[e] + D[e])
+130:   SWAP(O, I[e], I[e] + D[e])
+140:   SWAP(I, e, O[I[e]])
+150:   FOR e := e + 1 TO N
+160:     D[e] := -D[e]
+170: LOOP
 {% endhighlight %}
 
+
+{% highlight c %}
+#include <stdio.h>
+
+#define MAX_LEN 30
+
+#define Ss(s) scanf("%s", s)
+
+#define MIN(x,y) ( x < y ? x : y )
+
+int count = 0;
+void print_swap(int i, int n) {
+  int j;
+  printf("%4d ", count++);
+  for(j = 0; j < n - 1; j++)
+    if(j == i)
+      printf("|--");
+    else
+      printf("|  ");
+  printf("|");
+}
+
+void swap_chars(char *s, int i, int j) {
+  char t = s[i];
+  s[i] = s[j];
+  s[j] = t;
+}
+
+void swap_ints(int *s, int i, int j) {
+  int t = s[i];
+  s[i] = s[j];
+  s[j] = t;
+}
+
+void johnson_trotter(char *s, int n) {
+  print_swap(-1, n);
+  printf(" %s\n", s);
+
+  int e;
+  int i[n];
+  int o[n];
+  int d[n];
+  for(e = 0; e < n; e++) {
+    i[e] = e;
+    o[e] = e;
+    d[e] = -1;
+  }
+  while(1) {
+    for(e = n - 1; 0 < e; e--)
+      if(0 <= i[e] + d[e] && i[e] + d[e] <= n - 1 && e > o[i[e] + d[e]])
+	break;
+    if(e == 0)
+      return;
+    swap_chars(s, i[e], i[e] + d[e]);
+    swap_ints(o, i[e], i[e] + d[e]);
+    swap_ints(i, e, o[i[e]]);
+    print_swap(MIN(i[e], i[e] - d[e]), n);
+    printf(" %s e = %d\n", s, e + 1);
+    for(e += 1; e < n; e++)
+      d[e] = -d[e];
+  }
+}
+
+int main() {
+  int slen;
+  char s[MAX_LEN];
+  Ss(s);
+  for(slen = 0; s[slen] != '\0'; slen++);
+  johnson_trotter(s, slen);
+  return 0;
+}
+{% endhighlight %}
 
 
 # References
 
 
 <dl>
+  <dt id="bogomolny">
+    Bogomolny
+  </dt>
+  <dd>
+    <a href="http://www.cut-the-knot.org/Curriculum/Combinatorics/JohnsonTrotter.shtml">http://www.cut-the-knot.org/Curriculum/Combinatorics/JohnsonTrotter.shtml</a>
+  </dd>
   <dt id="johnson">
     Johnson
   </dt>
   <dd>
     something
   </dd>
+  <dt id="levitin">
+    Levitin
+  </dt>
+  <dd>
+    <a href="https://www.google.com.mx/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=introduction%20to%20the%20design%20and%20analysis%20of%20algorithms">Introduction to the analysis and design of algorithms</a>
+  </dd>
   <dt id="trotter">
     Trotter
   </dt>
   <dd>
     something
+  </dd>
+  <dt id="yorgey">
+    Yorgey
+  </dt>
+  <dd>
+    <a href="https://mathlesstraveled.com/2013/01/03/the-steinhaus-johnson-trotter-algorithm/">https://mathlesstraveled.com/2013/01/03/the-steinhaus-johnson-trotter-algorithm/</a>
   </dd>
 </dl>
