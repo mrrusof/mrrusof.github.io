@@ -6,19 +6,6 @@ author: Ruslan Ledesma-Garza
 summary: Something something
 ---
 
-**TODO**
-
-- Read Johnson's rules.
-- Read Trotter's pseudocode.
-- Read Sedgewicks part on Johnson-Trotter
-  - What is the iterative version?
-  - What are the inefficient formulations that Sedgewick talks about?
-- Write pseudocode for iterative algorithm
-- Implement iterative algorithm
-- Create story
-- Write
-- Publish
-
 Q: What is the Johnson-Trotter algorithm?
 
 If you are looking for an explanation of how Steinhaus-Johnson-Trotter algorithm constructs all permutations, keep reading.
@@ -29,10 +16,10 @@ There is a recursive approach and an iterative approach to generating the list o
 - Iterative algorithm here is found in [Levitin] (and Segewick?)
   - Is my implementation efficient?
 
-[Johnson](#johnson) formulated two rules that explain how to obtain a permutation from another and a state by swapping two adjacent elements.
+[Johnson](#johnson) formulated two rules that explain how to obtain from a permutation and a state another permutation by swapping two adjacent elements.
 
 - Rules in terms of marks:
-  - For largest mark `m` such that `T(m)` exists, Apply exchange `T(m)`.
+  - For largest mark `m` such that `T(m)` exists, apply exchange `T(m)`.
   - Flip direction of marks greater than `m`.
 - Method is the following.
   - Set all directions to the left.
@@ -40,9 +27,19 @@ There is a recursive approach and an iterative approach to generating the list o
 - We apply `T(m)` only when all larger marks are at the extreme left or right.
 - The method stops at permutation `2, 1, 3, 4, 5, 6, ..., n`.
 - Rules in terms of positions:
-  - **TODO**
+  - For permutation $@P_N@$, index $@N@$ corresponds to a configuration of counters $@(d_2, d_3, ..., d_{n-1}, d_n)@$.
+  - $@a_N(k)@$ is the left-hand position of the pair of elements to exchange.
+  - $@b_N(k)@$ is the offset of the pair to exchange. The offset is given by the number of elements greater than $@k@$ to the left of $@P_N@$.
 
 [Trotter](#trotter) formulated an algorithm that creates the same list of permutations than Johnson.
+
+- Guenter Rote says
+  - "The excuse for adding PERM to the growing pile of permutation
+    generators is that, at the expense of some extra global storage,
+    it cuts the manipulation of x to the theoretical minimum of n!
+    transpositions, and appears to offer an advantage in speed. It
+    also has the (probably useless) property that the permutations
+    it generates are alternately odd and even;"
 
 - **TODO**
 
