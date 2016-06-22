@@ -180,7 +180,7 @@ The list of permutations for `1234` corresponds to the list of permutations for 
 
 
 
-
+My recursive version of Johnson-Trotter.
 
 {% highlight asciidoc %}
 JohnsonTrotter(S, L, N, D)
@@ -202,8 +202,6 @@ JohnsonTrotter(S, L, N, D)
 170:   D[L] := right
 180:   RETURN o + 1
 {% endhighlight %}
-
-
 
 {% highlight c %}
 #include <stdio.h>
@@ -280,6 +278,63 @@ int main() {
 
 # Iterative approach
 
+Sedgewick's labeling of permutations.
+
+{% highlight asciidoc %}
+LABEL(N)
+ 10: i := 1
+ 20: WHILE i <= N
+ 30:   i := i + 1
+ 40:   C[i] := 1
+ 50: C[1] := 0
+ 60: WHILE TRUE
+ 70:   i := N
+ 80:   WHILE C[i] = i
+ 90:     C[i] := 1
+100:     i := i - 1
+110:   IF i = 1
+120:     BREAK
+130:   print i
+140:   C[i] := C[i] + 1
+{% endhighlight %}
+
+{% highlight c %}
+#include <stdio.h>
+
+#define Si(i) scanf("%d", &i)
+
+void label(n) {
+  int i;
+  int c[n];
+  for(i = 1; i < n; i++)
+    c[i] = 0;
+  c[0] = -1;
+  while(1) {
+    for(i = n - 1; c[i] == i; i--)
+      c[i] = 0;
+    if(i == 0)
+      break;
+    printf("%d ", i + 1);
+    c[i]++;
+  }
+  printf("\n");
+}
+
+int main() {
+  int n;
+  Si(n);
+  label(n);
+  return 0;
+}
+{% endhighlight %}
+
+Sedgewick's interpretation of Johnson's algorithm.
+
+{% highlight asciidoc %}
+
+{% endhighlight %}
+
+My interpretation of Johnson's rules.
 
 {% highlight asciidoc %}
 JohnsonTrotter(S, N)
@@ -396,6 +451,12 @@ int main() {
   </dt>
   <dd>
     <a href="https://www.google.com.mx/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=introduction%20to%20the%20design%20and%20analysis%20of%20algorithms">Introduction to the analysis and design of algorithms</a>
+  </dd>
+  <dt id="sedgewick">
+    Sedgewick
+  </dt>
+  <dd>
+    something
   </dd>
   <dt id="trotter">
     Trotter
