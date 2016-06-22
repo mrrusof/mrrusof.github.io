@@ -340,7 +340,7 @@ JohnsonTrotterIterative(S, N)
  50:   D[i] := false
  60: C[1] := 0
  70: WHILE TRUE
- 80:   i := 1
+ 80:   i := N
  90:   x := 0
 100:   WHILE C[i] = i
 110:     IF NOT D[i]
@@ -529,32 +529,40 @@ JohnsonTrotterOriginal(S, N)
  20: WHILE i <= N
  30:   i := i + 1
  40:   C[i] := 0
- 60: C[1] := 0
- 65: C[n] := 1
+ 50: C[1] := 0
+ 60: C[n] := 1
  70: WHILE TRUE
  80:   i := 1
-100:   WHILE C[i] = i - 1
-140:     C[i] := 0
-150:     i := i - 1
-160:   IF i = 0
-170:     BREAK
-180:   IF C[i - 1] + (i - 1)C[i - 2] is odd
-190:     ank := C[i]
-200:   ELSE
-210:     ank := i - C[i]
-211:   IF i = N
-212:     bnk := 0
-213:   ELSE IF i = N - 1
-214:     IF C[N - 1] + (N - 1)C[N - 2] is odd
-215:       bnk := 1
-216:     ELSE
-217:       bnk := 0
-218:   ELSE IF k is even
-219:   **TODO**
-220:   swap elements in positions k and k + 1 of S
-230:   C[i] := C[i] + 1
+ 90:   WHILE C[i] = i - 1
+100:     C[i] := 0
+110:     i := i - 1
+120:   IF i = 0
+130:     BREAK
+140:   IF C[i - 1] + (i - 1)C[i - 2] is even
+150:     ank := i - C[i]
+160:   ELSE
+170:     ank := C[i]
+180:   IF i = N
+190:     bnk := 0
+200:   ELSE IF i = N - 1
+210:     IF C[N - 1] + (N - 1) * C[N - 2] is even
+220:       bnk := 0
+230:     ELSE
+240:       bnk := 1
+250:   ELSE IF k is even
+260:     IF C[i] is even
+270:       bnk := 0
+280:     ELSE
+290:       bnk := 2
+300:   ELSE
+319:     IF C[i] + C[i - 1] is even
+320:       bnk := 0
+330:     ELSE
+340:       bnk := 1
+350:   s := ank + bnk
+360:   swap elements in positions s and s + 1 of S
+370:   C[i] := C[i] + 1
 {% endhighlight %}
-
 
 
 # References
