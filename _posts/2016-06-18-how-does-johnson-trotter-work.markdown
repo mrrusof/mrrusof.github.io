@@ -13,8 +13,17 @@ If you are looking for an explanation of how Steinhaus-Johnson-Trotter algorithm
 There is a recursive approach and an iterative approach to generating the list of permutations.
 
 - Recursive algorithm here is not found anywhere else.
-- Iterative algorithm here is found in [Levitin] (and Segewick?)
+- Iterative algorithm here is found in Sedgewick and Johnson.
   - Is my implementation efficient?
+
+
+[Sedgewick] explains his interpretation of Johnson's algorithm.
+
+- Sedgewick's interpretation accumulates offset $@x@$ instead of computing it from counters $@N@$.
+- He explains his algorithm in two steps.
+  - He explains how to determine the element to transpose in each permutations of the Johnson-Trotter sequence.
+  - He explains how to compute direction and offset for the element. From direction we get relative position. From offset we get absolute position.
+
 
 [Johnson](#johnson) formulated two rules that explain how to obtain from a permutation and a state another permutation by swapping two adjacent elements.
 
@@ -26,11 +35,15 @@ There is a recursive approach and an iterative approach to generating the list o
   - Apply the rules until there is no `m` such that `T(m)` exists.
 - We apply `T(m)` only when all larger marks are at the extreme left or right.
 - The method stops at permutation `2, 1, 3, 4, 5, 6, ..., n`.
+- [Levitin] says that rules ARE Johnson's algorithm, which is not accurate.
+  - [Bogomolny] says the same.
 - Rules in terms of positions:
   - For permutation $@P_N@$, index $@N@$ corresponds to a configuration of counters $@(d_2, d_3, ..., d_{n-1}, d_n)@$.
   - $@a_N(k)@$ is the left-hand position of the pair of elements to exchange.
   - $@b_N(k)@$ is the offset of the pair to exchange. The offset is given by the number of elements greater than $@k@$ to the left of $@P_N@$.
-
+  - Position and offset are determined by index $@N@$ as opposed to bookkeeping position and direction of each element.
+  - Sedgewick accumulates offset $@x@$ instead of computing offset $@b_N(k)@$ from $@N@$.
+  
 [Trotter](#trotter) formulated an algorithm that creates the same list of permutations than Johnson.
 
 - Guenter Rote says
@@ -40,8 +53,7 @@ There is a recursive approach and an iterative approach to generating the list o
     transpositions, and appears to offer an advantage in speed. It
     also has the (probably useless) property that the permutations
     it generates are alternately odd and even;"
-
-- **TODO**
+- You can find Trotter's algorithm in CACM August 1962.
 
 Related work
 
