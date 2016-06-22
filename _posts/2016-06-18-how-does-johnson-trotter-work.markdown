@@ -337,25 +337,25 @@ JohnsonTrotterIterative(S, N)
  20: WHILE i <= N
  30:   i := i + 1
  40:   C[i] := 1
- 45:   D[i] := false
- 50: C[1] := 0
- 60: WHILE TRUE
- 70:   i := 1
- 75:   x := 0
- 80:   WHILE C[i] = i
- 83:     IF NOT D[i]
- 84:       x := x + 1
- 85:     D[i] := NOT D[i]
- 90:     C[i] := 1
-100:     i := i - 1
-110:   IF i = 0
-120:     BREAK
-130:   IF D[i]
-140:     k := C[i] + x
-150:   ELSE
-160:     k := i - C[i] + x
-170:   swap elements in positions k and k + 1 of S
-180:   C[i] := C[i] + 1
+ 50:   D[i] := false
+ 60: C[1] := 0
+ 70: WHILE TRUE
+ 80:   i := 1
+ 90:   x := 0
+100:   WHILE C[i] = i
+110:     IF NOT D[i]
+120:       x := x + 1
+130:     D[i] := NOT D[i]
+140:     C[i] := 1
+150:     i := i - 1
+160:   IF i = 0
+170:     BREAK
+180:   IF D[i]
+190:     k := C[i] + x
+200:   ELSE
+210:     k := i - C[i] + x
+220:   swap elements in positions k and k + 1 of S
+230:   C[i] := C[i] + 1
 {% endhighlight %}
 
 {% highlight c %}
@@ -426,7 +426,7 @@ int main() {
 }
 {% endhighlight %}
 
-My interpretation of Johnson's rules.
+My interpretation of Johnson's rules or *Method in Terms of Marks*.
 
 {% highlight asciidoc %}
 JohnsonTrotter(S, N)
@@ -520,6 +520,41 @@ int main() {
   return 0;
 }
 {% endhighlight %}
+
+My interpretation of Johnson's algorithm or *Method in Terms of Positions*.
+
+{% highlight asciidoc %}
+JohnsonTrotterOriginal(S, N)
+ 10: i := 1
+ 20: WHILE i <= N
+ 30:   i := i + 1
+ 40:   C[i] := 0
+ 60: C[1] := 0
+ 65: C[n] := 1
+ 70: WHILE TRUE
+ 80:   i := 1
+100:   WHILE C[i] = i - 1
+140:     C[i] := 0
+150:     i := i - 1
+160:   IF i = 0
+170:     BREAK
+180:   IF C[i - 1] + (i - 1)C[i - 2] is odd
+190:     ank := C[i]
+200:   ELSE
+210:     ank := i - C[i]
+211:   IF i = N
+212:     bnk := 0
+213:   ELSE IF i = N - 1
+214:     IF C[N - 1] + (N - 1)C[N - 2] is odd
+215:       bnk := 1
+216:     ELSE
+217:       bnk := 0
+218:   ELSE IF k is even
+219:   **TODO**
+220:   swap elements in positions k and k + 1 of S
+230:   C[i] := C[i] + 1
+{% endhighlight %}
+
 
 
 # References
