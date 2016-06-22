@@ -183,22 +183,22 @@ The list of permutations for `1234` corresponds to the list of permutations for 
 My recursive version of Johnson-Trotter.
 
 {% highlight asciidoc %}
-JohnsonTrotter(S, L, N, D)
+JohnsonTrotterRecursive(S, L, N, D)
  10: o := 0
  20: IF L < N THEN
- 30:  o := JohnsonTrotter(S, L, N, D)
+ 30:  o := JohnsonTrotterRecursive(S, L, N, D)
  40: IF D[L] = right
  50:   FOR i := 1 TO L - 1
  60:    swap_with_next(S, o + i)
  70:    IF L < N THEN
- 80:      o := JohnsonTrotter(S, L, N, D)
+ 80:      o := JohnsonTrotterRecursive(S, L, N, D)
  90:   D[L] := left
 110:   RETURN o
 120: ELSE
 130:   FOR i := L - 1 DOWN TO 1
 140:     swap_with_next(S, o + i)
 150:     IF L < N THEN
-160:       o := JohnsonTrotter(S, L, N, D)
+160:       o := JohnsonTrotterRecursive(S, L, N, D)
 170:   D[L] := right
 180:   RETURN o + 1
 {% endhighlight %}
@@ -329,9 +329,101 @@ int main() {
 {% endhighlight %}
 
 Sedgewick's interpretation of Johnson's algorithm.
+I inverted the direction of movement by initializing `D[i]` to `false` for $@i \in 1, ..., N@$.
 
 {% highlight asciidoc %}
+JohnsonTrotterIterative(S, N)
+ 10: i := 1
+ 20: WHILE i <= N
+ 30:   i := i + 1
+ 40:   C[i] := 1
+ 45:   D[i] := false
+ 50: C[1] := 0
+ 60: WHILE TRUE
+ 70:   i := 1
+ 75:   x := 0
+ 80:   WHILE C[i] = i
+ 83:     IF NOT D[i]
+ 84:       x := x + 1
+ 85:     D[i] := NOT D[i]
+ 90:     C[i] := 1
+100:     i := i - 1
+110:   IF i = 0
+120:     BREAK
+130:   IF D[i]
+140:     k := C[i] + x
+150:   ELSE
+160:     k := i - C[i] + x
+170:   swap elements in positions k and k + 1 of S
+180:   C[i] := C[i] + 1
+{% endhighlight %}
 
+{% highlight c %}
+#include <stdio.h>
+
+#define Ss(s) scanf("%s", s)
+
+int count = 0;
+void print_swap(int i, int n) {
+  int j;
+  printf("%4d ", count++);
+  for(j = 0; j < n - 1; j++)
+    if(j == i)
+      printf("|--");
+    else
+      printf("|  ");
+  printf("|");
+}
+
+void swap_with_next(char *s, int i) {
+  char t = s[i];
+  s[i] = s[i + 1];
+  s[i + 1] = t;
+}
+
+void JohnsonTrotterIterative(char *s, int n) {
+  int i;
+  int x;
+  int k;
+  int c[n];
+  int d[n];
+  for(i = 1; i < n; i++) {
+    c[i] = 0;
+    d[i] = 0;
+  }
+  c[0] = -1;
+  print_swap(-1, n);
+  printf(" %s\n", s);
+  while(1) {
+    i = n - 1;
+    x = 0;
+    for(; c[i] == i; i--) {
+      if(!d[i])
+	x++;
+      d[i] = !d[i];
+      c[i] = 0;
+    }
+    if(i == 0)
+      break;
+    if(d[i])
+      k = c[i] + x;
+    else
+      k = (i - 1) - c[i] + x;
+    swap_with_next(s, k);
+    print_swap(k, n);
+    printf(" %s\n", s);
+    c[i]++;
+  }
+}
+
+int main() {
+  char *s;
+  int slen;
+  Ss(s);
+  for(slen = 0; s[slen] != '\0'; slen++);
+  JohnsonTrotterIterative(s, slen);
+  return 0;
+}
 {% endhighlight %}
 
 My interpretation of Johnson's rules.
@@ -456,7 +548,8 @@ int main() {
     Sedgewick
   </dt>
   <dd>
-    something
+    <a href="http://homepage.math.uiowa.edu/~goodman/22m150.dir/2007/Permutation%20Generation%20Methods.pdf">Permutation Generation Methods</a>.
+    R. Sedgewick, Computing Surveys, 9(2) (1977), pp. 137-164
   </dd>
   <dt id="trotter">
     Trotter
