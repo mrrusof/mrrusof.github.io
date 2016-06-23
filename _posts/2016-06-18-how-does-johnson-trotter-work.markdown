@@ -666,7 +666,7 @@ int main() {
     Levitin
   </dt>
   <dd>
-    <a href="https://www.google.com.mx/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=introduction%20to%20the%20design%20and%20analysis%20of%20algorithms">Introduction to the analysis and design of algorithms</a>
+    Levitin, Anany (2012) [2003]. Introduction to the analysis and design of algorithms (3rd ed.). Pearson. pp. 144-145. ISBN 978-0-13-231681-1.
   </dd>
   <dt id="sedgewick">
     Sedgewick
