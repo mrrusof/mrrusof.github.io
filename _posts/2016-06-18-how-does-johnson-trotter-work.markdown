@@ -659,7 +659,8 @@ int main() {
     Johnson
   </dt>
   <dd>
-    something
+    <a href="http://www.ams.org/journals/mcom/1963-17-083/S0025-5718-1963-0159764-2/S0025-5718-1963-0159764-2.pdf">Generation of Permutations by Adjacent Transposition</a>.
+    S. M. Johnson, Mathematics of Computation, 17(83) (1963), pp. 282-285
   </dd>
   <dt id="levitin">
     Levitin
