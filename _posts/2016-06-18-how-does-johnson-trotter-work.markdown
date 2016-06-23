@@ -554,7 +554,7 @@ JohnsonOriginal(S, N)
 280:       bnk := 0
 290:     ELSE
 300:       bnk := 2
-319:   ELSE
+310:   ELSE
 320:     IF C[i] + C[i - 1] is even
 330:       bnk := 0
 340:     ELSE
@@ -678,7 +678,8 @@ int main() {
     Trotter
   </dt>
   <dd>
-    something
+    <a href="http://dl.acm.org/citation.cfm?id=368660">Algorithm 115: Perm</a>.
+    H. F. Trotter, Communications of the ACM, 5(8) (1962), pp. 434-435
   </dd>
   <dt id="yorgey">
     Yorgey
