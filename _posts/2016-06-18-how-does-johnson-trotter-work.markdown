@@ -332,7 +332,7 @@ Sedgewick's interpretation of Johnson's algorithm.
 I inverted the direction of movement by initializing `D[i]` to `false` for $@i \in 1, ..., N@$.
 
 {% highlight asciidoc %}
-JohnsonTrotterIterative(S, N)
+JohnsonIterative(S, N)
  10: i := 1
  20: WHILE i <= N
  30:   i := i + 1
@@ -348,7 +348,7 @@ JohnsonTrotterIterative(S, N)
 130:     D[i] := NOT D[i]
 140:     C[i] := 1
 150:     i := i - 1
-160:   IF i = 0
+160:   IF i = 1
 170:     BREAK
 180:   IF D[i]
 190:     k := C[i] + x
@@ -381,7 +381,7 @@ void swap_with_next(char *s, int i) {
   s[i + 1] = t;
 }
 
-void JohnsonTrotterIterative(char *s, int n) {
+void johnson_trotter_iterative(char *s, int n) {
   int i;
   int x;
   int k;
@@ -421,7 +421,7 @@ int main() {
   int slen;
   Ss(s);
   for(slen = 0; s[slen] != '\0'; slen++);
-  JohnsonTrotterIterative(s, slen);
+  johnson_trotter_iterative(s, slen);
   return 0;
 }
 {% endhighlight %}
@@ -429,7 +429,7 @@ int main() {
 My interpretation of Johnson's rules or *Method in Terms of Marks*.
 
 {% highlight asciidoc %}
-JohnsonTrotter(S, N)
+JohnsonRules(S, N)
  10: FOR e := 1 TO N
  20:   I[e] := e
  30:   O[e] := e
@@ -524,44 +524,124 @@ int main() {
 My interpretation of Johnson's algorithm or *Method in Terms of Positions*.
 
 {% highlight asciidoc %}
-JohnsonTrotterOriginal(S, N)
+JohnsonOriginal(S, N)
  10: i := 1
  20: WHILE i <= N
  30:   i := i + 1
  40:   C[i] := 0
- 50: C[1] := 0
- 60: C[n] := 1
+ 50: C[1] := 1
  70: WHILE TRUE
- 80:   i := 1
+ 80:   i := N
  90:   WHILE C[i] = i - 1
 100:     C[i] := 0
 110:     i := i - 1
-120:   IF i = 0
-130:     BREAK
-140:   IF C[i - 1] + (i - 1)C[i - 2] is even
-150:     ank := i - C[i]
-160:   ELSE
-170:     ank := C[i]
-180:   IF i = N
-190:     bnk := 0
-200:   ELSE IF i = N - 1
-210:     IF C[N - 1] + (N - 1) * C[N - 2] is even
-220:       bnk := 0
-230:     ELSE
-240:       bnk := 1
-250:   ELSE IF k is even
-260:     IF C[i] is even
-270:       bnk := 0
-280:     ELSE
-290:       bnk := 2
-300:   ELSE
-319:     IF C[i] + C[i - 1] is even
-320:       bnk := 0
-330:     ELSE
-340:       bnk := 1
-350:   s := ank + bnk
-360:   swap elements in positions s and s + 1 of S
-370:   C[i] := C[i] + 1
+120:   C[i] := C[i] + 1
+130:   IF i = 1
+140:     BREAK
+150:   IF C[i - 1] + (i - 1) * C[i - 2] is even
+160:     ank := i - C[i]
+170:   ELSE
+180:     ank := C[i]
+190:   IF i = N
+200:     bnk := 0
+210:   ELSE IF i = N - 1
+220:     IF C[N - 1] + (N - 1) * C[N - 2] is even
+230:       bnk := 0
+240:     ELSE
+250:       bnk := 1
+260:   ELSE IF i is even
+270:     IF C[i] is even
+280:       bnk := 0
+290:     ELSE
+300:       bnk := 2
+319:   ELSE
+320:     IF C[i] + C[i - 1] is even
+330:       bnk := 0
+340:     ELSE
+350:       bnk := 1
+360:   sn := ank + bnk
+370:   swap elements in positions sn and sn + 1 of S
+{% endhighlight %}
+
+{% highlight c %}
+#include <stdio.h>
+
+#define Ss(s) scanf("%s", s)
+
+int count = 0;
+void print_swap(int i, int n) {
+  int j;
+  printf("%4d ", count++);
+  for(j = 0; j < n - 1; j++)
+    if(j == i)
+      printf("|--");
+    else
+      printf("|  ");
+  printf("|");
+}
+
+void swap_with_next(char *s, int i) {
+  char t = s[i];
+  s[i] = s[i + 1];
+  s[i + 1] = t;
+}
+
+void johnson_original(char *s, int n) {
+  int j;
+  int i;
+  int c[n + 1];
+  int ank;
+  int bnk;
+  int sn;
+  for(i = 1; i <= n; i++)
+    c[i] = 0;
+  c[1] = 1;
+  print_swap(-1, n);
+  printf(" %s\n", s);
+  while(1) {
+    i = n;
+    for(; c[i] == i - 1; i--)
+      c[i] = 0;
+    c[i]++;
+    if(i == 1)
+      break;
+    if((c[i - 1] + (i - 1) * c[i - 2]) % 2 == 0)
+      ank = i - c[i];
+    else
+      ank = c[i];
+    if(i == n)
+      bnk = 0;
+    else if(i == n - 1) {
+      if((c[n - 1] + (n - 1) * c[n - 2]) % 2 == 0)
+	bnk = 0;
+      else
+	bnk = 1;
+    } else if(i % 2 == 0) {
+      if(c[i] % 2 == 0)
+	bnk = 0;
+      else
+	bnk = 2;
+    } else {
+      if((c[i] + c[i - 1]) % 2 == 0)
+	bnk = 0;
+      else
+	bnk = 1;
+    }
+    sn = ank + bnk - 1; /* Adjust index by subtracting 1. */
+    swap_with_next(s, sn);
+    print_swap(sn, n);
+    printf(" %s\n", s);
+  }
+}
+
+int main() {
+  char *s;
+  int slen;
+  Ss(s);
+  for(slen = 0; s[slen] != '\0'; slen++);
+  johnson_original(s, slen);
+  return 0;
+}
 {% endhighlight %}
 
 
