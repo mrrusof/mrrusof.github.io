@@ -39,6 +39,7 @@ There is a recursive approach and an iterative approach to generating the list o
   - [Bogomolny] says the same.
 - Rules in terms of positions:
   - For permutation $@P_N@$, index $@N@$ corresponds to a configuration of counters $@(d_2, d_3, ..., d_{n-1}, d_n)@$.
+  - $@k@$ is the largest subscript for which $@d_k > 0@$
   - $@a_N(k)@$ is the left-hand position of the pair of elements to exchange.
   - $@b_N(k)@$ is the offset of the pair to exchange. The offset is given by the number of elements greater than $@k@$ to the left of $@P_N@$.
   - Position and offset are determined by index $@N@$ as opposed to bookkeeping position and direction of each element.
@@ -640,6 +641,138 @@ int main() {
   Ss(s);
   for(slen = 0; s[slen] != '\0'; slen++);
   johnson_original(s, slen);
+  return 0;
+}
+{% endhighlight %}
+
+
+Trotter's algorithm.
+
+{% highlight asciidoc %}
+GLOBAL first
+GLOBAL p[2:MAX_LEN]
+GLOBAL d[2:MAX_LEN]
+
+Perm(X, N)
+
+IF first
+   INITIALIZE:
+     FOR k := 2 TO N
+       p[k] := 0
+       d[k] := 1
+     first := false
+
+k := 0
+
+INDEX:
+  q := p[n] + d[n]
+  p[n] := q
+  IF q = n
+    d[n] := -1
+    GOTO LOOP
+  IF q != 0
+    GOTO TRANSPOSE
+  d[n] := 1
+  k := k + 1
+
+LOOP:
+  IF n > 2
+    n := n - 1
+    GOTO INDEX
+
+Final exit:
+  q := 1
+  first := true
+
+TRANSPOSE:
+  q := q + k
+  t := x[q]
+  x[q] := x[q + 1]
+  x[q + 1] := t
+{% endhighlight %}
+
+{% highlight c %}
+#include <stdio.h>
+
+#define Ss(s) scanf("%s", s)
+#define MAX_LEN 30
+
+int first;
+int p[MAX_LEN + 1]; /* p[k] is position of k */
+int d[MAX_LEN + 1]; /* d[k] is direction of k, d[k] = {1,0} is {right,left} */
+
+void trotter(char *x, int n) { /* x = " hola" */
+  /* Variables not in the original algorithm. */
+  int i;
+  int nn = n;
+
+  int k;
+  int q;
+  char t;
+
+  if(first) {
+  INITIALIZE:
+    for(k = 2; k <= n; k++) {
+      p[k] = 0;
+      d[k] = 1;
+    }
+    first = 0;
+  }
+
+  k = 0;
+
+ INDEX:
+  q = p[n] + d[n];
+  p[n] = q;
+  if(q == n) {
+    d[n] = -1;
+    goto LOOP;
+  }
+  if(q != 0)
+    goto TRANSPOSE;
+  d[n] = 1;
+  k++;
+
+ LOOP:
+  if(n > 2) {
+    n--;
+    goto INDEX;
+  }
+
+ FINAL_EXIT:
+  q = 1;
+  first = 1;
+
+ TRANSPOSE:
+  q = q + k - 1; /* Adjust index by subtracting 1 */
+  t = x[q];
+  x[q] = x[q + 1];
+  x[q + 1] = t;
+
+  /* Code not in the original algorithm */
+  for(i = 2; i <= nn; i++) {
+    printf("%5d  ", p[i]);
+  }
+  printf("%5d  %5d  ", k, q);
+}
+
+int main() {
+  int slen;
+  char s[MAX_LEN];
+  Ss(s);
+  for(slen = 0; s[slen] != '\0'; slen++);
+
+  for(first = 2; first <= slen; first++)
+    printf("p[%2d]  ", first);
+  printf("    k      q\n");
+
+  first = 1;
+  trotter(s, slen);
+  printf("%s\n", s);
+  while(first == 0) {
+    trotter(s, slen);
+    printf("%s\n", s);
+  }
   return 0;
 }
 {% endhighlight %}
