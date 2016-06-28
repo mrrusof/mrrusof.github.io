@@ -1,10 +1,44 @@
 ---
 layout: post
-title: Yes, yes, it is known, but how does the Johnson-Trotter algorithm work?
+title: Yes, yes, it is known, but how does the Johnson-Trotter method work?
 date: 2016-06-18
 author: Ruslan Ledesma-Garza
 summary: Something something
 ---
+
+The Johnson-Trotter method is a popular method for constructing permutations.
+When you google Johnson-Trotter, popular results ([Wikipedia](#wikipedia), [Yorgey](#yorgey), and [Bogomolny](#bogomolny)) announce that Johnson-Trotter is an algorithm and proceed to explain an approach by example or explain a general method.
+The problem is that these results do not accurately explain Johnson's or Trotter's algorithm.
+We do explain both algorithms and related work here.
+
+There is no Johnson-Trotter algorithm because Johnson and Trotter did not invent an algorithm together.
+Each did publish an algorithm that constructs permutations, one year apart.
+[Johnson](#johnson) published his algorithm in 1963 and [Trotter](#trotter) his in 1962.
+The algorithms are very similar in the way they work.
+For that reason it makes sense to talk about a Johnson-Trotter method.
+
+[Johnson](#johnson) explained the Johnson-Trotter method in the same paper he gave his algorithm.
+The method is called algorithm and explained in [Wikipedia](#wikipedia), [Bogomolny](#bogomolny), and [Levitin](#levitin).
+[Trotter](#trotter) only published his algorithm in a brief contribution to the algorithms section of the Communications of the ACM.
+
+It also makes sense to talk about a Johnson-Trotter approach.
+The approach was known to bell ringers prior to 1962 and is called plain changes.
+The approach is mentioned by [Wikipedia](#wikipedia) and [Yorgey](#yorgey).
+
+
+# Johnson-Trotter Approach
+
+
+
+# Johnson-Trotter Method
+
+
+# Johnson's algorithm
+
+
+# Trotter's algorithm
+
+
 
 Q: What is the Johnson-Trotter algorithm?
 
