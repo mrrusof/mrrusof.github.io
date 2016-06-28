@@ -7,6 +7,8 @@ summary: Something something
 ---
 
 The Johnson-Trotter method is a popular method for constructing permutations.
+It is popular amongst the local
+
 When you google Johnson-Trotter, popular results ([Wikipedia](#wikipedia), [Yorgey](#yorgey), and [Bogomolny](#bogomolny)) announce that Johnson-Trotter is an algorithm and proceed to explain an approach by example or explain a general method.
 The problem is that these results do not accurately explain Johnson's or Trotter's algorithm.
 We do explain both algorithms and related work here.
@@ -33,10 +35,16 @@ The approach is mentioned by [Wikipedia](#wikipedia) and [Yorgey](#yorgey).
 # Johnson-Trotter Method
 
 
+# Sedgewick's interpretation of Johnson's algorithm
+
+
 # Johnson's algorithm
 
 
 # Trotter's algorithm
+
+
+# Recursive algorithm
 
 
 
