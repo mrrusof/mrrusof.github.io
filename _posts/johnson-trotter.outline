@@ -1,0 +1,50 @@
+Q.   How does Johnson's algorithm / Trotter's algorithm work?
+C.   Both algorithms determine the elements to swap by means of a position, a direction, and an offset.
+S.   What is the significance of knowing how the Johnson-Trotter algorithm works?
+     - Learn it so that you don't reinvent it when you need to construct permutations.
+     - It is a fundamental part of any good programmer's bag of tricks.
+
+1.   What is a Johnson-Trotter sequence?
+     Johnson-Trotter sequence is given by approach.
+2.   What is position, direction, and offset?
+     Position, direction, and offset are given by the Johnson-Trotter Method.
+     1.   Position is the position of each element.
+     2.   Direction is the direction of movement of each element.
+     3.   Offset is the offset of the 1...n elements within the rest of the elements.
+3.   Sedgewick's iterative algorithm???
+I.   Both algorithms determine the position by means of a set of counters.
+II.  Johnson's algorithm determines the direction and offset from the current state of the counters.
+III. Trotter's algorithm determines the direction and offset from the previous state of the counters.
+4.   Is it possible to implement the method recursively?
+     Yes. Consider my recursive algorithm.
+
+INTRODUCTION
+
+Current state:
+
+Problem:
+
+Challenge:
+
+Approach / Solution:
+
+I would like to explain how the Johnson-Trotter algorithm works because I did not find a good explanation for it.
+
+When I looked in google for an explanation, all I got were one of the following.
+- Explanations of an approach.
+- Explanations of a general method and no sample implementation.
+- Implementations that followed the approach and did not correspond to the general method.
+
+A good explanation is one that explains either one of the actual algorithms by Johnson or Trotter or both.
+
+
+Q.   How does the Johnson-Trotter algorithm work?
+C.   There is no Johnson-Trotter algorithm, rather there is an approach, a method and one algorithm by Johnson and another by Trotter.
+
+I.    When you say Johnson-Trotter algorithm, you usually mean Johnson-Trotter approach or Johnson-Trotter 
+II.   Johnson and Trotter gave different but very similar algorithms.
+III.  The method is an abstraction of Johnson and Trotter's algorithms.
+IV.   The approach is an abstraction of the method.
+
+
+I would like to explain how the Johnson-Trotter algorithm works because I did not find a good explanation for it.

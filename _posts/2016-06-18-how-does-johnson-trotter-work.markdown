@@ -1,63 +1,27 @@
 ---
 layout: post
-title: Yes, yes, it is known, but how does the Johnson-Trotter method work?
+title: .
 date: 2016-06-18
 author: Ruslan Ledesma-Garza
 summary: Something something
 ---
 
-The Johnson-Trotter method is a popular method for constructing permutations.
-It is popular amongst the local
-
-When you google Johnson-Trotter, popular results ([Wikipedia](#wikipedia), [Yorgey](#yorgey), and [Bogomolny](#bogomolny)) announce that Johnson-Trotter is an algorithm and proceed to explain an approach by example or explain a general method.
-The problem is that these results do not accurately explain Johnson's or Trotter's algorithm.
-We do explain both algorithms and related work here.
-
-There is no Johnson-Trotter algorithm because Johnson and Trotter did not invent an algorithm together.
-Each did publish an algorithm that constructs permutations, one year apart.
-[Johnson](#johnson) published his algorithm in 1963 and [Trotter](#trotter) his in 1962.
-The algorithms are very similar in the way they work.
-For that reason it makes sense to talk about a Johnson-Trotter method.
-
-[Johnson](#johnson) explained the Johnson-Trotter method in the same paper he gave his algorithm.
-The method is called algorithm and explained in [Wikipedia](#wikipedia), [Bogomolny](#bogomolny), and [Levitin](#levitin).
-[Trotter](#trotter) only published his algorithm in a brief contribution to the algorithms section of the Communications of the ACM.
-
-It also makes sense to talk about a Johnson-Trotter approach.
-The approach was known to bell ringers prior to 1962 and is called plain changes.
-The approach is mentioned by [Wikipedia](#wikipedia) and [Yorgey](#yorgey).
-
-
-# Johnson-Trotter Approach
-
-
-
-# Johnson-Trotter Method
-
-
-# Sedgewick's interpretation of Johnson's algorithm
-
-
-# Johnson's algorithm
-
-
-# Trotter's algorithm
-
-
-# Recursive algorithm
-
-
-
 Q: What is the Johnson-Trotter algorithm?
 
 If you are looking for an explanation of how Steinhaus-Johnson-Trotter algorithm constructs all permutations, keep reading.
+
+- Approach
+- Johnson-Trotter method
+- Iterative algorithm
+- Johnson's algorithm
+- Trotter's algorithm
+- Recursive algorithm
 
 There is a recursive approach and an iterative approach to generating the list of permutations.
 
 - Recursive algorithm here is not found anywhere else.
 - Iterative algorithm here is found in Sedgewick and Johnson.
   - Is my implementation efficient?
-
 
 [Sedgewick] explains his interpretation of Johnson's algorithm.
 
@@ -89,7 +53,7 @@ There is a recursive approach and an iterative approach to generating the list o
   
 [Trotter](#trotter) formulated an algorithm that creates the same list of permutations than Johnson.
 
-- Guenter Rote says
+- Trotter says
   - "The excuse for adding PERM to the growing pile of permutation
     generators is that, at the expense of some extra global storage,
     it cuts the manipulation of x to the theoretical minimum of n!
@@ -109,6 +73,9 @@ Related work
   - [Levitin] explains a formulation based in search that is not efficient?
   - [Bogomolny](#bogomolny) presents the algorithm that [Levitin] presents.
 
+
+
+# Approach
 
 For input sequence `1234`, the corresponding list of permutations is the following.
 
@@ -138,8 +105,6 @@ For input sequence `1234`, the corresponding list of permutations is the followi
 22 |  |--|  | 2143
 23 |  |  |--| 2134
 {% endhighlight %}
-
-
 
 The list of permutations for `1234` corresponds to the list of permutations for `123` in the following way.
 
@@ -172,79 +137,31 @@ The list of permutations for `1234` corresponds to the list of permutations for 
 
 
 
-# Recursive approach
 
+# Johnson-Trotter Method
 
-
-{% highlight asciidoc %}
- 0 |  | 12
- 1 |--| 21 L = 2
-{% endhighlight %}
-
-
+My interpretation of Johnson's rules or *Method in Terms of Marks*.
 
 {% highlight asciidoc %}
- 0 |  | 12	        -->  0 |  |  | 123
-                             1 |  |--| 132 L = 3
-                             2 |--|  | 312 L = 3
- 1 |--| 21 L = 2        -->  3 |  |--| 321 L = 2
-                             4 |--|  | 231 L = 3
-                             5 |  |--| 213 L = 3
+JohnsonRules(S, N)
+ 10: FOR e := 1 TO N
+ 20:   I[e] := e
+ 30:   O[e] := e
+ 40:   D[e] := -1
+ 50: DO
+ 60:   FOR e := N TO 1
+ 70:     IF 0 < I[e] + D[e] <= n AND e > O[I[e] + D[e]]
+ 80:       BREAK
+ 90:   IF e = 1
+110:     RETURN
+120:   SWAP(S, I[e], I[e] + D[e])
+130:   SWAP(O, I[e], I[e] + D[e])
+140:   SWAP(I, e, O[I[e]])
+150:   FOR e := e + 1 TO N
+160:     D[e] := -D[e]
+170: LOOP
 {% endhighlight %}
 
-
-
-{% highlight asciidoc %}
- 0 |  |  | 123         -->   0 |  |  |  | 1234	   
-                             1 |  |  |--| 1243 L = 4
-                             2 |  |--|  | 1423 L = 4
-                             3 |--|  |  | 4123 L = 4
- 1 |--|  | 132 L = 3   -->   4 |  |  |--| 4132 L = 3
-                             5 |--|  |  | 1432 L = 4
-                             6 |  |--|  | 1342 L = 4
-                             7 |  |  |--| 1324 L = 4
- 2 |  |--| 312 L = 3   -->   8 |--|  |  | 3124 L = 3
-                             9 |  |  |--| 3142 L = 4
-                            10 |  |--|  | 3412 L = 4
-                            11 |--|  |  | 4312 L = 4
- 3 |--|  | 321 L = 2   -->  12 |  |  |--| 4321 L = 2
-                            13 |--|  |  | 3421 L = 4
-                            14 |  |--|  | 3241 L = 4
-                            15 |  |  |--| 3214 L = 4
- 4 |  |--| 231 L = 3   -->  16 |--|  |  | 2314 L = 3
-                            17 |  |  |--| 2341 L = 4
-                            18 |  |--|  | 2431 L = 4
-                            19 |--|  |  | 4231 L = 4
- 5 |--|  | 213 L = 3   -->  20 |  |  |--| 4213 L = 3
-                            21 |--|  |  | 2413 L = 4
-                            22 |  |--|  | 2143 L = 4
-                            23 |  |  |--| 2134 L = 4
-{% endhighlight %}
-
-
-
-My recursive version of Johnson-Trotter.
-
-{% highlight asciidoc %}
-JohnsonTrotterRecursive(S, L, N, D)
- 10: o := 0
- 20: IF L < N THEN
- 30:  o := JohnsonTrotterRecursive(S, L, N, D)
- 40: IF D[L] = right
- 50:   FOR i := 1 TO L - 1
- 60:    swap_with_next(S, o + i)
- 70:    IF L < N THEN
- 80:      o := JohnsonTrotterRecursive(S, L, N, D)
- 90:   D[L] := left
-110:   RETURN o
-120: ELSE
-130:   FOR i := L - 1 DOWN TO 1
-140:     swap_with_next(S, o + i)
-150:     IF L < N THEN
-160:       o := JohnsonTrotterRecursive(S, L, N, D)
-170:   D[L] := right
-180:   RETURN o + 1
-{% endhighlight %}
 
 {% highlight c %}
 #include <stdio.h>
@@ -253,7 +170,9 @@ JohnsonTrotterRecursive(S, L, N, D)
 
 #define Ss(s) scanf("%s", s)
 
-int count = 1;
+#define MIN(x,y) ( x < y ? x : y )
+
+int count = 0;
 void print_swap(int i, int n) {
   int j;
   printf("%4d ", count++);
@@ -265,52 +184,50 @@ void print_swap(int i, int n) {
   printf("|");
 }
 
-void swap_w_next(char *s, int i) {
+void swap_chars(char *s, int i, int j) {
   char t = s[i];
-  s[i] = s[i + 1];
-  s[i + 1] = t;
+  s[i] = s[j];
+  s[j] = t;
 }
 
-int jt(char *s, int l, int n, int *d) {
-  int i;
-  int o = 0;
-  if(l < n)
-    o = jt(s, l + 1, n, d);
-  if(d[l])
-    for(i = 0; i < l - 1; i++) {
-      swap_w_next(s, o + i);
-      print_swap(o + i, n);
-      printf(" %s L = %2d\n", s, l);
-      if(l < n)
-	o = jt(s, l + 1, n, d);
-    }
-  else {
-    for(i = l - 2; 0 <= i; i--) {
-      swap_w_next(s, o + i);
-      print_swap(o + i, n);
-      printf(" %s L = %2d\n", s, l);
-      if(l < n)
-	o = jt(s, l + 1, n, d);
-    }
-    o++;
-  }
-  d[l] = !d[l];
-  return o;
+void swap_ints(int *s, int i, int j) {
+  int t = s[i];
+  s[i] = s[j];
+  s[j] = t;
 }
 
 void johnson_trotter(char *s, int n) {
-  int i;
-  int d[MAX_LEN + 1];
-  for(i = 0; i < MAX_LEN + 1; i++)
-    d[i] = 0;
   print_swap(-1, n);
   printf(" %s\n", s);
-  jt(s, 2, n, d);
+
+  int e;
+  int i[n];
+  int o[n];
+  int d[n];
+  for(e = 0; e < n; e++) {
+    i[e] = e;
+    o[e] = e;
+    d[e] = -1;
+  }
+  while(1) {
+    for(e = n - 1; 0 < e; e--)
+      if(0 <= i[e] + d[e] && i[e] + d[e] <= n - 1 && e > o[i[e] + d[e]])
+	break;
+    if(e == 0)
+      return;
+    swap_chars(s, i[e], i[e] + d[e]);
+    swap_ints(o, i[e], i[e] + d[e]);
+    swap_ints(i, e, o[i[e]]);
+    print_swap(MIN(i[e], i[e] - d[e]), n);
+    printf(" %s e = %d\n", s, e + 1);
+    for(e += 1; e < n; e++)
+      d[e] = -d[e];
+  }
 }
 
 int main() {
-  char s[MAX_LEN];
   int slen;
+  char s[MAX_LEN];
   Ss(s);
   for(slen = 0; s[slen] != '\0'; slen++);
   johnson_trotter(s, slen);
@@ -319,7 +236,7 @@ int main() {
 {% endhighlight %}
 
 
-# Iterative approach
+# Iterative algorithm
 
 Sedgewick's labeling of permutations.
 
@@ -469,100 +386,8 @@ int main() {
 }
 {% endhighlight %}
 
-My interpretation of Johnson's rules or *Method in Terms of Marks*.
 
-{% highlight asciidoc %}
-JohnsonRules(S, N)
- 10: FOR e := 1 TO N
- 20:   I[e] := e
- 30:   O[e] := e
- 40:   D[e] := -1
- 50: DO
- 60:   FOR e := N TO 1
- 70:     IF 0 < I[e] + D[e] <= n AND e > O[I[e] + D[e]]
- 80:       BREAK
- 90:   IF e = 1
-110:     RETURN
-120:   SWAP(S, I[e], I[e] + D[e])
-130:   SWAP(O, I[e], I[e] + D[e])
-140:   SWAP(I, e, O[I[e]])
-150:   FOR e := e + 1 TO N
-160:     D[e] := -D[e]
-170: LOOP
-{% endhighlight %}
-
-
-{% highlight c %}
-#include <stdio.h>
-
-#define MAX_LEN 30
-
-#define Ss(s) scanf("%s", s)
-
-#define MIN(x,y) ( x < y ? x : y )
-
-int count = 0;
-void print_swap(int i, int n) {
-  int j;
-  printf("%4d ", count++);
-  for(j = 0; j < n - 1; j++)
-    if(j == i)
-      printf("|--");
-    else
-      printf("|  ");
-  printf("|");
-}
-
-void swap_chars(char *s, int i, int j) {
-  char t = s[i];
-  s[i] = s[j];
-  s[j] = t;
-}
-
-void swap_ints(int *s, int i, int j) {
-  int t = s[i];
-  s[i] = s[j];
-  s[j] = t;
-}
-
-void johnson_trotter(char *s, int n) {
-  print_swap(-1, n);
-  printf(" %s\n", s);
-
-  int e;
-  int i[n];
-  int o[n];
-  int d[n];
-  for(e = 0; e < n; e++) {
-    i[e] = e;
-    o[e] = e;
-    d[e] = -1;
-  }
-  while(1) {
-    for(e = n - 1; 0 < e; e--)
-      if(0 <= i[e] + d[e] && i[e] + d[e] <= n - 1 && e > o[i[e] + d[e]])
-	break;
-    if(e == 0)
-      return;
-    swap_chars(s, i[e], i[e] + d[e]);
-    swap_ints(o, i[e], i[e] + d[e]);
-    swap_ints(i, e, o[i[e]]);
-    print_swap(MIN(i[e], i[e] - d[e]), n);
-    printf(" %s e = %d\n", s, e + 1);
-    for(e += 1; e < n; e++)
-      d[e] = -d[e];
-  }
-}
-
-int main() {
-  int slen;
-  char s[MAX_LEN];
-  Ss(s);
-  for(slen = 0; s[slen] != '\0'; slen++);
-  johnson_trotter(s, slen);
-  return 0;
-}
-{% endhighlight %}
+# Johnson's algorithm
 
 My interpretation of Johnson's algorithm or *Method in Terms of Positions*.
 
@@ -687,6 +512,8 @@ int main() {
 }
 {% endhighlight %}
 
+
+# Trotter's algorithm
 
 Trotter's algorithm.
 
@@ -818,6 +645,159 @@ int main() {
   return 0;
 }
 {% endhighlight %}
+
+
+
+# Recursive algorithm
+
+{% highlight asciidoc %}
+ 0 |  | 12
+ 1 |--| 21 L = 2
+{% endhighlight %}
+
+
+
+{% highlight asciidoc %}
+ 0 |  | 12	        -->  0 |  |  | 123
+                             1 |  |--| 132 L = 3
+                             2 |--|  | 312 L = 3
+ 1 |--| 21 L = 2        -->  3 |  |--| 321 L = 2
+                             4 |--|  | 231 L = 3
+                             5 |  |--| 213 L = 3
+{% endhighlight %}
+
+
+
+{% highlight asciidoc %}
+ 0 |  |  | 123         -->   0 |  |  |  | 1234	   
+                             1 |  |  |--| 1243 L = 4
+                             2 |  |--|  | 1423 L = 4
+                             3 |--|  |  | 4123 L = 4
+ 1 |--|  | 132 L = 3   -->   4 |  |  |--| 4132 L = 3
+                             5 |--|  |  | 1432 L = 4
+                             6 |  |--|  | 1342 L = 4
+                             7 |  |  |--| 1324 L = 4
+ 2 |  |--| 312 L = 3   -->   8 |--|  |  | 3124 L = 3
+                             9 |  |  |--| 3142 L = 4
+                            10 |  |--|  | 3412 L = 4
+                            11 |--|  |  | 4312 L = 4
+ 3 |--|  | 321 L = 2   -->  12 |  |  |--| 4321 L = 2
+                            13 |--|  |  | 3421 L = 4
+                            14 |  |--|  | 3241 L = 4
+                            15 |  |  |--| 3214 L = 4
+ 4 |  |--| 231 L = 3   -->  16 |--|  |  | 2314 L = 3
+                            17 |  |  |--| 2341 L = 4
+                            18 |  |--|  | 2431 L = 4
+                            19 |--|  |  | 4231 L = 4
+ 5 |--|  | 213 L = 3   -->  20 |  |  |--| 4213 L = 3
+                            21 |--|  |  | 2413 L = 4
+                            22 |  |--|  | 2143 L = 4
+                            23 |  |  |--| 2134 L = 4
+{% endhighlight %}
+
+
+
+My recursive version of Johnson-Trotter.
+
+{% highlight asciidoc %}
+JohnsonTrotterRecursive(S, L, N, D)
+ 10: o := 0
+ 20: IF L < N THEN
+ 30:  o := JohnsonTrotterRecursive(S, L, N, D)
+ 40: IF D[L] = right
+ 50:   FOR i := 1 TO L - 1
+ 60:    swap_with_next(S, o + i)
+ 70:    IF L < N THEN
+ 80:      o := JohnsonTrotterRecursive(S, L, N, D)
+ 90:   D[L] := left
+110:   RETURN o
+120: ELSE
+130:   FOR i := L - 1 DOWN TO 1
+140:     swap_with_next(S, o + i)
+150:     IF L < N THEN
+160:       o := JohnsonTrotterRecursive(S, L, N, D)
+170:   D[L] := right
+180:   RETURN o + 1
+{% endhighlight %}
+
+{% highlight c %}
+#include <stdio.h>
+
+#define MAX_LEN 30
+
+#define Ss(s) scanf("%s", s)
+
+int count = 1;
+void print_swap(int i, int n) {
+  int j;
+  printf("%4d ", count++);
+  for(j = 0; j < n - 1; j++)
+    if(j == i)
+      printf("|--");
+    else
+      printf("|  ");
+  printf("|");
+}
+
+void swap_w_next(char *s, int i) {
+  char t = s[i];
+  s[i] = s[i + 1];
+  s[i + 1] = t;
+}
+
+int jt(char *s, int l, int n, int *d) {
+  int i;
+  int o = 0;
+  if(l < n)
+    o = jt(s, l + 1, n, d);
+  if(d[l])
+    for(i = 0; i < l - 1; i++) {
+      swap_w_next(s, o + i);
+      print_swap(o + i, n);
+      printf(" %s L = %2d\n", s, l);
+      if(l < n)
+	o = jt(s, l + 1, n, d);
+    }
+  else {
+    for(i = l - 2; 0 <= i; i--) {
+      swap_w_next(s, o + i);
+      print_swap(o + i, n);
+      printf(" %s L = %2d\n", s, l);
+      if(l < n)
+	o = jt(s, l + 1, n, d);
+    }
+    o++;
+  }
+  d[l] = !d[l];
+  return o;
+}
+
+void johnson_trotter(char *s, int n) {
+  int i;
+  int d[MAX_LEN + 1];
+  for(i = 0; i < MAX_LEN + 1; i++)
+    d[i] = 0;
+  print_swap(-1, n);
+  printf(" %s\n", s);
+  jt(s, 2, n, d);
+}
+
+int main() {
+  char s[MAX_LEN];
+  int slen;
+  Ss(s);
+  for(slen = 0; s[slen] != '\0'; slen++);
+  johnson_trotter(s, slen);
+  return 0;
+}
+{% endhighlight %}
+
+
+
+
+
+
+
 
 
 # References
