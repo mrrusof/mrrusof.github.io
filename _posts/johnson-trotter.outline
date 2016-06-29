@@ -1,22 +1,38 @@
+Q.   How does the Johnson-Trotter algorithm work?
+C.   There is no Johnson-Trotter algorithm. There is one algorithm by Johnson and one by Trotter.
+
+1. If there is no Johnson-Trotter algorithm, what are top results in google explaining?
+   They are explaining Johnson-Trotter sequences, the Johnson-Trotter method, or a variant of Johnson's algorithm.
+2. What is each one, what is the difference between them?
+
 Q.   How does Johnson's algorithm / Trotter's algorithm work?
-C.   Both algorithms determine the elements to swap by means of a position, a direction, and an offset.
+C.   They are very similar. Both algorithms determine the elements to swap by means of a position, a direction, and an offset.
+
+1.   What is position, direction, and offset?
+     1.   Position is the position of each element.
+     2.   Direction is the direction of movement of each element.
+     3.   Offset is the offset of the 1...n elements within the rest of the elements.
+     
+I.   Position, direction, and offset deterimne the state of the Johnson-Trotter Method.
+     1.   The state consists of a permutation and direction for eac element.
+     	  Example: Johnson-Trotter sequences for 123.
+
+
+I.   Both algorithms determine the position by means of a set of counters.
+     1.   In both algorithms, there is one counter for each element.
+     2.   In each algorithm, position is determined by a different rule.
+II.  Johnson's algorithm determines the direction and offset from the current state of the counters.
+III. Trotter's algorithm determines the direction from the previous state of the counters and the previous direction.
+IV.  Trotter's algorithm determines the offset from the previous state of the counters.
+
+4.   Is it possible to implement the method recursively?
+     Yes. Consider my recursive algorithm.
+
 S.   What is the significance of knowing how the Johnson-Trotter algorithm works?
      - Learn it so that you don't reinvent it when you need to construct permutations.
      - It is a fundamental part of any good programmer's bag of tricks.
 
-1.   What is a Johnson-Trotter sequence?
-     Johnson-Trotter sequence is given by approach.
-2.   What is position, direction, and offset?
-     Position, direction, and offset are given by the Johnson-Trotter Method.
-     1.   Position is the position of each element.
-     2.   Direction is the direction of movement of each element.
-     3.   Offset is the offset of the 1...n elements within the rest of the elements.
-3.   Sedgewick's iterative algorithm???
-I.   Both algorithms determine the position by means of a set of counters.
-II.  Johnson's algorithm determines the direction and offset from the current state of the counters.
-III. Trotter's algorithm determines the direction and offset from the previous state of the counters.
-4.   Is it possible to implement the method recursively?
-     Yes. Consider my recursive algorithm.
+
 
 INTRODUCTION
 
