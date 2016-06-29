@@ -6,20 +6,22 @@ C.   There is no Johnson-Trotter algorithm. There is one algorithm by Johnson an
 2. What is each one, what is the difference between them?
 
 Q.   How does Johnson's algorithm / Trotter's algorithm work?
-C.   They are very similar. Both algorithms determine the elements to swap by means of a position, a direction, and an offset.
+C.   The algorithms work in a very similar way. Both algorithms determine an element, a position (relative position and offset), and a direction that determine the elements to transpose.
 
-1.   What is position, direction, and offset?
-     1.   Position is the position of each element.
+0.   What is an example?
+
+1.   What is position and direction?
+     1.   Position consists of the a relative position and an offset.
+     	  1. Relative position is the position of the element within the 1...n elements.
+          2. Offset is the offset of the 1...n elements within the rest of the elements.
      2.   Direction is the direction of movement of each element.
-     3.   Offset is the offset of the 1...n elements within the rest of the elements.
      
-I.   Position, direction, and offset deterimne the state of the Johnson-Trotter Method.
-     1.   The state consists of a permutation and direction for eac element.
-     	  Example: Johnson-Trotter sequences for 123.
+2.   What is the rule for determining the element?
+     The rule is given by the Johnson-Trotter method.
 
-
-I.   Both algorithms determine the position by means of a set of counters.
+I.   Both keep a set of counters that determine the next element to move and its position.
      1.   In both algorithms, there is one counter for each element.
+     1.   In each algorithm, the next element to move is determined by a different rule.
      2.   In each algorithm, position is determined by a different rule.
 II.  Johnson's algorithm determines the direction and offset from the current state of the counters.
 III. Trotter's algorithm determines the direction from the previous state of the counters and the previous direction.
