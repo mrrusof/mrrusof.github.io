@@ -12,8 +12,12 @@ Q'. Given that the algorithms by Johnson and Trotter are groupped together, what
 A. Both have corresponding steps and both have the same core datastructure.
    Both algorithms determine an element to move from a set of counters, determine the direction of movement, and determine the absolute position of the element.
 S.   What is the significance of knowing how the Johnson-Trotter algorithm works?
-     - Learn it so that you don't reinvent it when you need to construct permutations.
-     - It is a fundamental part of any good programmer's bag of tricks.
+     1.   If you know what the Johnson/Trotter algorithms are, you can add them to your bag of tricks.
+     2.   If you know how the Johnson/Trotter algorithm works, you might be able to solve difficult problems.
+          1.   Example 1
+	  2.   Example 2
+	  3.   Example 3
+     3.   If you know what the Johnson/Trotter algorithm have in common, you might be able to remember the algorithm easily.
 
 1.   Example Johnson-Trotter sequence.
      1.   Position consists of the a relative position and an offset.
