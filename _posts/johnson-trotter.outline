@@ -1,24 +1,26 @@
-Q.   How does the Johnson-Trotter algorithm work?
-C.   There is no Johnson-Trotter algorithm. There is one algorithm by Johnson and one by Trotter.
+Q.  What is the Johnson-Trotter algorithm and how does it work? <--- Too easy to answer.
+Q'. What is the Johnson algorithm, the Trotter algorithm, and how does each work? <--- Too easy to answer.
+Q'. Is there a method common to the Johnson & Trotter algorithms? <--- Question based on preference or taste.
+Q'. What are common characteristics of Johnson's and Trotter's algorithms?
+Q'. Given that there is an algorithm by Johnson and another by Trotter, what should I learn about Johnson-Trotter? <--- Preference or taste.
+A. Yes. The method consists in selecting one element of the current permutation and moving it to the left or right.
+Q'. Does it suffice to learn what popular sources explain without reading the original work? <--- No.
+Q'. Are the algorithms the same? <--- Too easy to answer.
+Q'. Given that there is not a single Johnson-Trotter algorithm, but an algorithm by Johnson and another by Trotter, what do the algorithms have in common?
 
-1. If there is no Johnson-Trotter algorithm, what are top results in google explaining?
-   They are explaining Johnson-Trotter sequences, the Johnson-Trotter method, or a variant of Johnson's algorithm.
-2. What is each one, what is the difference between them?
+Q'. Given that the algorithms by Johnson and Trotter are groupped together, what do the algorithms have in common besides perhaps the fact that they produce the same sequences.
+A. Both have corresponding steps and both have the same core datastructure.
+   Both algorithms determine an element to move from a set of counters, determine the direction of movement, and determine the absolute position of the element.
+S.   What is the significance of knowing how the Johnson-Trotter algorithm works?
+     - Learn it so that you don't reinvent it when you need to construct permutations.
+     - It is a fundamental part of any good programmer's bag of tricks.
 
-Q.   How does Johnson's algorithm / Trotter's algorithm work?
-C.   The algorithms work in a very similar way. Both algorithms determine an element, a position (relative position and offset), and a direction that determine the elements to transpose.
-
-0.   What is an example?
-
-1.   What is position and direction?
+1.   Example Johnson-Trotter sequence.
      1.   Position consists of the a relative position and an offset.
      	  1. Relative position is the position of the element within the 1...n elements.
           2. Offset is the offset of the 1...n elements within the rest of the elements.
-     2.   Direction is the direction of movement of each element.
+     2.   Direction is the direction of movement of selected element.
      
-2.   What is the rule for determining the element?
-     The rule is given by the Johnson-Trotter method.
-
 I.   Both keep a set of counters that determine the next element to move and its position.
      1.   In both algorithms, there is one counter for each element.
      1.   In each algorithm, the next element to move is determined by a different rule.
@@ -27,14 +29,15 @@ II.  Johnson's algorithm determines the direction and offset from the current st
 III. Trotter's algorithm determines the direction from the previous state of the counters and the previous direction.
 IV.  Trotter's algorithm determines the offset from the previous state of the counters.
 
-4.   Is it possible to implement the method recursively?
+2.   What does Levitin explain?
+     Johnson's "Method in terms of marks."
+
+3.   Is it not possible to just implement Johnson's method? What would be the advantage of the method?
+
+4.   Is there a simpler implementation of any of the algorithms?
+
+5.   Is there a recursive algorithm that constructs Johnson-Trotter sequences?
      Yes. Consider my recursive algorithm.
-
-S.   What is the significance of knowing how the Johnson-Trotter algorithm works?
-     - Learn it so that you don't reinvent it when you need to construct permutations.
-     - It is a fundamental part of any good programmer's bag of tricks.
-
-
 
 INTRODUCTION
 
@@ -43,25 +46,20 @@ The research question as something not well understood about the topic.
 The significance of the question.
 The claim.
 
-Q.  What is the Johnson-Trotter algorithm and how does it work?
-Q'. What is the Johnson algorithm, the Trotter algorithm, and how does each work?
-Q'. Is there a method common to the Johnson & Trotter algorithms and how does it work?
-Q'. What are the common characteristics of the Johnson-Trotter method?
-
 - What is the current state of the topic?
 
 When you study permutation algorithms, you find the Johnson-Trotter algorithm.
 You can find many resources on the internet explaining the Johnson-Trotter algorithm.
-You can find an explanation in a text book by Levitin.
+You can find an explanation in a textbook by Levitin.
 
 - What is the research question formulated as something not well understood about the topic?
 
-You may think that all of the resources explain the same algorithm and you only have to read one.
-However, Johnson and Trotter never wrote an algorithm together.
+You may think that all of the sources explain the same algorithm and that reading any source will suffice.
+However, when you read more than one source you find that the explanations are sometimes not similar.
+A given source either explains the structure of Johnson-Trotter sequences or explains a method for constructing Johnson-Trotter sequences that looks suspiciously abstract.
+When you search for an original publication for Johnson-Trotter's algorithm you find that there are in fact two different algorithms and that the explanations you already read do not really explain either of them.
+You will not learn any of the two algorithms or the reason they are groupped together (besides the fact that they produce the same sequences).
 
-What is not understood is that these resources explain either a general method or Johnson-Trotter sequences.
-What is not understood is that these resources explain a general method that corresponds to Johnson's algorithm and Trotter's algorithm.
-What is not understood is what the Johnson and Trotter algorithms are and how they work.
 
 - What is the significance of the question?
 
@@ -69,14 +67,15 @@ So what if I do not know the difference between the method, the algorithms, and 
 
 If you know what the Johnson/Trotter algorithms are, you can add them to your bag of tricks.
 If you know how the Johnson/Trotter algorithm works, you might be able to solve difficult problems.
+If you know what the Johnson/Trotter algorithm have in common, you might be able to remember the algorithm easily.
 
 
 - What is the claim?
 
+Both have corresponding steps and both have the same core datastructure.
 
 
-
-EXAMPLE
+EXAMPLE INTRODUCTION
 
 Risk is currently studied from a mathematical point of view.
 Risk is considered a mathematical concept driven by rational motivations.
