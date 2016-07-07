@@ -904,8 +904,8 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
 
 
 
-{% include share.html %}
 {% include subscribe.html %}
+{% include share.html %}
 
 
 

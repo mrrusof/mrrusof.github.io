@@ -478,8 +478,8 @@ Do you have any questions, comments, suggestions? Let me know in the comments.
 
 
 
-{% include share.html %}
 {% include subscribe.html %}
+{% include share.html %}
 
 
 

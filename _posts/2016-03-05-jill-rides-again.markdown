@@ -405,8 +405,8 @@ What was your experience solving this problem? Let me know in the
 comments.
 
 
-{% include share.html %}
 {% include subscribe.html %}
+{% include share.html %}
 
 
 # References
