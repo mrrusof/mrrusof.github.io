@@ -202,7 +202,8 @@ the comments.
 Thanks to [Eduardo Romano](https://mx.linkedin.com/in/edoromano/en) for challenging me to solve this problem.
 
 
-{% include subscribe.ext %}
+{% include share.html %}
+{% include subscribe.html %}
 
 
 # Comments

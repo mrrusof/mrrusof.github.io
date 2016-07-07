@@ -478,7 +478,8 @@ Do you have any questions, comments, suggestions? Let me know in the comments.
 
 
 
-{% include subscribe.ext %}
+{% include share.html %}
+{% include subscribe.html %}
 
 
 
@@ -507,7 +508,6 @@ Do you have any questions, comments, suggestions? Let me know in the comments.
     R. Sedgewick, Computing Surveys, 9(2) (1977), pp. 137-164
   </dd>
 </dl>
-
 
 
 # Comments

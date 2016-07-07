@@ -667,7 +667,8 @@ The worst case scenario is that all boxes in the input sequence are incomparable
 Do you have any idea how to solve Stacking Boxes faster? Let me know in the comments.
 
 
-{% include subscribe.ext %}
+{% include share.html %}
+{% include subscribe.html %}
 
 
 # Comments

@@ -225,7 +225,8 @@ solutions are few, we consider all candidate solutions and select the
 best.
 
 
-{% include subscribe.ext %}
+{% include share.html %}
+{% include subscribe.html %}
 
 
 # Comments

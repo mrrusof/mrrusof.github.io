@@ -106,7 +106,8 @@ Do you have any interesting techniques for redirecting output? Let me
 know in the comments.
 
 
-{% include subscribe.ext %}
+{% include share.html %}
+{% include subscribe.html %}
 
 
 # Comments

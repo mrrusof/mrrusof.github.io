@@ -98,7 +98,8 @@ K20:       3,040,239,935,992,309,703,757,730
 {% endhighlight %}
 
 
-{% include subscribe.ext %}
+{% include share.html %}
+{% include subscribe.html %}
 
 
 # Comments

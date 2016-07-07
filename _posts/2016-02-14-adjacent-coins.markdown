@@ -289,7 +289,8 @@ the maximum gain or minimum loss, we can stop iterating the coins in
 the middle as soon as we find a sequence `010` or `101`.
 
 
-{% include subscribe.ext %}
+{% include share.html %}
+{% include subscribe.html %}
 
 
 # Comments
