@@ -7,7 +7,7 @@ permalink: /about/
 My name is Ruslan Ledesma-Garza, I am a software engineer and I like
 explaining code.
 You can read more by
-<a onclick="subscribe()">subscribing to the newsletter</a>
+<a onclick="show_spopup()">subscribing to the newsletter</a>
 and <a href="{{ "/feed.xml" | prepend: site.baseurl }}">subscribing via RSS</a>.
 You can find me on
 <a href="https://twitter.com/{{ site.twitter_username }}">Twitter</a>,
