@@ -33,11 +33,14 @@
 
 <div id="spopup">
   <div style="margin-top: 20px; margin-bottom: 20px;">
-    Subscribe to the newsletter.
+    <div style="display: inline-block; width: 20%;"></div>
+    <div style="display: inline-block; width: 50%; text-align: center;">Subscribe to the newsletter.</div>
+    <div style="display: inline-block; width: 20%; text-align: right;">
+      <a onclick="hide_spopup()">Close</a>
+    </div>
     <br/>
     <input id="spopup-email" type="text" onfocus="clear_spopup_email()" onkeypress="if(event.keyCode == 13) subscribe();"/>
     <br/>
-    <input id="spopup-cancel" type="button" value="Cancel" onclick="hide_spopup()"/>
     <input id="spopup-subscribe" type="button" value="Subscribe" onclick="subscribe();"/>
   </div>
 </div>
