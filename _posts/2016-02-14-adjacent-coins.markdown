@@ -259,7 +259,7 @@ int main() {
 {% endhighlight %}
 
 
-# Summary
+# Discussion
 
 The first time I tried to solve the problem, I had the impression that
 a solution involved ranking the coins and selecting the highest rank.
