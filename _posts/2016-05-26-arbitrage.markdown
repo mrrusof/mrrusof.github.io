@@ -897,7 +897,7 @@ Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&cat
 Arbitrage is a graph problem that asks for a cycle of minimum weight that is shortest.
 The challenge is that the number of cycles for a given input graph is exponential on the number of vertices.
 We approach the challenge by considering a limited set of candidates in increasing order of length.
-Our approach overcomes the challenge because we consider n^4 paths in the worst case, which is a much lower amount of paths than the number of cycles for more than half of the input sizes.
+Our approach overcomes the challenge because we consider $@n^4@$ paths in the worst case, which is a much lower amount of paths than the number of cycles for more than half of the input sizes.
 Our approach corresponds to a popular solution found on the Internet that is usually considered similar to Floyd-Warshall when in reality only resembles Floyd-Warshall.
 Our approach is more similar to Slow All Pairs Shortest Paths by [Cormen et al](#cormen).
 The corresponding implementation is ranked 8th place as of 2016.05.26.
