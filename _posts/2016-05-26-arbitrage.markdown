@@ -2,7 +2,7 @@
 layout: post
 title: Arbitrage
 date: 2016-05-26
-edited: 2016-06-18
+edited: 2016-07-09
 author: Ruslan Ledesma-Garza
 summary: Do you want to make easy money? Maybe currency trading is what you are looking for.
 ---
@@ -731,7 +731,7 @@ The refinement is implemented in lines 5 to 8.
 After iteration `k`, shortest path `D[k][i,j]` may or may not consist of `k` edges.
 <br /><br />
 
-Considering intermediate vertices like Floyd-Warshall does is not an effective approach to solving Arbitrage.
+Considering intermediate vertices like Floyd-Warshall is not an effective approach to solving Arbitrage.
 Consider the following graph.
 
 <img src="/assets/2016-05-26.floyd-warshall-approach.png" alt="" style="width: 300px; display: block; margin-left: auto; margin-right: auto;" />
@@ -739,7 +739,7 @@ Consider the following graph.
 The solution is `1 -> 3 -> 1`.
 The application of the Floyd-Warshall approach is the following.
 We start with no intermediate vertices and thus the most beneficial paths are the edges of the graph.
-We consider vertex 2.
+We consider vertex `2`.
 
 {% highlight asciidoc %}
  ORIG | DEST | PREV PATH | PREV RATE | REFINED PATH | REFINED RATE
@@ -750,11 +750,11 @@ We consider vertex 2.
   3   |  3   | N/A       | N/A       | N/A          | N/A
 {% endhighlight %}
 
-We refine the most beneficial path from `1` to `3` because it is more beneficial than the edge `1 -> 3`.
-We do not refine the path from from `1` to `3` because it is not more beneficial than the edge `3 -> 1`.
+We refine the most beneficial path from `1` to `3` because going through `2` is more beneficial than the edge `1 -> 3`.
+We do not refine the path from from `3` to `1` because going through `2` is not more beneficial than the edge `3 -> 1`.
 There is no path from `1` to `1` or `3` to `3` because we have not considered enough intermediate vertices.
 Paths that begin or end in `2` remain the same because `2` is not an intermediate vertex.
-We consider vertex 3.
+We consider vertex `3`.
 
 {% highlight asciidoc %}
  ORIG | DEST | PREV PATH | PREV RATE | REFINED PATH     | REFINED RATE
