@@ -25,7 +25,7 @@
         alert("There was an error subscribing to the newsletter. Try again or subscribe via RSS.");
       }
     };
-    $.ajax({ url: "http://newsletter.ruslanledesma.com/subscribers/" + email,
+    $.ajax({ url: "https://correole.herokuapp.com/subscribers/" + email,
              type: "PUT",
              complete: callback });
   };

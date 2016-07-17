@@ -1,0 +1,247 @@
+---
+layout: post
+title: 'Correole: The minimum feature newsletter in Ruby'
+date: 2016-07-17
+author: Ruslan Ledesma-Garza
+summary: 'Correole is a minimum feature newsletter written in Ruby.
+Correole is ideal for a new blog when you just want to offer a minimal
+newsletter service. Correole plays nice with Heroku and only requires
+a confirmation page on the side of your blog.'
+---
+
+Building an audience for your blog and keeping it engaged is hard.
+Instead of crossing your fingers and waiting for your visitors to come
+back, you can invite them to keep in touch by receiving a newsletter.
+For Ruby on Rails blogs, there is newsletter engine
+[Maktoub](https://github.com/Sandglaz/maktoub).  For everything else,
+there is [Mailchimp](http://mailchimp.com).  And when you want to have
+the bare minimum, there is
+[Correole](https://github.com/mrrusof/correole).  Correole consists of
+a web API for subscribe + unsubscribe and a command for sending the
+newsletter.  The newsletter is composed automatically from the RSS
+feed of your blog and a configurable template.
+
+# Features
+
+Features are subscribe, unsubscribe, send, and purge.
+
+Subscribes happen via a form in your site.
+Take for example <a onclick="show_spopup()">the subscription form in
+this blog</a>.  The subscription form consists of a textbox and a
+button.  The form asks to enter an email address and the button submits the
+address to the subscribe endpoint.  The script that submits the address is
+the following.
+
+{% highlight javascript %}
+function subscribe() {
+  email = $("#spopup-email").val();
+  callback = function(_jqXHR, success) {
+    if(success == "success") {
+      alert("Thank you for subscribing to the newsletter.");
+    } else {
+      alert("There was an error subscribing to the newsletter. Try again or subscribe via RSS.");
+    }
+  };
+  $.ajax({ url: "https://correole.herokuapp.com/subscribers/" + email,
+           type: "PUT",
+           complete: callback });
+};
+{% endhighlight %}
+
+Transmission of the email address happens by means of SSL, so the
+address is kept private during transmission to Correole.
+
+Unsubscribes happen via a link you include in your newsletter, like
+the following.
+
+<img src="/assets/2016-07-17.unsubscribe-link.png" alt=""
+style="width: 75%; display: block; margin-left: auto; margin-right:
+auto; border: 2px solid" />
+
+For email address subscriber@mail.com, the URL of the link is the following.
+
+{% highlight asciidoc %}
+https://correole.herokuapp.com/unsubscribe/subscriber@mail.com
+{% endhighlight %}
+
+When the user opens the link in their browser, Correole unsubscribes
+them and issues a redirect to a confirmation page of your choice,
+ideally a page in your website with a style that is consistent with
+the rest of your site, like the following.
+
+<img src="/assets/2016-07-17.unsubscribe-confirmation.png" alt=""
+style="width: 75%; display: block; margin-left: auto; margin-right:
+auto; border: 2px solid" />
+
+Submission of newsletter happens on request via command `correole send`.
+
+{% highlight asciidoc %}
+$ correole send
+Fetch feed from http://ruslanledesma.com/feed.xml.
+There are 10 new items. The items are the following.
+[1] http://ruslanledesma.com/2016/06/17/why-does-heap-work.html
+[2] http://ruslanledesma.com/2016/05/26/how-to-count-cycles-in-kn.html
+[3] http://ruslanledesma.com/2016/05/26/arbitrage.html
+[4] http://ruslanledesma.com/2016/04/23/release-connections-thin-and-active-record.html
+[5] http://ruslanledesma.com/2016/03/25/stacking-boxes.html
+[6] http://ruslanledesma.com/2016/03/21/ecological-bin-packing.html
+[7] http://ruslanledesma.com/2016/03/18/the-blocks-problem.html
+[8] http://ruslanledesma.com/2016/03/14/the-3n-plus-1-problem.html
+[9] http://ruslanledesma.com/2016/03/08/protip-redirect-stdout-stderr-separate-files.html
+[10] http://ruslanledesma.com/2016/03/05/jill-rides-again.html
+[1/2] Send newsletter to subscriber1@mail.com.
+[2/2] Send newsletter to subscriber2@mail.com.
+Remember new items.
+Done.
+{% endhighlight %}
+
+Correole does best-effort delivery.
+When you execute `correole send`, tries to send the
+newsletter to each subscriber and does not retry or record failures.
+Command `correole send` is ideal for use in [Heroku
+scheduler](https://devcenter.heroku.com/articles/scheduler), so that
+you concentrate in writting content.
+
+When you execute `correole send`, Correole automatically composes an
+email from new RSS items and the configured templates.  Each email is
+multipart, so you know your readers will receive your newsletter just
+like you intended.  Templates for html and plain text are configurable
+ERB templates.  For example, the default HTML template is the
+following.
+
+{% highlight erb %}
+<html>
+  <body>
+    <h1><%= title %></h1>
+    <h2>New posts</h2>
+    <ul>
+<% for item in unsent_items %>
+      <li>
+        <h3>
+          <a href="<%= item.link %>"><%= item.title %></a>
+        </h3>
+<% if item.pub_date -%>
+        <p><i><%= item.pub_date.to_date %></i></p>
+<% end -%>
+        <p><%= item.description %></p>
+      </li>
+<% end %>
+    </ul>
+
+    <a href="<%= unsubscribe_uri %>">Unsubscribe here.</a>
+  </body>
+</html>
+{% endhighlight %}
+
+The variables that are available in HTML and plain templates are the
+following.
+
+- `title`. Title of your RSS feed.
+- `unsent_items`. List of RSS items that are new.  Each item consists of
+  following properties.
+  - `item.link`.  The link of the item.
+  - `item.pub_date`.  A `DateTime` object corresponding to the
+    timestamp of the item.
+  - `item.description`.  The description of the item.
+- `sent_items`.  List of RSS items that are given by the RSS feed and
+  are not new.  Each item consists of the same properties as the items
+  in list `unsent_items`.
+- `unsubscribe_uri`.  URI of the unsubscribe endpoint for a given
+  user.
+
+The first time you run the newsletter, you may want to omit items that
+are too old.  You can skip new items by means of command `correole
+purge`.  For example, before sending out the first newsletter I ran
+`correole purge` like so.
+
+{% highlight asciidor %}
+$ correole send
+Fetch feed from http://ruslanledesma.com/feed.xml.
+There are 10 new items. The items are the following.
+[1] http://ruslanledesma.com/2016/06/17/why-does-heap-work.html
+[2] http://ruslanledesma.com/2016/05/26/how-to-count-cycles-in-kn.html
+[3] http://ruslanledesma.com/2016/05/26/arbitrage.html
+[4] http://ruslanledesma.com/2016/04/23/release-connections-thin-and-active-record.html
+[5] http://ruslanledesma.com/2016/03/25/stacking-boxes.html
+[6] http://ruslanledesma.com/2016/03/21/ecological-bin-packing.html
+[7] http://ruslanledesma.com/2016/03/18/the-blocks-problem.html
+[8] http://ruslanledesma.com/2016/03/14/the-3n-plus-1-problem.html
+[9] http://ruslanledesma.com/2016/03/08/protip-redirect-stdout-stderr-separate-files.html
+[10] http://ruslanledesma.com/2016/03/05/jill-rides-again.html
+Purge the new items by remembering them.
+Done.
+{% endhighlight %}
+
+# Try it yourself in Heroku
+
+To configure and run the project on Heroku, follow the instructions in
+[`README.md`](https://github.com/mrrusof/correole).  [Correole's
+procfile](https://github.com/mrrusof/correole/blob/master/Procfile)
+includes processes `send` and `purge`, which you can run in [one-off
+dynos](https://devcenter.heroku.com/articles/one-off-dynos), like so.
+
+{% highlight asciidoc %}
+heroku run send
+{% endhighlight %}
+
+# Dependencies
+
+Correole is possible thanks to the wonderful libraries and services
+it uses.
+
+  - [Sinatra](https://github.com/sinatra/sinatra)
+  - [Thin](https://github.com/macournoyer/thin/)
+  - [Mail](https://github.com/mikel/mail)
+  - [ActiveRecord](https://github.com/rails/rails/tree/master/activerecord)
+  - [Sinatra ActiveRecord](https://github.com/janko-m/sinatra-activerecord)
+  - [Minitest](https://github.com/seattlerb/minitest)
+  - [Heroku](https://devcenter.heroku.com/articles/getting-started-with-ruby#introduction)
+  - [TravisCI](https://docs.travis-ci.com/user/languages/ruby)
+
+# Wishlist
+
+The following are features that I may or may not implement.
+
+- Newsletter archive.  Record the messages that Correole has sent.
+- Retry failed submit.  For each subscriber, record the newsletters
+  that have been submitted and the ones that have failed.  Retry
+  those that failed a given number of times.
+- Send one-off messages.  When you want to share exclusive content with
+  your subscribers, a one-off message is the way to go.
+
+# Feedback welcome
+
+Would you like to contribute? Submit a pull request with tests following
+these
+[guidelines](https://github.com/blog/1943-how-to-write-the-perfect-pull-request).
+
+Correole is released under MIT license, so you fork the project and
+use it in your propietary application.
+
+{% include subscribe.html %}
+{% include share.html %}
+
+# Comments
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'http://ruslanledesma.com/2016/07/17/correole.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '2016-07-17-correole'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//definecode.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a
+        href="https://disqus.com/?ref_noscript"
+        rel="nofollow">comments powered by Disqus.</a></noscript>
