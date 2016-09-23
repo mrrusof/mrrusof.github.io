@@ -64,20 +64,26 @@ estimating by planning poker.
 # Reason 1: Team members may be biased
 
 Team members may be biased towards a particular estimate because when
-you say your estimate outloud, you allow _anchoring bias_ and _peer
-pressure_ to happen.
+you say your estimate outloud, either
+_anchoring bias_ or _peer pressure_ may happen.
 **TODO: the problem is that the first estimate may not be accurate.**
-Once the conditions for either phenomenon are met, the phenomenon is
-very difficult to overcome.
+Anchoring bias and peer pressure are phenomena that are very difficult
+to overcome once they happen.
 
 Anchoring bias happens when you learn the estimate of another team
 member before you select your own estimate.
-Given these conditions, there are several explanations why the
-estimate that you select will be similar to the estimate that you
-learn, for example **TODO: footnote**.
+Anchoring bias consists in that you select a similar estimate to the
+estimate that you just learned.
+<!--
+There are several explanations of the mental process that produces
+anchoring bias, for example **TODO: footnote**.
 However, I consider more practical for you that you understand that
-anchoring bias corresponds to an unconscious mental process that you
-cannot overcome by sheer will or expertise.
+anchoring is unconscious and is very difficult to overcome
+by sheer will or expertise.
+-->
+Anchoring bias is very difficult to overcome because it is
+unconscious and neither sheer will nor expertise are effective against
+it.
 
 Consider the following three experiments that illustrate anchoring bias.
 
@@ -177,7 +183,7 @@ none of the anchoring conditions differed significantly from each
 other.
 -->
 
-_Experiment 2. Anchoring bias cannot be countered by sheer will._
+_Experiment 2. Anchoring bias is very difficult to overcome by sheer will._
 [Wilson, Houston, and Etling](#wilson) also ran the following experiment (_Study
 5_ in their report).
 They found that anchoring is very difficult to counter even when you
@@ -216,7 +222,7 @@ potential sentence suggested by the journalist.
 
 -->
 
-_Experiment 3. Anchoring bias will happen even if you are an expert._
+_Experiment 3. Anchoring bias is very difficult to overcome even if you are an expert._
 [Englich, Mussweiler, and Strack](#englich) did the following
 experiment (_Study 1_).
 They found that an anchor that is irrelevant from the legal point of
@@ -233,17 +239,70 @@ Experimental results indicate that participants were biased by the
 potential sentence suggested by the journalist.
 
 
-Peer pressure happens when you learn the estimate of another team
-member **after** you select your own estimate.
-Given these conditions, you may change your original estimate and
-choose a new estimate that is very similar to the one you just
-learned.
+<!--
+Social Pressure, Peer Pressure, Conformity
+Experiments by Solomon Asch, also known as:
+  - Asch conformity experiments
+  - Asch Paradigm
+
+Article:
+Opinions and Social Pressure
+http://www.columbia.edu/cu/psychology/terrace/w1001/readings/asch.pdf
+
+Experiment conditions:
+- Group of seven to nine youg men in a classroom.
+- All except one participant are confederates of the experimenter.
+  The remaining participant is the subject.
+- 123 subjects were applied the experiment
+- Group is told that experiment is on visual judgement.
+- Each run of the experiment consists of 18 rounds.
+- Group is told to compare the lenghts of lines.
+- In each round there are two cards.
+- One shows a single vertical black line, the standard.
+- The other shows three lines of various lengths, one is the same
+  length as the standard.
+- Participants are asked to choose from the second card the line that that
+  is of the same length as the line on the first card.
+- In the first two rounds, everyone chooses the matching line.
+- In subsequent rounds, all confederates choose a line that does not
+  match.
+- The confederates choose the right answer from time to time to reduce
+  suspicion.
+- When subject becomes suspicious, the run of the experiment is
+  discarded.
+- Out of the 18 rounds, in 12 rounds the confederates choose a wrong
+  line.
+- Without peer pressure, subjects choose a wrong line less than 1
+  percent of the time.
+- With peer pressure, subject choose a wrong line 36.8 percent of the
+  time.
+
+Conclusion: peer pressure has significant effect on subjects.
+-->
 
 <!--
-Social Pressure
-Study by Solomon Asch
+Article:
+Studies of independence and conformity: a minority of one against a
+unanimous majority
+http://innovationfootprints.com/wp-content/uploads/2015/06/minority-v.-majority-asch1956.pdf
 
 -->
+
+<!--
+Recreation of the Asch conformity experiment with robots
+Brandstetter et al. 2014.
+
+Conclusion: Robots do not create peer pressure.
+-->
+
+
+
+Peer pressure happens when you learn the estimate of another team
+member after you select your own estimate.
+Peer pressure consists in that you replace your original estimate with
+a new estimate that is very similar to the one you just learned.
+
+
 
 Planning poker rules out anchoring bias by requiring that each team
 member **privately** selects their estimate and that all estimates are
@@ -297,12 +356,14 @@ steps.
   <dd>
     Englich, B., Mussweiler, T., & Strack, F. (2006). <a href="http://www.eucim-te.eu/data/dppsenglich/File/PDFSStudien/PSPB_32(1).pdf">Playing Dice With Criminal Sentences: The Influence of Irrelevant Anchors on Experts' Judicial Decision Making.</a> Personality and Social Psychology Bulletin, 32(2), 188-200. doi:10.1177/0146167205282152
   </dd>
+<!--
   <dt id="northcraft">
     Northcraft and Neale
   </dt>
   <dd>
     Northcraft, G. B., & Neale, M. A. (1987). <a href="http://web.missouri.edu/segerti/capstone/northcraft_neale.pdf">Experts, amateurs, and real estate: An anchoring-and-adjustment perspective on property pricing decisions.</a> Organizational Behavior and Human Decision Processes, 39(1), 84-97. doi:10.1016/0749-5978(87)90046-x
   </dd>
+-->
   <dt id="rubin">
     Rubin
   </dt>
