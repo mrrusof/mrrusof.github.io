@@ -71,7 +71,7 @@ Anchoring bias and peer pressure are phenomena that are very difficult
 to overcome once they happen.
 
 Anchoring bias happens when you learn the estimate of another team
-member before you select your own estimate.
+member **before** you select your own estimate.
 Anchoring bias consists in that you select a similar estimate to the
 estimate that you just learned.
 <!--
@@ -286,6 +286,39 @@ Studies of independence and conformity: a minority of one against a
 unanimous majority
 http://innovationfootprints.com/wp-content/uploads/2015/06/minority-v.-majority-asch1956.pdf
 
+Summary:
+- Disagreement betwen a single person and a group.
+- Disagreement on a simple and clear matter of **fact**.
+
+Conditions:
+- Each group consists of 7 to 9 participants.
+- All participants were male college students.
+- All but one of the group were instructed to respond on certain
+  trials with wrong and unanimous judgements.
+- The other participant was unaware of the arrangement
+  --the subject--. 
+- "A minority of one against a wrong and unanimous majority."
+- The subject was nearly always seated before the last member of the majority.
+- Group was asked to match the length of a given line --the standard--
+  with one of three other lines.
+- One of the three comparison lines was equal to the standard, the
+  other two lengths differed from the standard.
+- The participants were asked to announce their judgements publicly in
+  the order in which they were seated.
+- A run of the experiment consisted of 18 comparisons.
+- The experiment was run for 123 subjects.
+- The subject heard the majority respond unanimously in 12 comparisons
+  with estimates that clearly contradicted his own observation.
+- The rest of the comparisons were answered correctly by the
+  confederates.
+- Under control conditions, accuracy  was of over 99 percent.
+- Under 
+
+Conclusion:
+1. Each unanimous wrong majority produced a marked and significant
+   distortion in the reported estimates.
+2. The preponderance of estimates was independent of the majority.
+
 -->
 
 <!--
@@ -295,30 +328,28 @@ Brandstetter et al. 2014.
 Conclusion: Robots do not create peer pressure.
 -->
 
-
-
-Peer pressure happens when you learn the estimate of another team
-member after you select your own estimate.
+Peer pressure happens when you learn the estimate of one or more team
+members **after** you select your own estimate.
 Peer pressure consists in that you replace your original estimate with
 a new estimate that is very similar to the one you just learned.
-
 
 
 Planning poker rules out anchoring bias by requiring that each team
 member **privately** selects their estimate and that all estimates are
 revealed **simultaneously**.
 
+<!--
 Does planning poker rule out anchoring bias only in the first round?
 
 Is it a problem that people know everyone's estimates after the first
 round?
 
 Is confluence towards estimate of experienced members anchoring bias?
-
+-->
 
 # Reason 2: Team members may not really understand the story
 
-
+I agree with 
 
 
 # Try this when you don't have planning poker cards
