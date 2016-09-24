@@ -312,7 +312,18 @@ Conditions:
 - The rest of the comparisons were answered correctly by the
   confederates.
 - Under control conditions, accuracy  was of over 99 percent.
-- Under 
+
+Quantitative results:
+- An estimate given by the subject in a **critical trial** is either
+  - Correct and thus independent of the majority
+  - incorrect and either identical with that of the majority or in its
+    direction.
+- Number of incorrect estimates is index of effect exerted by majority
+  upon the subject.
+- The number of incorrect estimates may vary from 0 to 12 for each run
+  of the experiment.
+- How often subjects erred in critical trials?
+  - 
 
 Conclusion:
 1. Each unanimous wrong majority produced a marked and significant
