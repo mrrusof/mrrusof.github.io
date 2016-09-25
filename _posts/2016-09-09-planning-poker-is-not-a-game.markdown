@@ -183,7 +183,7 @@ none of the anchoring conditions differed significantly from each
 other.
 -->
 
-_Experiment 2. Anchoring bias is very difficult to overcome by sheer will._
+_Experiment 2. Anchoring happens even if you try compensate._
 [Wilson, Houston, and Etling](#wilson) also ran the following experiment (_Study
 5_ in their report).
 They found that anchoring is very difficult to counter even when you
@@ -222,7 +222,7 @@ potential sentence suggested by the journalist.
 
 -->
 
-_Experiment 3. Anchoring bias is very difficult to overcome even if you are an expert._
+_Experiment 3. Anchoring bias happens if you are an expert._
 [Englich, Mussweiler, and Strack](#englich) did the following
 experiment (_Study 1_).
 They found that an anchor that is irrelevant from the legal point of
@@ -322,14 +322,28 @@ Quantitative results:
   upon the subject.
 - The number of incorrect estimates may vary from 0 to 12 for each run
   of the experiment.
-- How often subjects erred in critical trials?
-  - 
+- How often subjects erred in critical trials? Table 3 shows frequency
+  distribution of errors on critical trials.
+  - Errorless performances
+    - Control group had 95% of errorless performances.
+    - Experimental groups had 25% of errorless performances.
+  - Errors in critical trials
+    - Control group had less than 1% of errors in critical trials.
+    - Experimental groups had 37% of errors in critical trials.
+  - The differences between the control and experimental groups are
+    highly significant.
 
 Conclusion:
 1. Each unanimous wrong majority produced a marked and significant
    distortion in the reported estimates.
-2. The preponderance of estimates was independent of the majority.
-
+2. In critical trials, the majority of estimates was correct.
+3. Under no peer pressure, estimates are more accurate and vary less.
+4. Some subjects may resist very well peer pressure, while others may
+   follow the majority all the time.
+   - 24% of subjects gave errorless estimates
+   - 28% of subjects gave majority-determined estimates, from 8 to 12
+     times.
+   - The rest of the subjects (48%) had errors from 1 to 7 times.
 -->
 
 <!--
@@ -339,11 +353,54 @@ Brandstetter et al. 2014.
 Conclusion: Robots do not create peer pressure.
 -->
 
-Peer pressure happens when you learn the estimate of one or more team
-members **after** you select your own estimate.
-Peer pressure consists in that you replace your original estimate with
-a new estimate that is very similar to the one you just learned.
+Peer pressure consists in that the estimates that other members
+announce are very similar or the same.
+Peer pressure is difficult to overcome because even when you have
+reason to stick to a particular estimate, you may still choose the
+estimate that everyone else announced.
+Consider the following experiment.
 
+_Experiment 4. Peer pressure can be more powerful than facts._
+The experiment is by [Solomon Asch](#solomon) (_Experiment I_ in
+his report).
+He found that for a clear matter of fact, people under peer pressure
+give inaccurate estimates way more often than when they are not under
+pressure.
+He also found that under pressure, the majority of people will
+eventually give you an innacurate estimate.
+The experiment is the following.
+The experiment happened in a classroom.
+Each run of the experiment consisted of 18 trials.
+Each trial consisted in matching one line drawn on a card (the
+_standard_) with one of three other lines on another card.
+In each trial, the corresponding pair of cards was placed on the ledge
+of the blackboard.
+For each run of the experiment, 8 people participated.
+One of them was the subject and the rest were collaborators with
+Salomon.
+In each trial, each participant was asked to announce publicly their
+estimate.
+The subject was always second to last in announce his estimate.
+For each run of the experiment, the estimates given by the
+collaborators followed the same pattern.
+Collaborators estimated correctly in the first two trials and then
+estimated 12 of the remaining trials unanimously and incorrectly.
+Those 12 trials are the _critical trials_.
+In between the critical trials, collaborators estimated correctly the
+remaining 4 trials.
+The control experiment was the same except that participants did not
+announce their estimates publicly.
+The experimental results are the following.
+Without peer pressure, subjects estimated correctly 99% of the critical
+trials and thus Solomon concludes that the differences between the
+standard line and the rest were clearly distinguishable.
+Under peer pressure, estimates were correct 63% of the time and for
+this reason Solomon concludes that peer pressure has a significant
+effect on estimates.
+Without peer pressure, 5% of subjects gave some incorrect estimate.
+Under peer pressure, 76% of subjects gave some incorrect estimate.
+Thus, a given person that is under pressure will probably give you a
+bad estimate at some point.
 
 Planning poker rules out anchoring bias by requiring that each team
 member **privately** selects their estimate and that all estimates are
