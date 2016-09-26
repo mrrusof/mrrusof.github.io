@@ -1,11 +1,14 @@
 ---
 layout: post
-title: .
-#title: 'Why use planning poker instead of saying your
-#estimate outloud?'
-date: 2016-09-08
+title: 'Why use Planning Poker cards instead of saying your
+estimate outloud?'
+date: 2016-09-25
 author: Ruslan Ledesma-Garza
-summary: Something something
+summary: 'This article helps you understand why you really want to
+follow all steps of Planning 
+Poker and use the right tools, specially when you run a
+distributed Scrum team. This article makes for a good reference that
+you can share with any team member.'
 ---
 
 <!--
@@ -47,6 +50,11 @@ summary: Something something
 # Post
 -->
 
+Having experienced good and bad Scrum practices, I would like to
+help you understand why you really want to follow [all steps of Planning
+Poker](#planning-poker) and use the right tools, specially when you run a
+distributed Scrum team.
+
 When you estimate user stories for a Scrum sprint, you want to
 estimate as accurately as possible given the information you have.
 Inaccurate estimates are a problem because they may cause
@@ -54,26 +62,29 @@ you to drop stories (which is bad for business) or to carry through more
 work than you expected (which is bad for you).
 
 When you choose to just say your estimate outloud after discussing a
-story instead of following [all steps of planning
-poker](#planning-poker) **TODO: convert to footnote**, your estimates may be inaccurate for at least
-two reasons.
-Let me explain these reasons and why I believe you are better off
-estimating by planning poker.
+story instead of following all steps of Planning Poker, your estimates
+may be inaccurate for at least two reasons.
+The two reasons affect you even more when you run a distributed
+Scrum team.
+Let me explain the reasons and why I believe you are better off
+estimating by Planning Poker.
 
 
 # Reason 1: Team members may be biased
 
-Team members may be biased towards a particular estimate because when
-you say your estimate outloud, either
-_anchoring bias_ or _peer pressure_ may happen.
-**TODO: the problem is that the first estimate may not be accurate.**
+Team members may be biased away from an accurate estimate because when
+you say your estimate outloud, at least
+**anchoring bias** or **peer pressure** may happen.
+When either happens, you take into account information
+that is irrelevant to your estimate and thus produce an inaccurate
+estimate.
 Anchoring bias and peer pressure are phenomena that are very difficult
 to overcome once they happen.
 
 Anchoring bias happens when you learn the estimate of another team
-member **before** you select your own estimate.
-Anchoring bias consists in that you select a similar estimate to the
-estimate that you just learned.
+member before you select your own estimate.
+Anchoring bias consists in that you select an estimate that is similar
+to the estimate that you just learned.
 <!--
 There are several explanations of the mental process that produces
 anchoring bias, for example **TODO: footnote**.
@@ -81,11 +92,10 @@ However, I consider more practical for you that you understand that
 anchoring is unconscious and is very difficult to overcome
 by sheer will or expertise.
 -->
-Anchoring bias is very difficult to overcome because it is
-unconscious and neither sheer will nor expertise are effective against
-it.
-
-Consider the following three experiments that illustrate anchoring bias.
+Anchoring bias is very difficult to overcome because it
+is unconscious and neither sheer will nor expertise are effective
+against it.
+Consider the following three experiments.
 
 _Experiment 1. Anchoring happens unconsciously._
 [Wilson, Houston, and Etling](#wilson) applied the following experiment
@@ -184,8 +194,9 @@ other.
 -->
 
 _Experiment 2. Anchoring happens even if you try compensate._
-[Wilson, Houston, and Etling](#wilson) also ran the following experiment (_Study
-5_ in their report).
+[Wilson, Houston, and Etling](#wilson) applied the following
+experiment (_Study 5_ in their report) also to a number of psychology
+students.
 They found that anchoring is very difficult to counter even when you
 are warned that anchoring will happen.
 The experiment compared two conditions.
@@ -222,7 +233,7 @@ potential sentence suggested by the journalist.
 
 -->
 
-_Experiment 3. Anchoring bias happens if you are an expert._
+_Experiment 3. Anchoring bias happens even if you are an expert._
 [Englich, Mussweiler, and Strack](#englich) did the following
 experiment (_Study 1_).
 They found that an anchor that is irrelevant from the legal point of
@@ -353,21 +364,21 @@ Brandstetter et al. 2014.
 Conclusion: Robots do not create peer pressure.
 -->
 
-Peer pressure consists in that the estimates that other members
-announce are very similar or the same.
+Peer pressure consists in that the majority of estimates that other
+members announce are the same.
 Peer pressure is difficult to overcome because even when you have
 reason to stick to a particular estimate, you may still choose the
-estimate that everyone else announced.
+estimate that the majority announced.
 Consider the following experiment.
 
 _Experiment 4. Peer pressure can be more powerful than facts._
-The experiment is by [Solomon Asch](#solomon) (_Experiment I_ in
+The experiment is by [Solomon Asch](#asch) (_Experiment I_ in
 his report).
 He found that for a clear matter of fact, people under peer pressure
 give inaccurate estimates way more often than when they are not under
-pressure.
-He also found that under pressure, the majority of people will
-eventually give you an innacurate estimate.
+peer pressure.
+He also found that under peer pressure, the majority of people will
+eventually give you an inaccurate estimate.
 The experiment is the following.
 The experiment happened in a classroom.
 Each run of the experiment consisted of 18 trials.
@@ -392,22 +403,27 @@ The control experiment was the same except that participants did not
 announce their estimates publicly.
 The experimental results are the following.
 Without peer pressure, subjects estimated correctly 99% of the critical
-trials and thus Solomon concludes that the differences between the
+trials and thus Asch concludes that the differences between the
 standard line and the rest were clearly distinguishable.
 Under peer pressure, estimates were correct 63% of the time and for
-this reason Solomon concludes that peer pressure has a significant
+this reason Asch concludes that peer pressure has a significant
 effect on estimates.
 Without peer pressure, 5% of subjects gave some incorrect estimate.
 Under peer pressure, 76% of subjects gave some incorrect estimate.
 Thus, a given person that is under pressure will probably give you a
 bad estimate at some point.
 
-Planning poker rules out anchoring bias by requiring that each team
-member **privately** selects their estimate and that all estimates are
-revealed **simultaneously**.
+You are better off estimating with Planning Poker
+because Planning Poker rules out anchoring bias and peer pressure.
+The reason is that Planning Poker requires that each team member
+**privately** selects their estimate ([step 3](#planning-poker)) and that all
+estimates are revealed **simultaneously** ([step 4](#planning-poker)).
+This way team members do not know the estimate of any of the other
+members when estimating.
 
 <!--
-Does planning poker rule out anchoring bias only in the first round?
+Does Planning Poker rule out anchoring bias only in the first round?
+Does planning
 
 Is it a problem that people know everyone's estimates after the first
 round?
@@ -415,18 +431,78 @@ round?
 Is confluence towards estimate of experienced members anchoring bias?
 -->
 
+If you are not sure that there is a point in hidding estimates
+after the first estimation round, consider the way I see the
+situation.
+Once the team discusses the estimates they chose for a story
+(in [step 6](#planning-poker)), that discussion and the estimates they chose
+become **relevant** information for the second round (when they
+go back to [step 3](#planning-poker)).
+The same is not true for the estimates that will be produced in the
+second round.
+The estimates produced in the second round are irrelevant because they
+correspond to somebody else's appreciation of the story.
+Thus, Planning Poker rules out anchoring bias and peer
+pressure in all estimation rounds.
+
+
 # Reason 2: Team members may not really understand the story
 
-I agree with 
+When team members say their estimates outloud, you can pick one of the
+previous estimates to try to get away with not justifying your choice.
+Trying to get away with not justifying your choice is unacceptable
+even if the reason is that you are trying to avoid being embarrassed
+because you do not really understand the story.
+
+In my experience this happens to team members that understand
+stories when applying Planning Poker.
+I believe that there are two ways of explaining why these team members
+understand better by Planning Poker.
+
+_Explanation 1._ One explanation is that without estimates to copy,
+the next best thing team members can do to avoid embarrassment is to
+actually understand the story.
+
+_Explanation 2._ The other explanation is that Planning Poker makes
+you responsible for your estimate.
+The reason is that Planning Poker substitutes the impression that
+estimating is a group activity with the impression that estimating is
+an individual activity.
+You are motivated because taking responsibility for your work is
+rewarding for you.
+
+I like the Explanation 2 better and I think that that is the way you
+should be looking at why you are better off estimating by Planning
+Poker.
+I agree with [Rubin](#rubin) when he says that the majority of the
+value of Planning Poker is the discussion and better understanding of
+user stories that Planning Poker fosters.
 
 
-# Try this when you don't have planning poker cards
+# Team members should use cards or a special app
+
+When you estimate, you should be really using Planning Poker cards.
+If you do not have cards, try using a mobile app.
+If you do not have phones, give everyone pen and paper and tell them
+to write their estimates there.
+
+When you are running a distributed team, do not just write your
+estimates in a chat one after the other.
+Ask people to use a dedicated tool, like
+[PlanITPoker](http://www.planitpoker.com/) or my own
+[spoker-master](https://spoker-master.herokuapp.com/).
+
+Really, there is no excuse for saying your estimates outloud.
 
 
-# <a name="planning-poker"></a>Appendix: What is Planning Poker?
+{% include subscribe.html %}
+{% include share.html %}
+
+
+# <a name="planning-poker"></a>Appendix: The Planning Poker Method
 
 [Kenny Rubin](#rubin) explains in his book _Essential Scrum: A
-practical guide to the most popular agile process_ that planning poker consists of the following
+practical guide to the most popular agile process_ that Planning Poker consists of the following
 steps.
 
 1. The product owner selects a user story to be estimated and reads
@@ -439,7 +515,7 @@ steps.
 5. If everyone select the same card, we have consensus, and that
    consensus number becomes the estimate of the story.
 6. If the estimates are not the same, the team members engage in a
-   focused descussion to expose assumptions and
+   focused discussion to expose assumptions and
    misunderstandings. Typically we start by asking the high and low
    estimators to explain or justify their estimates.
 7. After discussion, we return to step 3 and repeat until consensus is
@@ -468,6 +544,14 @@ steps.
   </dt>
   <dd>
     Rubin, K. S. (2012). Essential Scrum: A practical guide to the most popular agile process (pp. 129-133). Upper Saddle River, NJ: Addison-Wesley.
+  </dd>
+  <dt id="asch">
+    Asch
+  </dt>
+  <dd>
+    Asch, S. E. (1956). <a href="http://innovationfootprints.com/wp-content/uploads/2015/06/minority-v.-majority-asch1956.pdf">Studies of independence and conformity: I. A
+    minority of one against a unanimous majority.</a> Psychological
+    Monographs: General and Applied, 70(9), 1-12. doi:10.1037/h0093718
   </dd>
   <dt id="wilson">
     Wilson et al.
