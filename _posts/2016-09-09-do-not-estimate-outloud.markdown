@@ -55,7 +55,7 @@ against it.
 Consider the following three experiments.
 
 _Experiment 1. Anchoring happens unconsciously._
-[Wilson, Houston, and Etling](#wilson) applied the following experiment
+[Wilson, Houston, Etling, and Brekke](#wilson) applied the following experiment
 (_Study 1_ in their report) to a number of psychology
 students.
 They found that anchoring happens unconsciously when you have in mind
@@ -77,7 +77,7 @@ biased towards the given number regardless of whether participants
 compared that number to the question that they estimated or not.
 
 _Experiment 2. Anchoring happens even if you try compensate._
-[Wilson, Houston, and Etling](#wilson) applied the following
+[Wilson, Houston, Etling, and Brekke](#wilson) applied the following
 experiment (_Study 5_ in their report) also to a number of psychology
 students.
 They found that anchoring is very difficult to counter even when you
