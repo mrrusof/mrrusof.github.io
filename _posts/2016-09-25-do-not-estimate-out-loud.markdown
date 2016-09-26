@@ -298,8 +298,8 @@ steps.
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://ruslanledesma.com/2016/08/11/the-special-offer-problem.html';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = '2016-08-11-the-special-offer-problem'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://ruslanledesma.com/2016/09/25/do-not-estimate-out-loud.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '2016-09-25-do-not-estimate-out-loud'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
