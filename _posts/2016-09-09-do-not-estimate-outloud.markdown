@@ -11,45 +11,6 @@ distributed Scrum team. This article makes for a good reference that
 you can share with any team member.'
 ---
 
-<!--
-# Outline
-
-- Q. Why would you use planning poker when you can just say your estimate outloud?
-- A. I believe planning poker produces more accurate estimates.
-- S. If you undestand what planning poker does for you, you might
-  resist the urge to estimate with bias.
-- Planning poker rules out anchoring bias.
-  - Estimates given outloud by other people influence your
-    estimate. This is called **anchoring**.
-    - It does not matter whether you discuss a given user story and
-      then you hear another estimate or the other way around,
-      anchoring will happen.
-    - Evidence
-      - Anchoring happens when you estimate. Real state experiment by
-        [Northcraft and Neale](#northcraft).
-      - Anchoring is unconcious. Study 1 by [Wilson, Houston, Etling,
-        Brekke](#wilson).
-      - Anchoring is difficult to avoid. Study 5 by [Wilson et al.](#wilson)
-      - Anchoring is difficult to avoid even for experts. Study 1 by
-        [Englich and Mussweiler](#englich).
-  - When you do planning poker, you ignore others estimates.
-    - Reason is that all estimates are revealed simultaneously. [Rubin](#rubin)
-- Planning poker motivates you to understand the story.
-  - When people understand the story, people can assign an accurate
-    estimate.
-  - When you skip step 4 of planning poker, you are not motivated to
-    understand even if you discuss the story, because there is no
-    consequence of not understanding. My experience.
-  - **TODO** When you apply
-    planning poker, you gain critical understanding of the story
-    during the discussion.
-    According to [Rubin](#rubin) and my experience.
-  - **TODO** I believe that the reason is that you will have to
-    estimate by yourself and justify your estimate.
-
-# Post
--->
-
 ![Planning Poker deck](/assets/2016-09-25.planning-poker.jpg)
 <small>_Planning Poker deck by [Rachmaninoff](https://commons.wikimedia.org/wiki/User:Rachmaninoff), licensed under the [Creative Commons Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/deed.en) license._</small>
 
@@ -88,13 +49,6 @@ Anchoring bias happens when you learn the estimate of another team
 member before you select your own estimate.
 Anchoring bias consists in that you select an estimate that is similar
 to the estimate that you just learned.
-<!--
-There are several explanations of the mental process that produces
-anchoring bias, for example **TODO: footnote**.
-However, I consider more practical for you that you understand that
-anchoring is unconscious and is very difficult to overcome
-by sheer will or expertise.
--->
 Anchoring bias is very difficult to overcome because it
 is unconscious and neither sheer will nor expertise are effective
 against it.
@@ -122,80 +76,6 @@ The analysis of experimental results indicates that estimates are
 biased towards the given number regardless of whether participants
 compared that number to the question that they estimated or not.
 
-<!--
-Study 2.
-Conclusion: the more you attention you pay to the number, the more
-biased you become.
-Same conditions as in study 1 except the following.
-The number given is supposed to be an ID.
-The number given is between 1928 and 1935.
-Instead of two conditions, there are five.
-1. red-blue: check if color of number is red or blue. Every number was blue.
-2. four digit: check if number is 4 digit number.
-3. greater than 100: check if number is greater than 100.
-4. greater than 1920 or 1940: given one choice, check if number is
-   greater than choice.
-5. phone book: check if number is less than, greater or equal to the
-   number of physicians in the yellow pages.
-The dependent measure was the number of physicians in the phone book.
--->
-
-<!--
-Study 4.
-Conclusion: Offering monetary incentives had no influence on the
-magnitude of anchoring effects.
-Same conditions as study 2 except the following.
-Participants were told that an award would be given to the person
-whose answer to one of the questions was most accurate.
-Instead of five conditions there are 2 crosscut conditions.
-1. Incentive manipulation
-  1. incentive condition: participants were told that the prize question
-     was the dependent variable (the number of physicians).
-  2. no-incentive condition: participants were told that the prize
-     question was another question that everyone had (number of varieties
-     of rice).
-2. Anchor
-   1. Half the people were given an anchor and asked to compare it to
-   the question.
-   2. Half the people were not given an anchor.
--->
-
-<!--
-_Example 2. Anchoring bias cannot be countered by sheer will._
-[Wilson, Houston, and Etling](#wilson) ran another experiment (_Study
-5_ in their report).
-They found that anchoring is very difficult to counter even when you
-are warned about anchoring.
-Instead of the crosscut conditions of study 4, they had the
-following 8 conditions.
-1. control: no anchor
-2. comparison: anchor and compare against target question (number of
-   physicians in phone book).
-3. contamination: written warning "a number in people's heads can
-   influence their answers to subsequent questions", hypothetical and
-   unrelated example, and asked people to compensate for anchoring
-   before giving the anchor.
-4. underestimation: same as contamination except that we told people
-   (wrongly) that large numbers cause them to decrease their
-   estimates.
-5. overestimation-general: same as underestimation but warning is that
-   large numbers cause people to overestimate their estimates
-   (correct).
-6. overestimation-specific: same as previous except that participants
-   were told that the ID they would be given might influence their
-   estimate.
-7. after-ID: same conditions but warning given after receiving
-   their ID but before comparing it to the question.
-8. after-comparison: same conditions but warning given after
-   comparing it to the question.
-9. after-estimation: same conditions but warning given after
-   estimation, they were given the chance to change their estimate.
-Their analysis of experimental results indicates that the anchoring
-condition differed significantly from the control condition and that
-none of the anchoring conditions differed significantly from each
-other.
--->
-
 _Experiment 2. Anchoring happens even if you try compensate._
 [Wilson, Houston, and Etling](#wilson) applied the following
 experiment (_Study 5_ in their report) also to a number of psychology
@@ -213,29 +93,6 @@ avoid it.
 The analysis of the experimental results indicates that there is no
 significant difference between the biases given by the conditions.
 
-<!--
-Study 1.
-[Englich, Mussweiler, and Strack](#englich) ran an experiment that
-show that anchoring bias will happen even if you are an expert in
-whatever you are estimating.
-
-Hypothesis: Clearly irrelevant anchor influences the sentencing
-decisions of legal professionals.
-
-Participants were legal professionals that were either judges or had
-been judges at some point.
-Participants were asked to consider realistic case material about an
-alleged rape from the point of view of a criminal judge.
-Afterwards, participants were exposed to a potential sentence via a
-questionaire.
-The questionnaire asked that participants imagine a situation where
-a journalist interviews them and introduces the potential sentence.
-
-Experimental results indicate that participants were biased by the
-potential sentence suggested by the journalist.
-
--->
-
 _Experiment 3. Anchoring bias happens even if you are an expert._
 [Englich, Mussweiler, and Strack](#englich) did the following
 experiment (_Study 1_).
@@ -251,121 +108,6 @@ The questionnaire asked that participants imagine a situation where
 a journalist interviews them and introduces the potential sentence.
 Experimental results indicate that participants were biased by the
 potential sentence suggested by the journalist.
-
-
-<!--
-Social Pressure, Peer Pressure, Conformity
-Experiments by Solomon Asch, also known as:
-  - Asch conformity experiments
-  - Asch Paradigm
-
-Article:
-Opinions and Social Pressure
-http://www.columbia.edu/cu/psychology/terrace/w1001/readings/asch.pdf
-
-Experiment conditions:
-- Group of seven to nine youg men in a classroom.
-- All except one participant are confederates of the experimenter.
-  The remaining participant is the subject.
-- 123 subjects were applied the experiment
-- Group is told that experiment is on visual judgement.
-- Each run of the experiment consists of 18 rounds.
-- Group is told to compare the lenghts of lines.
-- In each round there are two cards.
-- One shows a single vertical black line, the standard.
-- The other shows three lines of various lengths, one is the same
-  length as the standard.
-- Participants are asked to choose from the second card the line that that
-  is of the same length as the line on the first card.
-- In the first two rounds, everyone chooses the matching line.
-- In subsequent rounds, all confederates choose a line that does not
-  match.
-- The confederates choose the right answer from time to time to reduce
-  suspicion.
-- When subject becomes suspicious, the run of the experiment is
-  discarded.
-- Out of the 18 rounds, in 12 rounds the confederates choose a wrong
-  line.
-- Without peer pressure, subjects choose a wrong line less than 1
-  percent of the time.
-- With peer pressure, subject choose a wrong line 36.8 percent of the
-  time.
-
-Conclusion: peer pressure has significant effect on subjects.
--->
-
-<!--
-Article:
-Studies of independence and conformity: a minority of one against a
-unanimous majority
-http://innovationfootprints.com/wp-content/uploads/2015/06/minority-v.-majority-asch1956.pdf
-
-Summary:
-- Disagreement betwen a single person and a group.
-- Disagreement on a simple and clear matter of **fact**.
-
-Conditions:
-- Each group consists of 7 to 9 participants.
-- All participants were male college students.
-- All but one of the group were instructed to respond on certain
-  trials with wrong and unanimous judgements.
-- The other participant was unaware of the arrangement
-  --the subject--. 
-- "A minority of one against a wrong and unanimous majority."
-- The subject was nearly always seated before the last member of the majority.
-- Group was asked to match the length of a given line --the standard--
-  with one of three other lines.
-- One of the three comparison lines was equal to the standard, the
-  other two lengths differed from the standard.
-- The participants were asked to announce their judgements publicly in
-  the order in which they were seated.
-- A run of the experiment consisted of 18 comparisons.
-- The experiment was run for 123 subjects.
-- The subject heard the majority respond unanimously in 12 comparisons
-  with estimates that clearly contradicted his own observation.
-- The rest of the comparisons were answered correctly by the
-  confederates.
-- Under control conditions, accuracy  was of over 99 percent.
-
-Quantitative results:
-- An estimate given by the subject in a **critical trial** is either
-  - Correct and thus independent of the majority
-  - incorrect and either identical with that of the majority or in its
-    direction.
-- Number of incorrect estimates is index of effect exerted by majority
-  upon the subject.
-- The number of incorrect estimates may vary from 0 to 12 for each run
-  of the experiment.
-- How often subjects erred in critical trials? Table 3 shows frequency
-  distribution of errors on critical trials.
-  - Errorless performances
-    - Control group had 95% of errorless performances.
-    - Experimental groups had 25% of errorless performances.
-  - Errors in critical trials
-    - Control group had less than 1% of errors in critical trials.
-    - Experimental groups had 37% of errors in critical trials.
-  - The differences between the control and experimental groups are
-    highly significant.
-
-Conclusion:
-1. Each unanimous wrong majority produced a marked and significant
-   distortion in the reported estimates.
-2. In critical trials, the majority of estimates was correct.
-3. Under no peer pressure, estimates are more accurate and vary less.
-4. Some subjects may resist very well peer pressure, while others may
-   follow the majority all the time.
-   - 24% of subjects gave errorless estimates
-   - 28% of subjects gave majority-determined estimates, from 8 to 12
-     times.
-   - The rest of the subjects (48%) had errors from 1 to 7 times.
--->
-
-<!--
-Recreation of the Asch conformity experiment with robots
-Brandstetter et al. 2014.
-
-Conclusion: Robots do not create peer pressure.
--->
 
 Peer pressure consists in that the majority of estimates that other
 members announce are the same.
@@ -423,16 +165,6 @@ The reason is that Planning Poker requires that each team member
 estimates are revealed **simultaneously** ([step 4](#planning-poker)).
 This way team members do not know the estimate of any of the other
 members when estimating.
-
-<!--
-Does Planning Poker rule out anchoring bias only in the first round?
-Does planning
-
-Is it a problem that people know everyone's estimates after the first
-round?
-
-Is confluence towards estimate of experienced members anchoring bias?
--->
 
 If you are not sure that there is a point in hidding estimates
 after the first estimation round, consider the way I see the
@@ -526,7 +258,6 @@ steps.
 
 # References
 
-
 <dl>
   <dt id="englich">
     Englich et al.
@@ -534,14 +265,6 @@ steps.
   <dd>
     Englich, B., Mussweiler, T., & Strack, F. (2006). <a href="http://www.eucim-te.eu/data/dppsenglich/File/PDFSStudien/PSPB_32(1).pdf">Playing Dice With Criminal Sentences: The Influence of Irrelevant Anchors on Experts' Judicial Decision Making.</a> Personality and Social Psychology Bulletin, 32(2), 188-200. doi:10.1177/0146167205282152
   </dd>
-<!--
-  <dt id="northcraft">
-    Northcraft and Neale
-  </dt>
-  <dd>
-    Northcraft, G. B., & Neale, M. A. (1987). <a href="http://web.missouri.edu/segerti/capstone/northcraft_neale.pdf">Experts, amateurs, and real estate: An anchoring-and-adjustment perspective on property pricing decisions.</a> Organizational Behavior and Human Decision Processes, 39(1), 84-97. doi:10.1016/0749-5978(87)90046-x
-  </dd>
--->
   <dt id="rubin">
     Rubin
   </dt>
