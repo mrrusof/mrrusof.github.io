@@ -52,7 +52,7 @@ you can share with any team member.'
 
 Having experienced good and bad Scrum practices, I would like to
 help you understand why you really want to follow [all steps of Planning
-Poker](#planning-poker) and use the right tools, specially when you run a
+Poker](#planning-poker) and use [the right tools](#tools), specially when you run a
 distributed Scrum team.
 
 When you estimate user stories for a Scrum sprint, you want to
@@ -479,7 +479,7 @@ value of Planning Poker is the discussion and better understanding of
 user stories that Planning Poker fosters.
 
 
-# Team members should use cards or a special app
+# <a name="tools"></a>Team members should use cards or a special app
 
 When you estimate, you should be really using Planning Poker cards.
 If you do not have cards, try using a mobile app.
