@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Why use Planning Poker cards instead of saying your
-estimate outloud?'
+estimate out loud?'
 date: 2016-09-25
 author: Ruslan Ledesma-Garza
 summary: 'This article helps you understand why you really want to
@@ -25,7 +25,7 @@ Inaccurate estimates are a problem because they may cause
 you to drop stories (which is bad for business) or to carry through more
 work than you expected (which is bad for you).
 
-When you choose to just say your estimate outloud after discussing a
+When you choose to just say your estimate out loud after discussing a
 story instead of following all steps of Planning Poker, your estimates
 may be inaccurate for at least two reasons.
 The two reasons affect you even more when you run a distributed
@@ -37,7 +37,7 @@ estimating by Planning Poker.
 # Reason 1: Team members may be biased
 
 Team members may be biased away from an accurate estimate because when
-you say your estimate outloud, at least
+you say your estimate out loud, at least
 **anchoring bias** or **peer pressure** may happen.
 When either happens, you take into account information
 that is irrelevant to your estimate and thus produce an inaccurate
@@ -103,7 +103,7 @@ been judges at some point.
 Participants were asked to consider realistic case material about an
 alleged rape from the point of view of a criminal judge.
 Afterwards, participants were exposed to a potential sentence via a
-questionaire.
+questionnaire.
 The questionnaire asked that participants imagine a situation where
 a journalist interviews them and introduces the potential sentence.
 Experimental results indicate that participants were biased by the
@@ -133,7 +133,7 @@ In each trial, the corresponding pair of cards was placed on the ledge
 of the blackboard.
 For each run of the experiment, 8 people participated.
 One of them was the subject and the rest were collaborators with
-Salomon.
+Solomon.
 In each trial, each participant was asked to announce publicly their
 estimate.
 The subject was always second to last in announce his estimate.
@@ -166,7 +166,7 @@ estimates are revealed **simultaneously** ([step 4](#planning-poker)).
 This way team members do not know the estimate of any of the other
 members when estimating.
 
-If you are not sure that there is a point in hidding estimates
+If you are not sure that there is a point in hiding estimates
 after the first estimation round, consider the way I see the
 situation.
 Once the team discusses the estimates they chose for a story
@@ -183,7 +183,7 @@ pressure in all estimation rounds.
 
 # Reason 2: Team members may not really understand the story
 
-When team members say their estimates outloud, you can pick one of the
+When team members say their estimates out loud, you can pick one of the
 previous estimates to try to get away with not justifying your choice.
 Trying to get away with not justifying your choice is unacceptable
 even if the reason is that you are trying to avoid being embarrassed
@@ -227,7 +227,7 @@ Ask people to use a dedicated tool, like
 [PlanITPoker](http://www.planitpoker.com/) or my own
 [spoker-master](https://spoker-master.herokuapp.com/).
 
-Really, there is no excuse for saying your estimates outloud.
+Really, there is no excuse for saying your estimates out loud.
 
 
 {% include subscribe.html %}
