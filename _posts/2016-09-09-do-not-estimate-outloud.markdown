@@ -50,6 +50,9 @@ you can share with any team member.'
 # Post
 -->
 
+![Planning Poker deck](/assets/2016-09-25.planning-poker.jpg)
+<small>_Planning Poker deck by [Rachmaninoff](https://commons.wikimedia.org/wiki/User:Rachmaninoff), licensed under the [Creative Commons Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/deed.en) license._</small>
+
 Having experienced good and bad Scrum practices, I would like to
 help you understand why you really want to follow [all steps of Planning
 Poker](#planning-poker) and use [the right tools](#tools), specially when you run a
