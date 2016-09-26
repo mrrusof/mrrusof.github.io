@@ -189,8 +189,9 @@ Trying to get away with not justifying your choice is unacceptable
 even if the reason is that you are trying to avoid being embarrassed
 because you do not really understand the story.
 
-In my experience this happens to team members that understand
-stories when applying Planning Poker.
+In my experience, even people that would understand stories during
+Planning Poker do miss the opportunity to understand stories when
+Planning Poker is not applied.
 I believe that there are two ways of explaining why these team members
 understand better by Planning Poker.
 
@@ -204,11 +205,11 @@ The reason is that Planning Poker substitutes the impression that
 estimating is a group activity with the impression that estimating is
 an individual activity.
 You are motivated because taking responsibility for your work is
-rewarding for you.
+rewarding to you.
 
-I like the Explanation 2 better and I think that that is the way you
-should be looking at why you are better off estimating by Planning
-Poker.
+I like Explanation 2 better because I feel that, out of the two
+explanations, it is the most constructive reason why you are better
+off estimating by Planning Poker.
 I agree with [Rubin](#rubin) when he says that the majority of the
 value of Planning Poker is the discussion and better understanding of
 user stories that Planning Poker fosters.
@@ -218,7 +219,7 @@ user stories that Planning Poker fosters.
 
 When you estimate, you should be really using Planning Poker cards.
 If you do not have cards, try using a mobile app.
-If you do not have phones, give everyone pen and paper and tell them
+If you do not have smartphones, give everyone pen and paper and tell them
 to write their estimates there.
 
 When you are running a distributed team, do not just write your
@@ -236,7 +237,7 @@ Really, there is no excuse for saying your estimates out loud.
 
 # <a name="planning-poker"></a>Appendix: The Planning Poker Method
 
-[Kenny Rubin](#rubin) explains in his book _Essential Scrum: A
+[Kenneth Rubin](#rubin) explains in his book _Essential Scrum: A
 practical guide to the most popular agile process_ that Planning Poker consists of the following
 steps.
 
