@@ -54,7 +54,7 @@ is unconscious and neither sheer will nor expertise are effective
 against it.
 Consider the following three experiments.
 
-_Experiment 1. Anchoring happens unconsciously._
+**Experiment 1. Anchoring happens unconsciously.**
 [Wilson, Houston, Etling, and Brekke](#wilson) applied the following experiment
 (_Study 1_ in their report) to a number of psychology
 students.
@@ -76,7 +76,7 @@ The analysis of experimental results indicates that estimates are
 biased towards the given number regardless of whether participants
 compared that number to the question that they estimated or not.
 
-_Experiment 2. Anchoring happens even if you try compensate._
+**Experiment 2. Anchoring happens even if you try compensate.**
 [Wilson, Houston, Etling, and Brekke](#wilson) applied the following
 experiment (_Study 5_ in their report) also to a number of psychology
 students.
@@ -93,7 +93,7 @@ avoid it.
 The analysis of the experimental results indicates that there is no
 significant difference between the biases given by the conditions.
 
-_Experiment 3. Anchoring bias happens even if you are an expert._
+**Experiment 3. Anchoring bias happens even if you are an expert.**
 [Englich, Mussweiler, and Strack](#englich) did the following
 experiment (_Study 1_).
 They found that an anchor that is irrelevant from the legal point of
@@ -116,7 +116,7 @@ reason to stick to a particular estimate, you may still choose the
 estimate that the majority announced.
 Consider the following experiment.
 
-_Experiment 4. Peer pressure can be more powerful than facts._
+**Experiment 4. Peer pressure can be more powerful than facts.**
 The experiment is by [Solomon Asch](#asch) (_Experiment I_ in
 his report).
 He found that for a clear matter of fact, people under peer pressure
@@ -195,11 +195,11 @@ Planning Poker is not applied.
 I believe that there are two ways of explaining why these team members
 understand better by Planning Poker.
 
-_Explanation 1._ One explanation is that without estimates to copy,
+**Explanation 1.** One explanation is that without estimates to copy,
 the next best thing team members can do to avoid embarrassment is to
 actually understand the story.
 
-_Explanation 2._ The other explanation is that Planning Poker makes
+**Explanation 2.** The other explanation is that Planning Poker makes
 you responsible for your estimate.
 The reason is that Planning Poker substitutes the impression that
 estimating is a group activity with the impression that estimating is
