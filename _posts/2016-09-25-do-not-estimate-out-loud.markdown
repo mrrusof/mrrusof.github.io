@@ -260,6 +260,14 @@ steps.
 # References
 
 <dl>
+  <dt id="asch">
+    Asch
+  </dt>
+  <dd>
+    Asch, S. E. (1956). <a href="http://innovationfootprints.com/wp-content/uploads/2015/06/minority-v.-majority-asch1956.pdf">Studies of independence and conformity: I. A
+    minority of one against a unanimous majority.</a> Psychological
+    Monographs: General and Applied, 70(9), 1-12. doi:10.1037/h0093718
+  </dd>
   <dt id="englich">
     Englich et al.
   </dt>
@@ -271,14 +279,6 @@ steps.
   </dt>
   <dd>
     Rubin, K. S. (2012). Essential Scrum: A practical guide to the most popular agile process (pp. 129-133). Upper Saddle River, NJ: Addison-Wesley.
-  </dd>
-  <dt id="asch">
-    Asch
-  </dt>
-  <dd>
-    Asch, S. E. (1956). <a href="http://innovationfootprints.com/wp-content/uploads/2015/06/minority-v.-majority-asch1956.pdf">Studies of independence and conformity: I. A
-    minority of one against a unanimous majority.</a> Psychological
-    Monographs: General and Applied, 70(9), 1-12. doi:10.1037/h0093718
   </dd>
   <dt id="wilson">
     Wilson et al.
