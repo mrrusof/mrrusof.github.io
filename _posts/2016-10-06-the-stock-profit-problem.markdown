@@ -2,6 +2,7 @@
 layout: post
 title: The Stock Profit Problem
 date: 2016-10-06
+edited: 2016-10-07
 author: Ruslan Ledesma-Garza
 summary: 'The Stock Profit Problem is based on a technical interview question I once solved.
 Solve this problem and feel satisfied that you are one step closer to mastering your next code interview.
@@ -10,7 +11,9 @@ As a plus, you get the solution in 6 different languages!'
 
 The Stock Profit Problem is based on a technical interview question I once solved.
 Solve this problem and feel satisfied that you are one step closer to mastering your next code interview.
-The drama in the problem statement and the solution is fictional, created by me, totally uncalled for, and any resemblance to a real life situation is purely coincidental.
+As a plus, you get the solution in 6 different languages!
+
+By the way, the drama in the problem statement and the solution is fictional, created by me, totally uncalled for, and any resemblance to a real life situation is purely coincidental.
 
 # Problem
 
