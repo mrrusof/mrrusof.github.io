@@ -464,8 +464,8 @@ $$
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://ruslanledesma.com/2016/10/04/the-trading-problem.html';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = '2016-10-04-the-trading-problem'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://ruslanledesma.com/2016/10/06/the-stock-profit-problem.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '2016-10-06-the-stock-profit-problem'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
