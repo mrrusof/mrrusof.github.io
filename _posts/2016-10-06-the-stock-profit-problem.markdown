@@ -2,7 +2,7 @@
 layout: post
 title: The Stock Profit Problem
 date: 2016-10-06
-edited: 2016-10-07
+edited: 2016-10-08
 author: Ruslan Ledesma-Garza
 summary: 'The Stock Profit Problem is based on a technical interview question I once solved.
 Solve this problem and feel satisfied that you are one step closer to mastering your next code interview.
@@ -196,7 +196,7 @@ The algorithm does that in lines 4 and 5.
 
 The solution to prefix sequence `1, 2, 1` is 1.
 The reason is that appending `1` to prefix `1, 2` does not give you a bigger profit.
-Algorithm `F` determines that 1 is the solution to `1, 2, 3` by choosing the maximum value between the solution to prefix `1, 2` (that is 1) and 0.
+Algorithm `F` determines that 1 is the solution to `1, 2, 1` by choosing the maximum value between the solution to prefix `1, 2` (that is 1) and 0.
 Alternative 0 is the maximum profit that is possible when you sell at the last price.
 The profit is given by the difference of the last price (that is 1) and the minimum price amongst the previous prices (that is also 1).
 Lines 6 and 7 do the bookkeeping of the minimum price (`min`).
