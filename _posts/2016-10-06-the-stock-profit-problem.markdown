@@ -4,14 +4,14 @@ title: The Stock Profit Problem
 date: 2016-10-06
 edited: 2016-10-08
 author: Ruslan Ledesma-Garza
-summary: 'The Stock Profit Problem is based on a technical interview question I once solved.
-Solve this problem and feel satisfied that you are one step closer to mastering your next code interview.
-As a plus, you get the solution in 6 different languages!'
+summary: "The Stock Profit Problem is an interview question you can find in the wild.
+The problem asks for the biggest profit given a sequence of stock prices.
+As usual, there is a naive solution that won't cut it.
+I explain the solution in 6 different programming languages and give you a hint for further study.
+"
 ---
 
-The Stock Profit Problem is based on a technical interview question I once solved.
-Solve this problem and feel satisfied that you are one step closer to mastering your next code interview.
-As a plus, you get the solution in 6 different languages!
+{{page.summary}}
 
 By the way, the drama in the problem statement and the solution is fictional, created by me, totally uncalled for, and any resemblance to a real life situation is purely coincidental.
 
