@@ -6,20 +6,17 @@ author: Ruslan Ledesma-Garza
 summary: Something something
 ---
 
-This post explains how to write a recursive SQL query.
+This post explains how to write a recursive (common table expression) SQL query.
 
 # Problem
 
-Business rules.
+Requirements.
 
 1. Each product has a name.
 2. Each category has a name.
 3. Each product may belong to one or more categories.
 4. Each category may have subcategories.
 5. Categories that have products do not have subcategories.
-
-Features.
-
 7. You may ask a product for its corresponding categories.
 8. You may ask a category for its corresponding products.
 
@@ -123,13 +120,6 @@ sandwich.categories = [gas station food, food]
 pizza.categories = [fast food, food]
 food.products = [sandwich, pizza]
 {% endhighlight %}
-
-<details>
-
-<summary>
-This is how you address the rules and features step by step.
-</summary>
-<br>
 
 <b>1. Each product has a name.</b>
 
@@ -406,8 +396,364 @@ Gives.
 food.products = [sandwich, pizza]
 {% endhighlight %}
 
-</details>
-
 # PostgreSQL
 
+Solution.
 
+{% highlight sql %}
+CREATE TABLE products (
+  id serial PRIMARY KEY,
+  name varchar(50)
+);
+
+INSERT INTO products (name) VALUES ('sandwich');
+SELECT * FROM products;
+
+CREATE TABLE categories (
+  id serial PRIMARY KEY,
+  name varchar(50)
+);
+
+INSERT INTO categories (name) VALUES ('gas station food');
+SELECT * FROM categories;
+
+CREATE TABLE p_c (
+  pid integer REFERENCES products(id),
+  cid integer REFERENCES categories(id)
+);
+
+INSERT INTO p_c (pid, cid) VALUES (1, 1);
+SELECT products.name AS product, categories.name AS category
+  FROM products, p_c, categories
+  WHERE products.id = pid AND cid = categories.id;
+
+CREATE TABLE sub_c (
+  parent integer REFERENCES categories(id),
+  child integer REFERENCES categories(id)
+);
+
+INSERT INTO categories (name) VALUES ('food');
+INSERT INTO sub_c (parent, child) VALUES (2, 1);
+SELECT c1.name AS parent, c2.name AS child
+  FROM sub_c, categories AS c1, categories AS c2
+  WHERE parent = c1.id AND child = c2.id;
+
+CREATE FUNCTION if_no_sub_c(id integer)
+  RETURNS bool AS
+$func$
+  SELECT NOT EXISTS (SELECT 1 FROM sub_c WHERE id = parent);
+$func$ LANGUAGE sql STABLE;
+
+ALTER TABLE p_c ADD CONSTRAINT if_no_sub_c_check
+  CHECK (if_no_sub_c(cid));
+
+INSERT INTO products (name) VALUES ('pizza');
+INSERT INTO p_c (pid, cid) VALUES (2, 2);
+SELECT count(*) from p_c, sub_c WHERE cid = parent;
+
+CREATE FUNCTION if_no_p(id integer)
+  RETURNS bool AS
+$func$
+  SELECT NOT EXISTS (SELECT 1 FROM p_c WHERE id = pid);
+$func$ LANGUAGE sql STABLE;
+
+ALTER TABLE sub_c ADD CONSTRAINT if_no_p_check
+  CHECK (if_no_p(parent));
+
+INSERT INTO categories (name) VALUES ('fast food');
+INSERT INTO sub_c (parent, child) VALUES (1, 3);
+SELECT count(*) from p_c, sub_c WHERE cid = parent;
+
+CREATE FUNCTION categories(product_id integer)
+  RETURNS TABLE (category varchar(50)) AS
+$func$
+  WITH RECURSIVE cats(pid, cid, category) AS (
+      SELECT pid, cid, name
+      FROM p_c, categories
+      WHERE cid = id
+    UNION ALL
+      SELECT pid, parent, name
+      FROM cats, sub_c, categories
+      WHERE cid = child AND parent = id
+  )
+  SELECT category FROM cats WHERE pid = product_id;
+$func$ LANGUAGE sql;
+
+SELECT categories(id) FROM products WHERE name = 'sandwich';
+
+CREATE FUNCTION products(category_id integer)
+  RETURNS TABLE (products varchar(50)) AS
+$func$
+  WITH RECURSIVE prods(cid, pid, product) AS (
+      SELECT cid, pid, name
+      FROM p_c, products
+      WHERE pid = id
+    UNION
+      SELECT parent, pid, product
+      FROM prods, sub_c
+      WHERE cid = child
+  )
+  SELECT product FROM prods WHERE cid = category_id
+$func$ LANGUAGE sql;
+
+SELECT products(id) FROM categories WHERE name = 'food';
+INSERT INTO sub_c (parent, child)
+  SELECT food.id, ff.id
+  FROM categories AS food, categories AS ff
+  WHERE food.name = 'food' AND ff.name = 'fast food';
+INSERT INTO p_c (pid, cid)
+  SELECT pizza.id, ff.id
+  FROM products AS pizza, categories AS ff
+  WHERE pizza.name = 'pizza' AND ff.name = 'fast food';
+SELECT products(id) FROM categories WHERE name = 'food';
+{% endhighlight %}
+
+<b>1. Each product has a name.</b>
+
+{% highlight sql %}
+CREATE TABLE products (
+  id serial PRIMARY KEY,
+  name varchar(50)
+);
+{% endhighlight %}
+
+Example.
+
+{% highlight sql %}
+INSERT INTO products (name) VALUES ('sandwich');
+SELECT * FROM products;
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc  %}
+INSERT 0 1
+ id |   name   
+----+----------
+  1 | sandwich
+(1 row)
+{% endhighlight %}
+
+<b>2. Each category has a name.</b>
+
+{% highlight sql %}
+CREATE TABLE categories (
+  id serial PRIMARY KEY,
+  name varchar(50)
+);
+{% endhighlight %}
+
+Example.
+
+{% highlight sql %}
+INSERT INTO categories (name) VALUES ('gas station food');
+SELECT * FROM categories;
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc  %}
+INSERT 0 1
+ id |       name       
+----+------------------
+  1 | gas station food
+(1 row)
+{% endhighlight %}
+
+<b>3. Each product may belong to one or more categories.</b>
+
+{% highlight sql %}
+CREATE TABLE p_c (
+  pid integer REFERENCES products(id),
+  cid integer REFERENCES categories(id)
+);
+{% endhighlight %}
+
+Example.
+
+{% highlight sql %}
+INSERT INTO p_c (pid, cid) VALUES (1, 1);
+SELECT products.name AS product, categories.name AS category
+  FROM products, p_c, categories
+  WHERE products.id = pid AND cid = categories.id;
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc  %}
+INSERT 0 1
+ product  |     category     
+----------+------------------
+ sandwich | gas station food
+(1 row)
+{% endhighlight %}
+
+<b>4. Each category may have subcategories.</b>
+
+{% highlight sql %}
+CREATE TABLE sub_c (
+  parent integer REFERENCES categories(id),
+  child integer REFERENCES categories(id)
+);
+{% endhighlight %}
+
+Example.
+
+{% highlight sql %}
+INSERT INTO categories (name) VALUES ('food');
+INSERT INTO sub_c (parent, child) VALUES (2, 1);
+SELECT c1.name AS parent, c2.name AS child
+  FROM sub_c, categories AS c1, categories AS c2
+  WHERE parent = c1.id AND child = c2.id;
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc  %}
+INSERT 0 1
+INSERT 0 1
+ parent |      child       
+--------+------------------
+ food   | gas station food
+(1 row)
+{% endhighlight %}
+
+<b>5. Categories that have products do not have subcategories.</b>
+
+{% highlight sql %}
+CREATE FUNCTION if_no_sub_c(id integer)
+  RETURNS bool AS
+$func$
+  SELECT NOT EXISTS (SELECT 1 FROM sub_c WHERE id = parent);
+$func$ LANGUAGE sql STABLE;
+
+ALTER TABLE p_c ADD CONSTRAINT if_no_sub_c_check
+  CHECK (if_no_sub_c(cid));
+
+CREATE FUNCTION if_no_p(id integer)
+  RETURNS bool AS
+$func$
+  SELECT NOT EXISTS (SELECT 1 FROM p_c WHERE id = pid);
+$func$ LANGUAGE sql STABLE;
+
+ALTER TABLE sub_c ADD CONSTRAINT if_no_p_check
+  CHECK (if_no_p(parent));
+{% endhighlight %}
+
+Example.
+
+{% highlight sql %}
+INSERT INTO products (name) VALUES ('pizza');
+INSERT INTO p_c (pid, cid) VALUES (2, 2);
+SELECT count(*) from p_c, sub_c WHERE cid = parent;
+
+INSERT INTO categories (name) VALUES ('fast food');
+INSERT INTO sub_c (parent, child) VALUES (1, 3);
+SELECT count(*) from p_c, sub_c WHERE cid = parent;
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc  %}
+INSERT 0 1
+ERROR:  new row for relation "p_c" violates check constraint "if_no_sub_c_check"
+DETAIL:  Failing row contains (2, 2).
+ count 
+-------
+     0
+(1 row)
+
+INSERT 0 1
+ERROR:  new row for relation "sub_c" violates check constraint "if_no_p_check"
+DETAIL:  Failing row contains (1, 3).
+ count 
+-------
+     0
+(1 row)
+{% endhighlight %}
+
+<b>6. You may ask a product for its corresponding categories.</b>
+
+{% highlight sql %}
+CREATE FUNCTION categories(product_id integer)
+  RETURNS TABLE (category varchar(50)) AS
+$func$
+  WITH RECURSIVE cats(pid, cid, category) AS (
+      SELECT pid, cid, name
+      FROM p_c, categories
+      WHERE cid = id
+    UNION ALL
+      SELECT pid, parent, name
+      FROM cats, sub_c, categories
+      WHERE cid = child AND parent = id
+  )
+  SELECT category FROM cats WHERE pid = product_id;
+$func$ LANGUAGE sql;
+{% endhighlight %}
+
+Example.
+
+{% highlight sql %}
+SELECT categories(id) FROM products WHERE name = 'sandwich';
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc  %}
+    categories    
+------------------
+ gas station food
+ food
+(2 rows)
+{% endhighlight %}
+
+<b>7. You may ask a category for its corresponding products.</b>
+
+{% highlight sql %}
+CREATE FUNCTION products(category_id integer)
+  RETURNS TABLE (products varchar(50)) AS
+$func$
+  WITH RECURSIVE prods(cid, pid, product) AS (
+      SELECT cid, pid, name
+      FROM p_c, products
+      WHERE pid = id
+    UNION
+      SELECT parent, pid, product
+      FROM prods, sub_c
+      WHERE cid = child
+  )
+  SELECT product FROM prods WHERE cid = category_id
+$func$ LANGUAGE sql;
+{% endhighlight %}
+
+Example.
+
+{% highlight sql %}
+SELECT products(id) FROM categories WHERE name = 'food';
+INSERT INTO sub_c (parent, child)
+  SELECT food.id, ff.id
+  FROM categories AS food, categories AS ff
+  WHERE food.name = 'food' AND ff.name = 'fast food';
+INSERT INTO p_c (pid, cid)
+  SELECT pizza.id, ff.id
+  FROM products AS pizza, categories AS ff
+  WHERE pizza.name = 'pizza' AND ff.name = 'fast food';
+SELECT products(id) FROM categories WHERE name = 'food';
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc  %}
+ products 
+----------
+ sandwich
+(1 row)
+
+INSERT 0 1
+INSERT 0 1
+ products 
+----------
+ sandwich
+ pizza
+(2 rows)
+{% endhighlight %}
