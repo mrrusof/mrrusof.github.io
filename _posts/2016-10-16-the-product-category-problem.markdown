@@ -1,12 +1,17 @@
 ---
 layout: post
-title: . #The Product Category Problem
-date: 2016-10-11
+title: 'The Category Problem: graph traversal by recursive SQL queries'
+date: 2016-10-15
 author: Ruslan Ledesma-Garza
-summary: Something something
+summary: '
+An interview question in the wild, the Category Problem asks to model a graph of categories of goods in SQL.
+The sample solution involves a couple of recursive SQL queries that traverse the edges of the model graph.
+The sample solution works in PostgreSQL 9.6.
+This post includes a reference implementation in Ruby.
+'
 ---
 
-This post explains how to write a recursive (common table expression) SQL query.
+{{page.summary}}
 
 # Problem
 
@@ -20,7 +25,11 @@ Requirements.
 7. You may ask a product for its corresponding categories.
 8. You may ask a category for its corresponding products.
 
-# Ruby
+Example graph.
+
+
+
+# Reference implementation in Ruby
 
 Solution.
 
