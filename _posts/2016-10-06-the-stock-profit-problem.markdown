@@ -7,7 +7,7 @@ author: Ruslan Ledesma-Garza
 summary: "The Stock Profit Problem is an interview question you can find in the wild.
 The problem asks for the biggest profit given a sequence of stock prices.
 As usual, there is a naive solution that won't cut it.
-I explain the solution in 6 different programming languages and give you a hint for further study.
+I explain an efficient solution in 6 different programming languages and give you a hint for further study.
 "
 ---
 
