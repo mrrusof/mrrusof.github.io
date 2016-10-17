@@ -27,7 +27,7 @@ Requirements.
 
 Example graph.
 
-
+<img src="/assets/2016-10-16.example.png" alt="Example" style="width: 50%; display: block; margin-left: auto; margin-right: auto;" />
 
 # Reference implementation in Ruby
 
@@ -766,3 +766,11 @@ INSERT 0 1
  pizza
 (2 rows)
 {% endhighlight %}
+
+
+# Other uses of WITH clauses
+
+
+
+- Apply several data modifications in the same query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
+- Apply recursive self-references in a data-modifying query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
