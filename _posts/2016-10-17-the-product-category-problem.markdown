@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'The Category Problem: graph traversal by recursive SQL queries'
-date: 2016-10-15
+date: 2016-10-17
 author: Ruslan Ledesma-Garza
 summary: '
 An interview question in the wild, the Category Problem asks to model a graph of categories of goods in SQL.
@@ -22,6 +22,7 @@ The problem asks you to implement in SQL the following rules.
 3. Each product may belong to one or more categories.
 4. Each category may have subcategories.
 5. Categories that have products do not have subcategories.
+6. Each category may have only one parent.
 7. You may ask a product for its corresponding categories.
 8. You may ask a category for its corresponding products.
 
@@ -150,11 +151,11 @@ SELECT products(id) FROM categories WHERE name = 'food';
 {% endhighlight %}
 
 The sample solution consists of two parts.
-The first part is the construction of the database schema indicated by rules 1 to 5.
-The second part is the construction of two recursive queries, one for rule 6 and one for rule 7.
+The first part is the construction of the database schema required by rules 1 to 6.
+The second part is the construction of two recursive queries, one for rule 7 and one for rule 8.
 The next section includes a reference implementation in Ruby that you can use to understand the semantics of the sample solution.
 
-<details>
+<!-- <details> -->
 
 <summary>
 Click here for an explanation of the construction of the database schema.
@@ -341,10 +342,10 @@ DETAIL:  Failing row contains (1, 3).
 (1 row)
 {% endhighlight %}
 
-</details>
+<!-- </details> -->
 <br>
 
-<details>
+<!-- <details> -->
 
 <summary>
 Click here for an explanation of the two recursive queries.
@@ -354,7 +355,7 @@ Click here for an explanation of the two recursive queries.
 For rule 6, we construct SQL function `categories(product_id)` that returns the categories for given product id.
 For example, for product sandwich, the categories are `gas station food` and `food`.
 
-**TODO**
+<b>TODO</b>
 
 <b>6. You may ask a product for its corresponding categories.</b>
 
@@ -442,7 +443,7 @@ INSERT 0 1
 (2 rows)
 {% endhighlight %}
 
-</details>
+<!-- </details> -->
 <br>
 
 # Reference implementation in Ruby
@@ -452,11 +453,12 @@ The reference implementation is the following.
 {% highlight ruby %}
 class Product
 
-  attr_reader :name, :categories
+  attr_reader :name
+  attr_accessor :parent_categories
 
   def initialize name
     @name = name
-    @categories = []
+    @parent_categories = []
   end
 
   def to_s
@@ -466,7 +468,7 @@ class Product
   alias inspect to_s
 
   def categories
-    @categories.reduce [] do |acc, c|
+    @parent_categories.reduce [] do |acc, c|
       begin
         acc << c
         c = c.parent
@@ -479,7 +481,8 @@ end
 
 class Category
 
-  attr_reader :name, :products, :children, :parent
+  attr_reader :name, :products, :children
+  attr_accessor :parent
 
   def initialize name
     @name = name
@@ -497,22 +500,22 @@ class Category
   def add_product p
     if @children.empty?
       @products << p
-      p.instance_variable_get(:@categories) << self
+      p.parent_categories << self
     end
   end
 
   def add_category c
-    if @products.empty?
+    if @products.empty? and not c.parent
       @children << c
-      c.instance_variable_set :@parent, self
+      c.parent = self
     end
   end
 
-  def products
+  def all_products
     if @children.empty?
       @products
     else
-      @children.reduce [] { |acc, c| acc.concat c.products }
+      @children.reduce [] { |acc, c| acc.concat c.all_products }
     end
   end
 
@@ -535,7 +538,7 @@ ff.add_product pizza
 
 puts "sandwich.categories = #{sandwich.categories}"
 puts "pizza.categories = #{pizza.categories}"
-puts "food.products = #{food.products}"
+puts "food.all_products = #{food.all_products}"
 {% endhighlight %}
 
 Gives.
@@ -543,8 +546,10 @@ Gives.
 {% highlight asciidoc %}
 sandwich.categories = [gas station food, food]
 pizza.categories = [fast food, food]
-food.products = [sandwich, pizza]
+food.all_products = [sandwich, pizza]
 {% endhighlight %}
+
+<details>
 
 <summary>
 Click here for an explanation of the reference implementation.
@@ -552,6 +557,7 @@ Click here for an explanation of the reference implementation.
 <br>
 
 <b>1. Each product has a name.</b>
+<br>
 <br>
 
 We create a class of products.
@@ -591,6 +597,7 @@ sandwich = sandwich
 
 <b>2. Each category has a name.</b>
 <br>
+<br>
 
 We create a class of categories.
 
@@ -629,8 +636,9 @@ gsf = gas station food
 
 <b>3. Each product may belong to one or more categories.</b>
 <br>
+<br>
 
-We declare an array of products and create method `Category#add_product`.
+We declare an array of products and create method <code>Category#add_product</code>.
 
 {% highlight ruby %}
 class Category
@@ -666,8 +674,9 @@ gsf.products = [sandwich]
 
 <b>4. Each category may have subcategories.</b>
 <br>
+<br>
 
-We create method
+We declare an array of children and create method <code>Category#add_category</code>.
 
 {% highlight ruby %}
 class Category
@@ -704,6 +713,10 @@ food.children = [gas station food]
 {% endhighlight %}
 
 <b>5. Categories that have products do not have subcategories.</b>
+<br>
+<br>
+
+We constraint methods <code>Category#add_product</code> and <code>Category#add_category</code>.
 
 {% highlight ruby %}
 class Category
@@ -740,22 +753,78 @@ gsf.children = []
 food.products = []
 {% endhighlight %}
 
-<b>6. You may ask a product for its corresponding categories.</b>
+<b>6. Each category may have only one parent.</b>
+<br>
+<br>
+
+We create attribute parent attribute that contraints method <code>Category#add_category</code>.
+
+{% highlight ruby %}
+class Category
+
+  attr_reader :name, :products, :children
+  attr_accessor :parent
+
+  def initialize name
+    @name = name
+    @products = []
+    @children = []
+    @parent = nil
+  end
+
+  ...
+
+  def add_category c
+    if @products.empty? and not c.parent
+      @children << c
+      c.parent = self
+    end
+  end
+
+end
+{% endhighlight %}
+
+Example usage.
+
+{% highlight ruby %}
+gsg = Category.new 'gas station goods'
+gsg.add_category gsf
+puts "gsg.children = #{gsg.children}"
+puts "gsf.parent = #{gsf.parent}"
+{% endhighlight %}
+
+Gives.
+
+{% highlight asciidoc %}
+gsg.children = []
+gsf.parent = food
+{% endhighlight %}
+
+<b>7. You may ask a product for its corresponding categories.</b>
+<br>
+<br>
+
+This rule asks for those categories that are reachable from a given product by means of the parent relation.
+We compute the reachable categories in method <code>Product#categories</code>.
+For a given product, the computation starts from the categories that contain the product.
+Those categories are recorded in array <code>Product#@parent_categories</code>.
+The array is populated by method <code>Category#add_product</code>.
 
 {% highlight ruby %}
 class Product
 
-  attr_reader :name, :categories
+  attr_reader :name
+  attr_accessor :parent_categories
 
   def initialize name
     @name = name
-    @categories = []
+    @parent_categories = []
   end
 
   ...
 
   def categories
-    @categories.reduce [] do |acc, c|
+    @parent_categories.reduce [] do |acc, c|
       begin
         acc << c
         c = c.parent
@@ -768,30 +837,16 @@ end
 
 class Category
 
-  attr_reader :name, :products, :children, :parent
-
-  def initialize name
-    @name = name
-    @products = []
-    @children = []
-    @parent = nil
-  end
-
   ...
 
   def add_product p
     if @children.empty?
       @products << p
-      p.instance_variable_get(:@categories) << self
+      p.parent_categories << self
     end
   end
 
-  def add_category c
-    if @products.empty?
-      @children << c
-      c.instance_variable_set :@parent, self
-    end
-  end
+  ...
 
 end
 {% endhighlight %}
@@ -808,16 +863,24 @@ Gives.
 sandwich.categories = [gas station food, food]
 {% endhighlight %}
 
-<b>7. You may ask a category for its corresponding products.</b>
+<b>8. You may ask a category for its corresponding products.</b>
+<br>
+<br>
+
+This rule asks that we collect the products of categories that are descendant of a given category.
+We do so by traversing the category graph from parent to leaf descendants.
+We traverse the category graph and collect the corresponding products in method <code>Category#all_products</code>.
 
 {% highlight ruby %}
 class Category
 
-  def products
+  ...
+
+  def all_products
     if @children.empty?
       @products
     else
-      @children.reduce [] { |acc, c| acc.concat c.products }
+      @children.reduce [] { |acc, c| acc.concat c.all_products }
     end
   end
 
@@ -829,19 +892,19 @@ Example usage.
 {% highlight ruby %}
 food.add_category ff
 ff.add_product pizza
-puts "food.products = #{food.products}"
+puts "food.all_products = #{food.all_products}"
 {% endhighlight %}
 
 Gives.
 
 {% highlight asciidoc  %}
-food.products = [sandwich, pizza]
+food.all_products = [sandwich, pizza]
 {% endhighlight %}
 
+</details>
+<br>
 
 # Other uses of WITH clauses
-
-
 
 - Apply several data modifications in the same query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
 - Apply recursive self-references in a data-modifying query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
