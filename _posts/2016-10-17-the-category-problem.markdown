@@ -22,7 +22,7 @@ The problem asks you to implement in SQL the following rules.
 3. Each product may belong to one or more categories.
 4. Each category may have subcategories.
 5. Categories that have products do not have subcategories.
-6. Each category may have only one parent.
+6. Each category has at most one parent.
 7. You may ask a product for its corresponding categories.
 8. You may ask a category for its corresponding products.
 
@@ -225,7 +225,7 @@ INSERT 0 1
 
 <b>4. Each category may have subcategories.</b><br>
 <b>AND<b><br>
-<b>6. Each category may have only one parent.</b>
+<b>6. Each category has at most one parent.</b>
 <br>
 
 We address rules 4 and 6 in one step.
@@ -818,7 +818,7 @@ gsf.children = []
 food.products = []
 {% endhighlight %}
 
-<b>6. Each category may have only one parent.</b>
+<b>6. Each category has at most one parent.</b>
 <br>
 <br>
 
