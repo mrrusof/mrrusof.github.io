@@ -32,11 +32,20 @@ Consider the following diagram of an example state consisting of products and ca
 
 In the diagram, a box corresponds to a product and a circle to a category.
 Arrows start from a parent category and end in a child category.
+This is the subcategory [relation](https://en.wikipedia.org/wiki/Binary_relation).
 Dotted lines connect categories with their corresponding products.
+This is the belongs to relation.
 
-Your database must disallow violations of the rules.
-Consider category Food.
+Your database must forbid violations of the rules.
+Consider the following examples.
 By rule 5, it must not be possible to add products to category Food.
+By rule 6, it must not be possible for Fast Food to be subcategory of Food and Home Delivered Goods.
+
+The categories of Sandwich are Gas Station Food and Food.
+The categories of Pizza are Fast Food and Food.
+
+The only product of category Fast Food is Pizza.
+The products of category Food are Sandwich and Pizza.
 
 # Solution
 
@@ -155,15 +164,11 @@ The first part is the construction of the database schema required by rules 1 to
 The second part is the construction of two recursive queries, one for rule 7 and one for rule 8.
 The next section includes a reference implementation in Ruby that you can use to understand the semantics of the sample solution.
 
-<!-- <details> -->
+# Database schema
 
-<summary>
-Click here for an explanation of the construction of the database schema.
-</summary>
-<br>
+The following is an explanation of the construction of the database schema.
 
 <b>1. Each product has a name.</b>
-<br>
 <br>
 
 We create a table of products.
@@ -194,7 +199,6 @@ INSERT 0 1
 
 <b>2. Each category has a name.</b>
 <br>
-<br>
 
 We create a table of categories.
 
@@ -224,12 +228,14 @@ INSERT 0 1
 
 <b>3. Each product may belong to one or more categories.</b>
 <br>
-<br>
 
-**TODO**
+Meaning, each product may or may not belong to one or more categories.
+We assume that categories may correspond to multiple products.
+Given these reasons, the belongs to relation is a many-to-many relation.
+The following [associative table (a.k.a. cross-reference table)](https://en.wikipedia.org/wiki/Associative_entity) corresponds to relation belongs to.
 
 {% highlight sql %}
-CREATE TABLE p_c (
+CREATE TABLE belongs_to (
   pid integer REFERENCES products(id),
   cid integer REFERENCES categories(id)
 );
@@ -238,9 +244,9 @@ CREATE TABLE p_c (
 Example usage.
 
 {% highlight sql %}
-INSERT INTO p_c (pid, cid) VALUES (1, 1);
+INSERT INTO belongs_to (pid, cid) VALUES (1, 1);
 SELECT products.name AS product, categories.name AS category
-  FROM products, p_c, categories
+  FROM products, belongs_to, categories
   WHERE products.id = pid AND cid = categories.id;
 {% endhighlight %}
 
@@ -254,32 +260,36 @@ INSERT 0 1
 (1 row)
 {% endhighlight %}
 
-<b>4. Each category may have subcategories.</b>
-<br>
+<b>4. Each category may have subcategories.</b><br>
+<b>AND<b><br>
+<b>6. Each category may have only one parent.</b>
 <br>
 
+We address rules 4 and 6 in one step.
+These rules mean that the subcategory relation is a one-to-many relation.
+We implement the subcategory relation by appending an additional attribute to table `categories`.
+
 {% highlight sql %}
-CREATE TABLE sub_c (
-  parent integer REFERENCES categories(id),
-  child integer REFERENCES categories(id)
-);
+ALTER TABLE categories
+  ADD COLUMN parent integer
+  REFERENCES categories(id);
 {% endhighlight %}
 
 Example usage.
 
 {% highlight sql %}
 INSERT INTO categories (name) VALUES ('food');
-INSERT INTO sub_c (parent, child) VALUES (2, 1);
+UPDATE categories SET parent = 2 WHERE id = 1;
 SELECT c1.name AS parent, c2.name AS child
-  FROM sub_c, categories AS c1, categories AS c2
-  WHERE parent = c1.id AND child = c2.id;
+  FROM categories AS c1, categories AS c2
+  WHERE c1.id = c2.parent;
 {% endhighlight %}
 
 Gives.
 
 {% highlight asciidoc  %}
 INSERT 0 1
-INSERT 0 1
+UPDATE 1
  parent |      child       
 --------+------------------
  food   | gas station food
@@ -287,7 +297,6 @@ INSERT 0 1
 {% endhighlight %}
 
 <b>5. Categories that have products do not have subcategories.</b>
-<br>
 <br>
 
 {% highlight sql %}
@@ -342,22 +351,17 @@ DETAIL:  Failing row contains (1, 3).
 (1 row)
 {% endhighlight %}
 
-<!-- </details> -->
-<br>
+# Recursive queries
 
-<!-- <details> -->
+The following is an explanation of the two recursive queries.
 
-<summary>
-Click here for an explanation of the two recursive queries.
-</summary>
+<b>6. You may ask a product for its corresponding categories.</b>
 <br>
 
 For rule 6, we construct SQL function `categories(product_id)` that returns the categories for given product id.
 For example, for product sandwich, the categories are `gas station food` and `food`.
 
 <b>TODO</b>
-
-<b>6. You may ask a product for its corresponding categories.</b>
 
 {% highlight sql %}
 CREATE FUNCTION categories(product_id integer)
@@ -393,6 +397,7 @@ Gives.
 {% endhighlight %}
 
 <b>7. You may ask a category for its corresponding products.</b>
+<br>
 
 {% highlight sql %}
 CREATE FUNCTION products(category_id integer)
@@ -549,7 +554,7 @@ pizza.categories = [fast food, food]
 food.all_products = [sandwich, pizza]
 {% endhighlight %}
 
-<details>
+<!-- <details> -->
 
 <summary>
 Click here for an explanation of the reference implementation.
@@ -638,7 +643,8 @@ gsf = gas station food
 <br>
 <br>
 
-We declare an array of products and create method <code>Category#add_product</code>.
+Given a category, we record the products that belong to the category in array <code>Category#@products</code>.
+We append products to a category by means of method <code>Category#add_product</code>.
 
 {% highlight ruby %}
 class Category
@@ -676,7 +682,8 @@ gsf.products = [sandwich]
 <br>
 <br>
 
-We declare an array of children and create method <code>Category#add_category</code>.
+Given a category, we record the children categories in array <code>Category#@children</code>.
+We append subcategories by means of method <code>Category#add_category</code>.
 
 {% highlight ruby %}
 class Category
@@ -716,7 +723,8 @@ food.children = [gas station food]
 <br>
 <br>
 
-We constraint methods <code>Category#add_product</code> and <code>Category#add_category</code>.
+This is a constraint on relations belongs to and subcategory.
+We constraint each relation by constraining corresponding methods <code>Category#add_product</code> and <code>Category#add_category</code>.
 
 {% highlight ruby %}
 class Category
@@ -757,7 +765,9 @@ food.products = []
 <br>
 <br>
 
-We create attribute parent attribute that contraints method <code>Category#add_category</code>.
+This is a constraint on subcategory relation.
+We apply the constraint by constraining method <code>Category#add_category</code>.
+We create instance variable <code>Category#@parent</code> to label each category with its parent.
 
 {% highlight ruby %}
 class Category
@@ -804,8 +814,8 @@ gsf.parent = food
 <br>
 <br>
 
-This rule asks for those categories that are reachable from a given product by means of the parent relation.
-We compute the reachable categories in method <code>Product#categories</code>.
+This rule asks for those categories that are ancestors of a given product in the subcategory relation.
+We compute the ancestor categories in method <code>Product#categories</code>.
 For a given product, the computation starts from the categories that contain the product.
 Those categories are recorded in array <code>Product#@parent_categories</code>.
 The array is populated by method <code>Category#add_product</code>.
@@ -867,9 +877,9 @@ sandwich.categories = [gas station food, food]
 <br>
 <br>
 
-This rule asks that we collect the products of categories that are descendant of a given category.
-We do so by traversing the category graph from parent to leaf descendants.
-We traverse the category graph and collect the corresponding products in method <code>Category#all_products</code>.
+This rule asks that we collect the products of categories that are descendant of a given category in the subcategory relation.
+We do so by traversing the subcategory relation from the given category all the way down to leaf descendants.
+We do the traversal and collect corresponding products in method <code>Category#all_products</code>.
 
 {% highlight ruby %}
 class Category
@@ -901,7 +911,7 @@ Gives.
 food.all_products = [sandwich, pizza]
 {% endhighlight %}
 
-</details>
+<!-- </details> -->
 <br>
 
 # Other uses of WITH clauses
