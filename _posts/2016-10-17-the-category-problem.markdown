@@ -32,9 +32,9 @@ Consider the following diagram of an example state consisting of products and ca
 
 In the diagram, a box corresponds to a product and a circle to a category.
 Arrows start from a parent category and end in a child category.
-This is the subcategory [relation](https://en.wikipedia.org/wiki/Binary_relation).
+This is [relation](https://en.wikipedia.org/wiki/Binary_relation) _subcategory_.
 Dotted lines connect categories with their corresponding products.
-This is the belongs to relation.
+This is relation _belongs-to_.
 
 Your database must forbid violations of the rules.
 Consider the following examples.
@@ -52,117 +52,80 @@ The products of category Food are Sandwich and Pizza.
 The sample solution is the following.
 
 {% highlight sql %}
+
+-- PART I: Database Schema
+
 CREATE TABLE products (
   id serial PRIMARY KEY,
   name varchar(50)
 );
 
-INSERT INTO products (name) VALUES ('sandwich');
-SELECT * FROM products;
-
 CREATE TABLE categories (
   id serial PRIMARY KEY,
-  name varchar(50)
+  name varchar(50),
+  parent integer REFERENCES categories(id)
 );
-
-INSERT INTO categories (name) VALUES ('gas station food');
-SELECT * FROM categories;
 
 CREATE TABLE p_c (
   pid integer REFERENCES products(id),
   cid integer REFERENCES categories(id)
 );
 
-INSERT INTO p_c (pid, cid) VALUES (1, 1);
-SELECT products.name AS product, categories.name AS category
-  FROM products, p_c, categories
-  WHERE products.id = pid AND cid = categories.id;
-
-CREATE TABLE sub_c (
-  parent integer REFERENCES categories(id),
-  child integer REFERENCES categories(id)
-);
-
-INSERT INTO categories (name) VALUES ('food');
-INSERT INTO sub_c (parent, child) VALUES (2, 1);
-SELECT c1.name AS parent, c2.name AS child
-  FROM sub_c, categories AS c1, categories AS c2
-  WHERE parent = c1.id AND child = c2.id;
-
-CREATE FUNCTION if_no_sub_c(id integer)
+CREATE FUNCTION if_no_sub_c(cid integer)
   RETURNS bool AS
-$func$
-  SELECT NOT EXISTS (SELECT 1 FROM sub_c WHERE id = parent);
-$func$ LANGUAGE sql STABLE;
+  $func$
+    SELECT NOT EXISTS (SELECT 1 FROM categories WHERE parent = cid);
+  $func$ LANGUAGE sql STABLE;
 
 ALTER TABLE p_c ADD CONSTRAINT if_no_sub_c_check
   CHECK (if_no_sub_c(cid));
 
-INSERT INTO products (name) VALUES ('pizza');
-INSERT INTO p_c (pid, cid) VALUES (2, 2);
-SELECT count(*) from p_c, sub_c WHERE cid = parent;
-
-CREATE FUNCTION if_no_p(id integer)
+CREATE FUNCTION if_no_prod(id integer)
   RETURNS bool AS
-$func$
-  SELECT NOT EXISTS (SELECT 1 FROM p_c WHERE id = pid);
-$func$ LANGUAGE sql STABLE;
+  $func$
+    SELECT NOT EXISTS (SELECT 1 FROM p_c WHERE cid = id);
+  $func$ LANGUAGE sql STABLE;
 
-ALTER TABLE sub_c ADD CONSTRAINT if_no_p_check
-  CHECK (if_no_p(parent));
+ALTER TABLE categories ADD CONSTRAINT if_no_prod_check
+  CHECK (if_no_prod(parent));
 
-INSERT INTO categories (name) VALUES ('fast food');
-INSERT INTO sub_c (parent, child) VALUES (1, 3);
-SELECT count(*) from p_c, sub_c WHERE cid = parent;
+-- PART II: Recursive queries
 
 CREATE FUNCTION categories(product_id integer)
   RETURNS TABLE (category varchar(50)) AS
-$func$
-  WITH RECURSIVE cats(pid, cid, category) AS (
-      SELECT pid, cid, name
+  $func$
+    WITH RECURSIVE cats(pid, cid, name, parent) AS (
+      SELECT pid, categories.*
       FROM p_c, categories
       WHERE cid = id
     UNION ALL
-      SELECT pid, parent, name
-      FROM cats, sub_c, categories
-      WHERE cid = child AND parent = id
-  )
-  SELECT category FROM cats WHERE pid = product_id;
-$func$ LANGUAGE sql;
-
-SELECT categories(id) FROM products WHERE name = 'sandwich';
+      SELECT pid, categories.*
+      FROM cats, categories
+      WHERE cats.parent = categories.id
+    )
+    SELECT name FROM cats WHERE pid = product_id;
+  $func$ LANGUAGE sql;
 
 CREATE FUNCTION products(category_id integer)
   RETURNS TABLE (products varchar(50)) AS
-$func$
-  WITH RECURSIVE prods(cid, pid, product) AS (
-      SELECT cid, pid, name
-      FROM p_c, products
-      WHERE pid = id
-    UNION
-      SELECT parent, pid, product
-      FROM prods, sub_c
-      WHERE cid = child
-  )
-  SELECT product FROM prods WHERE cid = category_id
-$func$ LANGUAGE sql;
-
-SELECT products(id) FROM categories WHERE name = 'food';
-INSERT INTO sub_c (parent, child)
-  SELECT food.id, ff.id
-  FROM categories AS food, categories AS ff
-  WHERE food.name = 'food' AND ff.name = 'fast food';
-INSERT INTO p_c (pid, cid)
-  SELECT pizza.id, ff.id
-  FROM products AS pizza, categories AS ff
-  WHERE pizza.name = 'pizza' AND ff.name = 'fast food';
-SELECT products(id) FROM categories WHERE name = 'food';
+  $func$
+    WITH RECURSIVE prods(cid, parent, pid, product) AS (
+        SELECT cid, parent, pid, products.name
+        FROM p_c, products, categories
+        WHERE pid = products.id AND cid = categories.id
+      UNION ALL
+        SELECT par.id, par.parent, pid, product
+        FROM prods, categories AS par
+        WHERE prods.parent = par.id
+    )
+    SELECT product FROM prods WHERE cid = category_id
+  $func$ LANGUAGE sql;
 {% endhighlight %}
 
 The sample solution consists of two parts.
 The first part is the construction of the database schema required by rules 1 to 6.
 The second part is the construction of two recursive queries, one for rule 7 and one for rule 8.
-The next section includes a reference implementation in Ruby that you can use to understand the semantics of the sample solution.
+Section [Reference implementation in Ruby](#ref-impl-ruby) includes a reference implementation in Ruby that you can use to understand the semantics of the sample solution.
 
 # Database schema
 
@@ -231,8 +194,8 @@ INSERT 0 1
 
 Meaning, each product may or may not belong to one or more categories.
 We assume that categories may correspond to multiple products.
-Given these reasons, the belongs to relation is a many-to-many relation.
-The following [associative table (a.k.a. cross-reference table)](https://en.wikipedia.org/wiki/Associative_entity) corresponds to relation belongs to.
+Given these reasons, relation _belongs-to_ is a many-to-many relation.
+The following [associative table (a.k.a. cross-reference table)](https://en.wikipedia.org/wiki/Associative_entity) corresponds to relation _belongs-to_.
 
 {% highlight sql %}
 CREATE TABLE belongs_to (
@@ -266,8 +229,8 @@ INSERT 0 1
 <br>
 
 We address rules 4 and 6 in one step.
-These rules mean that the subcategory relation is a one-to-many relation.
-We implement the subcategory relation by appending an additional attribute to table `categories`.
+These rules mean that relation _subcategory_ is a one-to-many relation.
+We implement relation _subcategory_ by appending an additional attribute to table `categories`.
 
 {% highlight sql %}
 ALTER TABLE categories
@@ -299,159 +262,253 @@ UPDATE 1
 <b>5. Categories that have products do not have subcategories.</b>
 <br>
 
+We implement this rule by functions `if_no_sub_c` and `if_no_prod`.
+
+We constraint relation _belongs-to_ by function `if_no_sub_c`.
+
 {% highlight sql %}
-CREATE FUNCTION if_no_sub_c(id integer)
+CREATE FUNCTION if_no_sub_c(cid integer)
   RETURNS bool AS
-$func$
-  SELECT NOT EXISTS (SELECT 1 FROM sub_c WHERE id = parent);
-$func$ LANGUAGE sql STABLE;
+  $func$
+    SELECT NOT EXISTS (SELECT 1 FROM categories WHERE parent = cid);
+  $func$ LANGUAGE sql STABLE;
 
 ALTER TABLE p_c ADD CONSTRAINT if_no_sub_c_check
   CHECK (if_no_sub_c(cid));
-
-CREATE FUNCTION if_no_p(id integer)
-  RETURNS bool AS
-$func$
-  SELECT NOT EXISTS (SELECT 1 FROM p_c WHERE id = pid);
-$func$ LANGUAGE sql STABLE;
-
-ALTER TABLE sub_c ADD CONSTRAINT if_no_p_check
-  CHECK (if_no_p(parent));
 {% endhighlight %}
 
 Example usage.
 
 {% highlight sql %}
 INSERT INTO products (name) VALUES ('pizza');
-INSERT INTO p_c (pid, cid) VALUES (2, 2);
-SELECT count(*) from p_c, sub_c WHERE cid = parent;
-
-INSERT INTO categories (name) VALUES ('fast food');
-INSERT INTO sub_c (parent, child) VALUES (1, 3);
-SELECT count(*) from p_c, sub_c WHERE cid = parent;
+SELECT products.name AS product, categories.name AS category
+  FROM products, p_c, categories
+  WHERE products.id = pid AND cid = categories.id;
+INSERT INTO p_c (pid, cid)
+  SELECT products.id, categories.id
+  FROM products, categories
+  WHERE products.name = 'pizza' AND categories.name = 'food';
+SELECT products.name AS product, categories.name AS category
+  FROM products, p_c, categories
+  WHERE products.id = pid AND cid = categories.id;
 {% endhighlight %}
 
 Gives.
 
 {% highlight asciidoc  %}
 INSERT 0 1
-ERROR:  new row for relation "p_c" violates check constraint "if_no_sub_c_check"
-DETAIL:  Failing row contains (2, 2).
- count 
--------
-     0
+ product  |     category
+----------+------------------
+ sandwich | gas station food
 (1 row)
 
-INSERT 0 1
-ERROR:  new row for relation "sub_c" violates check constraint "if_no_p_check"
-DETAIL:  Failing row contains (1, 3).
- count 
--------
-     0
+ERROR:  new row for relation "p_c" violates check constraint "if_no_sub_c_check"
+DETAIL:  Failing row contains (2, 2).
+ product  |     category
+----------+------------------
+ sandwich | gas station food
 (1 row)
 {% endhighlight %}
+
+We constraint relation _subcategory_ by function `if_no_prod`.
+
+{% highlight sql %}
+CREATE FUNCTION if_no_prod(id integer)
+  RETURNS bool AS
+  $func$
+    SELECT NOT EXISTS (SELECT 1 FROM p_c WHERE cid = id);
+  $func$ LANGUAGE sql STABLE;
+
+ALTER TABLE categories ADD CONSTRAINT if_no_prod_check
+  CHECK (if_no_prod(parent));
+{% endhighlight %}
+
+Example usage.
+
+{% highlight sql %}
+SELECT * FROM categories;
+INSERT INTO categories (name, parent)
+  SELECT 'fast food', gsf.id
+  FROM categories AS gsf
+  WHERE gsf.name = 'gas station food';
+SELECT * FROM categories;
+{% endhighlight %}
+
+Gives.
+
+{% highlight sql %}
+ id |       name       | parent
+ ----+------------------+--------
+   2 | food             |
+   1 | gas station food |      2
+(2 rows)
+
+ERROR:  new row for relation "categories" violates check constraint "if_no_prod_check"
+DETAIL:  Failing row contains (3, fast food, 1).
+ id |       name       | parent
+ ----+------------------+--------
+   2 | food             |
+   1 | gas station food |      2
+(2 rows)
+{% endhighlight %}
+
 
 # Recursive queries
 
 The following is an explanation of the two recursive queries.
 
-<b>6. You may ask a product for its corresponding categories.</b>
+<b>7. You may ask a product for its corresponding categories.</b>
 <br>
 
-For rule 6, we construct SQL function `categories(product_id)` that returns the categories for given product id.
-For example, for product sandwich, the categories are `gas station food` and `food`.
-
-<b>TODO</b>
+This rule asks for those categories that are ancestors of a given product in relation _subcategory_.
+We compute the ancestor categories by function `categories`.
 
 {% highlight sql %}
 CREATE FUNCTION categories(product_id integer)
   RETURNS TABLE (category varchar(50)) AS
-$func$
-  WITH RECURSIVE cats(pid, cid, category) AS (
-      SELECT pid, cid, name
+  $func$
+    WITH RECURSIVE cats(pid, cid, name, parent) AS (
+      SELECT pid, categories.*
       FROM p_c, categories
       WHERE cid = id
     UNION ALL
-      SELECT pid, parent, name
-      FROM cats, sub_c, categories
-      WHERE cid = child AND parent = id
-  )
-  SELECT category FROM cats WHERE pid = product_id;
-$func$ LANGUAGE sql;
+      SELECT pid, categories.*
+      FROM cats, categories
+      WHERE cats.parent = categories.id
+    )
+    SELECT name FROM cats WHERE pid = product_id;
+  $func$ LANGUAGE sql;
+{% endhighlight %}
+
+For a given product, the computation starts from the categories that contain the product.
+Those categories are given by the following SELECT statement.
+
+{% highlight sql %}
+...
+    WITH RECURSIVE cats(pid, cid, name, parent) AS (
+      SELECT pid, categories.*
+      FROM p_c, categories
+      WHERE cid = id
+    UNION ALL
+...
+{% endhighlight %}
+
+The SELECT statement is the base case of a [recursive WITH clause](https://www.postgresql.org/docs/9.6/static/queries-with.html).
+The recursive step consists in selecting those categories that are parent of some category given by a previous recursive call.
+The the recursive step corresponds to the following SELECT statement.
+
+{% highlight sql %}
+...
+    UNION ALL
+      SELECT pid, categories.*
+      FROM cats, categories
+      WHERE cats.parent = categories.id
+    )
+...
+{% endhighlight %}
+
+The result of the recursive WITH clause is projected onto the name before returning by the following SELECT statement.
+
+{% highlight sql %}
+...
+    )
+    SELECT name FROM cats WHERE pid = product_id;
+  $func$ LANGUAGE sql;
+...
 {% endhighlight %}
 
 Example usage.
 
 {% highlight sql %}
 SELECT categories(id) FROM products WHERE name = 'sandwich';
+SELECT categories(id) FROM products WHERE name = 'pizza';
+INSERT INTO categories (name, parent)
+  SELECT 'fast food', categories.id
+  FROM categories
+  WHERE name = 'food';
+INSERT INTO p_c (pid, cid)
+  SELECT products.id, categories.id
+  FROM products, categories
+  WHERE products.name = 'pizza' AND categories.name = 'fast food';
+SELECT categories(id) FROM products WHERE name = 'pizza';
 {% endhighlight %}
 
 Gives.
 
 {% highlight asciidoc  %}
-    categories    
+    categories
 ------------------
- gas station food
+  gas station food
+  food
+(2 rows)
+
+ categories
+------------
+ (0 rows)
+
+INSERT 0 1
+INSERT 0 1
+ categories
+------------
+ fast food
  food
 (2 rows)
 {% endhighlight %}
 
-<b>7. You may ask a category for its corresponding products.</b>
+<b>8. You may ask a category for its corresponding products.</b>
 <br>
+
+This rule asks that we collect the products of categories that are descendant of given category in relation _subcategory_.
+The following function `products` implements the rule.
 
 {% highlight sql %}
 CREATE FUNCTION products(category_id integer)
   RETURNS TABLE (products varchar(50)) AS
-$func$
-  WITH RECURSIVE prods(cid, pid, product) AS (
-      SELECT cid, pid, name
-      FROM p_c, products
-      WHERE pid = id
-    UNION
-      SELECT parent, pid, product
-      FROM prods, sub_c
-      WHERE cid = child
-  )
-  SELECT product FROM prods WHERE cid = category_id
-$func$ LANGUAGE sql;
+  $func$
+    WITH RECURSIVE prods(cid, parent, pid, product) AS (
+        SELECT cid, parent, pid, products.name
+        FROM p_c, products, categories
+        WHERE pid = products.id AND cid = categories.id
+      UNION ALL
+        SELECT par.id, par.parent, pid, product
+        FROM prods, categories AS par
+        WHERE prods.parent = par.id
+    )
+    SELECT product FROM prods WHERE cid = category_id
+  $func$ LANGUAGE sql;
 {% endhighlight %}
 
 Example usage.
 
 {% highlight sql %}
 SELECT products(id) FROM categories WHERE name = 'food';
-INSERT INTO sub_c (parent, child)
-  SELECT food.id, ff.id
-  FROM categories AS food, categories AS ff
-  WHERE food.name = 'food' AND ff.name = 'fast food';
-INSERT INTO p_c (pid, cid)
-  SELECT pizza.id, ff.id
-  FROM products AS pizza, categories AS ff
-  WHERE pizza.name = 'pizza' AND ff.name = 'fast food';
-SELECT products(id) FROM categories WHERE name = 'food';
+SELECT products(id) FROM categories WHERE name = 'fast food';
+SELECT products(id) FROM categories WHERE name = 'gas station food';
 {% endhighlight %}
 
 Gives.
 
 {% highlight asciidoc  %}
- products 
-----------
- sandwich
-(1 row)
-
-INSERT 0 1
-INSERT 0 1
- products 
+ products
 ----------
  sandwich
  pizza
 (2 rows)
+
+products
+----------
+ pizza
+(1 row)
+
+products
+----------
+ sandwich
+(1 row)
 {% endhighlight %}
 
-<!-- </details> -->
 <br>
 
-# Reference implementation in Ruby
+# <a href="#" name="ref-impl-ruby"></a>Reference implementation in Ruby
 
 The reference implementation is the following.
 
@@ -554,7 +611,7 @@ pizza.categories = [fast food, food]
 food.all_products = [sandwich, pizza]
 {% endhighlight %}
 
-<!-- <details> -->
+<details>
 
 <summary>
 Click here for an explanation of the reference implementation.
@@ -723,7 +780,7 @@ food.children = [gas station food]
 <br>
 <br>
 
-This is a constraint on relations belongs to and subcategory.
+This is a constraint on relations _belongs-to_ and _subcategory_.
 We constraint each relation by constraining corresponding methods <code>Category#add_product</code> and <code>Category#add_category</code>.
 
 {% highlight ruby %}
@@ -765,7 +822,7 @@ food.products = []
 <br>
 <br>
 
-This is a constraint on subcategory relation.
+This is a constraint on relation _subcategory_.
 We apply the constraint by constraining method <code>Category#add_category</code>.
 We create instance variable <code>Category#@parent</code> to label each category with its parent.
 
@@ -814,8 +871,8 @@ gsf.parent = food
 <br>
 <br>
 
-This rule asks for those categories that are ancestors of a given product in the subcategory relation.
-We compute the ancestor categories in method <code>Product#categories</code>.
+This rule asks for those categories that are ancestors of a given product in relation _subcategory_.
+We compute the ancestor categories by method <code>Product#categories</code>.
 For a given product, the computation starts from the categories that contain the product.
 Those categories are recorded in array <code>Product#@parent_categories</code>.
 The array is populated by method <code>Category#add_product</code>.
@@ -877,9 +934,9 @@ sandwich.categories = [gas station food, food]
 <br>
 <br>
 
-This rule asks that we collect the products of categories that are descendant of a given category in the subcategory relation.
-We do so by traversing the subcategory relation from the given category all the way down to leaf descendants.
-We do the traversal and collect corresponding products in method <code>Category#all_products</code>.
+This rule asks that we collect the products of categories that are descendant of a given category in relation _subcategory_.
+We do so by traversing relation _subcategory_ from the given category all the way down to leaf descendants.
+We do the traversal and collect corresponding products by method <code>Category#all_products</code>.
 
 {% highlight ruby %}
 class Category
@@ -911,10 +968,38 @@ Gives.
 food.all_products = [sandwich, pizza]
 {% endhighlight %}
 
-<!-- </details> -->
+</details>
 <br>
 
 # Other uses of WITH clauses
 
 - Apply several data modifications in the same query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
 - Apply recursive self-references in a data-modifying query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
+
+{% include subscribe.html %}
+{% include share.html %}
+
+# Comments
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = 'http://ruslanledesma.com/2016/10/17/the-category-problem.html';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '2016-10-17-the-category-problem'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//definecode.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a
+        href="https://disqus.com/?ref_noscript"
+        rel="nofollow">comments powered by Disqus.</a></noscript>
