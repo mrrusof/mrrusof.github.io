@@ -2,7 +2,7 @@
 layout: post
 title: The Stock Profit Problem
 date: 2016-10-06
-edited: 2016-10-08
+edited: 2016-10-21
 author: Ruslan Ledesma-Garza
 summary: "The Stock Profit Problem is an interview question you can find in the wild.
 The problem asks for the biggest profit given a sequence of stock prices.
@@ -10,6 +10,12 @@ As usual, there is a naive solution that won't cut it.
 I explain an efficient solution in 6 different programming languages and give you a hint for further study.
 "
 ---
+
+**2016.10.21 Facebook is asking this.**
+This question just got more relevant.
+A friend of mine just got this question during a Facebook technical interview.
+Luckily for him he had already read this post.
+Good luck to you all prospect facebookers!
 
 {{page.summary}}
 
