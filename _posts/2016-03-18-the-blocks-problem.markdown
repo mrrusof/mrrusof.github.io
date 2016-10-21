@@ -2,6 +2,7 @@
 layout: post
 title: 'The Blocks Problem'
 date: 2016-03-18
+edited: 2016-10-21
 author: Ruslan Ledesma-Garza
 summary: 'Interpret a language of four commands to model the interaction of a robot arm with its environment. An exercise in keeping your solution simple.'
 ---
@@ -32,26 +33,26 @@ in the diagram below:
 The valid commands for the robot arm that manipulates blocks are:
 
 - `move a onto b`
-where a and b are block numbers, puts block a onto block b after
-returning any blocks that are stacked on top of blocks a and b to
+where `a` and `b` are block numbers, puts block `a` onto block `b` after
+returning any blocks that are stacked on top of blocks `a` and `b` to
 their initial positions.
 
 - `move a over b`
-where a and b are block numbers, puts block a onto the top of the
-stack containing block b, after returning any blocks that are stacked
-on top of block a to their initial positions.
+where `a` and `b` are block numbers, puts block `a` onto the top of the
+stack containing block `b`, after returning any blocks that are stacked
+on top of block `a` to their initial positions.
 
 - `pile a onto b`
-where a and b are block numbers, moves the pile of blocks consisting
-of block a, and any blocks that are stacked above block a, onto block
-b. All blocks on top of block b are moved to their initial positions
-prior to the pile taking place. The blocks stacked above block a
+where `a` and `b` are block numbers, moves the pile of blocks consisting
+of block `a`, and any blocks that are stacked above block `a`, onto block
+`b`. All blocks on top of block `b` are moved to their initial positions
+prior to the pile taking place. The blocks stacked above block `a`
 retain their order when moved.
 
 - `pile a over b`
-where a and b are block numbers, puts the pile of blocks consisting of
-block a, and any blocks that are stacked above block a, onto the top
-of the stack containing block b. The blocks stacked above block a
+where `a` and `b` are block numbers, puts the pile of blocks consisting of
+block `a`, and any blocks that are stacked above block `a`, onto the top
+of the stack containing block `b`. The blocks stacked above block `a`
 retain their original order when moved.
 
 - `quit`
