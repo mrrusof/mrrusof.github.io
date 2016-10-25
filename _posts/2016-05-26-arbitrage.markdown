@@ -728,7 +728,7 @@ D[k][i,j] = min { D[k - 1][i,j], D[k - 1][i,k] + D[k - 1][k,j] }     (FW-REF)
 
 The refinement rule indicates that the shortest distance `D[k][i,j]` from `i` to `j` is either the previous shortest distance or the distance of the shortest path that goes from `i` to `j` through `k`.
 The refinement is implemented in lines 5 to 8.
-After iteration `k`, shortest path `D[k][i,j]` may or may not consist of `k` edges.
+After iteration `k`, shortest path `D[k][i,j]` consists of at most `k` edges.
 <br /><br />
 
 Considering intermediate vertices like Floyd-Warshall is not an effective approach to solving Arbitrage.
