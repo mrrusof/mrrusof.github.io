@@ -2,7 +2,7 @@
 layout: post
 title: Arbitrage
 date: 2016-05-26
-edited: 2016-07-09
+edited: 2016-10-25
 author: Ruslan Ledesma-Garza
 summary: Do you want to make easy money? Maybe currency trading is what you are looking for.
 ---
@@ -406,7 +406,7 @@ Thus, `1 2 1 2 1` is the only solution.
 We present algorithms S, S', and R.
 Our solution is algorithm S'.
 Algorithm S is a summary of algorithm S' and is easier to understand.
-Algorithm R is an alternative to algorithm R that computes most beneficial paths on demand.
+Algorithm R is an alternative to algorithm S that computes most beneficial paths on demand.
 The execution time of the three algorithms is $@O(n^4)@$.
 <br /><br />
 
