@@ -2,6 +2,7 @@
 layout: post
 title: The Adjacent Coins Problem
 date: 2016-02-14
+edited: 2016-11-04
 author: Ruslan Ledesma-Garza
 summary: Choose a coin that maximizes your gain or minimizes your loss, but you have to do it in linear time and constant memory.
 ---
@@ -271,6 +272,76 @@ only had to handle sequences of length 1 and the rest.
 
 What was your experience trying to solve the problem?  Let me know in
 the comments.
+
+
+# A constant-memory solution
+
+Thanks to [sltkr](https://www.reddit.com/user/sltkr) for posting the
+following solution on
+[reddit](https://www.reddit.com/r/coding/comments/56jr67/programming_problem_adjacent_coins/).
+
+> Your analysis makes sense.
+>
+> My take was that the "adjacency number" is just the number of coins
+  minus the number of runs (where a "run" is a maximal sequence of equal
+  values in the input. For example, "0100" consists of three runs: "0",
+  "1" and "00", and the "adjacency number" is thus 4 - 3 =
+  1). Maximizing the adjacency number means minimizing the number of
+  runs, and the only way to do that is by flipping coins at the edge of
+  runs.
+>
+> To summarize:
+>
+> * If we have a run of length 1 between other runs, then we can improve
+  the answer by 2. Example: "00100" -> "00000".
+> * If we have a run of length 1 at the beginning or end of the sequence,
+  we can only improve the answer by 1. Example: "1001" -> "0001".
+> * If we have several runs, all of length 2 or more, then the best we can
+  do is flip a coin between runs without changing the answer. Example:
+  "0011" -> "0001".
+> * If we have only one run (i.e. all coins shows the same value) then
+  flipping a coin makes things worse! The best we can do is flip a coin
+  at the edge, for an "improvement" of -1. Example: "00000" -> "00001".
+> * Exception to the above: if we only have 1 coin, then flipping it
+  doesn't make a difference. The answer is always 0. To be honest, I
+  missed the case at first, and I see you made the same mistake. :-)
+>
+> In code, this becomes:
+>
+> {% highlight cpp %}
+int solve(int N) {  // assumes N > 0
+    int pairs = 0;     // number of pairs in the input
+    int improve = -1;  // maximum improvement possible
+    int a, b, c;       // values of last three coins
+    cin >> c;
+    for (int i = 1; i < N; ++i) {
+        a = b;
+        b = c;
+        cin >> c;
+        if (b == c) {
+            ++pairs;
+        } else if (i >= 2 && a != b) {
+            improve = max(improve, 2);
+        } else if (i == 1 || i == N - 1) {
+            improve = max(improve, 1);
+        } else {
+            improve = max(improve, 0);
+        }
+    }
+    return N == 1 ? 0 : pairs + improve;
+}
+
+int main() {
+    int N = 0;
+    cin >> N;
+    cout << solve(N) << endl;
+}
+{% endhighlight %}
+>
+> Note that this function combines the calculation of the number of
+  pairs in the input with the maximum improvement, and it only keeps
+  track of the values of the last three coins in the input, thus
+  making it a truly constant-memory solution.
 
 
 # Acknowledgements
