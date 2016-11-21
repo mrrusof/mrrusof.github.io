@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Maximum Number of Points on a Line'
-date: 2016-11-14
+date: 2016-11-21
 author: Ruslan Ledesma-Garza
 summary: "
 Given n points on a 2D plane, find the maximum number of points that
