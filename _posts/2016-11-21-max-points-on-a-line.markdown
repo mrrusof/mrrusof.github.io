@@ -27,7 +27,7 @@ corresponding to the x and y components of a point.
 Consider the following example.
 
 {% highlight asciidoc %}
-4
+7
 1 1
 2 2
 3 3
