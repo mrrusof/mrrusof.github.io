@@ -9,15 +9,13 @@ lie on the same straight line.
 "
 ---
 
-# Problem
-
 {{page.summary}}
-
-For example, for the following points, the maximum number of points
-over the same straight line is 4.
+For example, consider the following points.
 
 <img src="/assets/2016-11-21.example.png" style="width: 50%; display: block; margin-left: auto; margin-right: auto;" />
 
+The maximum number of points over the same straight line is 4.
+Those points are (1,1), (2,2), (3,3), and (4,4).
 
 **Input.**
 The first line consists of an integer, `n`, that indicates the number of points
