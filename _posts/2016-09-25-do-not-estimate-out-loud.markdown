@@ -225,8 +225,7 @@ to write their estimates there.
 When you are running a distributed team, do not just write your
 estimates in a chat one after the other.
 Ask people to use a dedicated tool, like
-[PlanITPoker](http://www.planitpoker.com/) or my own
-[spoker-master](https://spoker-master.herokuapp.com/).
+my own [spoker-master](https://spoker-master.herokuapp.com/).
 
 Really, there is no excuse for saying your estimates out loud.
 
