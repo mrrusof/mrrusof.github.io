@@ -2,6 +2,7 @@
 layout: post
 title: 'Corner to Corner Matrix Traversal'
 date: 2016-11-30
+edited: 2016-12-12
 author: Ruslan Ledesma-Garza
 summary: "
 Given a square matrix of integers, find the maximum sum of elements on
@@ -41,18 +42,9 @@ Here is a Ruby implementation.
 
 {% highlight ruby %}
 def traverse m
-  n = m.length
-  (0..n-1).each do |r|
-    (0..r).each do |j|
-      i = r - j
-      u = if i > 0 then m[i-1][j] else 0 end
-      l = if j > 0 then m[i][j-1] else 0 end
-      m[i][j] = [u, l].max + m[i][j]
-    end
-  end
-  (1..n-1).each do |r|
-    (n-1).downto(r).each do |j|
-      i = r + n-1 - j
+  n = m.length - 1
+  (0..n).each do |i|
+    (0..n).each do |j|
       u = if i > 0 then m[i-1][j] else 0 end
       l = if j > 0 then m[i][j-1] else 0 end
       m[i][j] = [u, l].max + m[i][j]
