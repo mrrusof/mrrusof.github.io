@@ -90,6 +90,7 @@ not a superclass of Ruby.
 Problems with Oracle's definition/explanation.
 
 1. It does not explain that not all access in subclasses is allowed.
+   JSL 6.6.2 covers this case.
 2. It does not explain that code in package where protected member is
    declared may reach member beyond the boundaries of the package.
 3. It does not explain that that same code may even call protected
@@ -220,26 +221,19 @@ TODO
 
 Ref type = Type of 
 
-# The javac tests satisfy the rules
-
 # Every case that passes javac check also passes the rules.
 
 ## How does the Java Language Specification define protected?
 
 [JLS 6.6.2](https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#jls-6.6.2)
-defines protected access in the following way.
 
-"
-6.6.2. Details on protected Access
+JLS defines protected access for members and for constructors.
 
-A protected member or constructor of an object may be accessed from
-outside the package in which it is declared only by code that is
-responsible for the implementation of that object.
-"
+It looks like definition for members **contradicts** access from superclasses that we know can happen.
 
-This part **contradicts** access from superclasses that we know can happen.
-
-The bullet points in 6.6.2.1 **agree* with the rules.
+It looks like the bullet points in 6.6.2.1 (which apply only to members) **satisfy** the rules but **not viceversa**.
+In particular on the restriction on the Ref type is the same as in the rules.
+What is not considered by the bullet points is access by superclasses.
 
 Clarification on terminology.
 
@@ -251,7 +245,25 @@ Clarification on terminology.
 - Example of method reference expression T::Id where T is ReferenceType: TODO
 
 
-## 
+## How does javac check protected access? (Could be evidence of `The javac tests satisfy the rules`)
+
+When Javascript.java has an illegal access to m(), the sequence of verbose messages is the following.
+- loading, given by method JavaCompiler.parse
+- parsing, given by method JavaCompiler.parse
+- checking, given by method JavaCompiler.attribute, this is where protected check happens
+- writing, maybe given by method JavaCompiler.generate
+
+Protected check in javac is located in Resolve.java:414, method isAccessible.
+
+There are 6 atoms in the check.
+
+
+
+## Checking Access to Protected Members in the Java Virtual Machine, by Alessandro Coglio
+
+
+
+
 
 {% endhighlight %}
 
