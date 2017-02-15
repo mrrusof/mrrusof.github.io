@@ -4,7 +4,7 @@ title: 'Book review: A/B Testing: The Most Powerful Way to Turn Clicks Into Cust
 date: 2017-02-14
 author: Ruslan Ledesma-Garza
 summary: 'I recommend this book as an introduction to A/B testing for
-non-techincal people. If you are looking for theory and practice, you
+non-technical people. If you are looking for theory and practice, you
 may want to look at another book.'
 ---
 
