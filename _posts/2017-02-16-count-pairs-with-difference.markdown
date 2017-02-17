@@ -29,8 +29,8 @@ EOF character. Consider the following example.
 {% endhighlight %}
 
 **Output.**
-The output file consists of the count of pairs for each input case The
-following output corresponds to the previous example input.
+The output file consists of the count of pairs for each input
+case. The following output corresponds to the previous example input.
 
 {% highlight asciidoc %}
 3
