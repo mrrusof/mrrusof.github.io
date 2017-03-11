@@ -3,6 +3,7 @@ layout: post
 title: Longest Common Palindrome
 date: 2017-03-08
 author: Ruslan Ledesma-Garza
+published: false
 summary: '
 Given a set of strings, find the length of a longest common
 palindrome.
