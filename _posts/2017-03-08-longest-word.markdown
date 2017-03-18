@@ -1,25 +1,31 @@
 ---
 layout: post
-title: Longest Common Anagram
+title: Longest Word
 date: 2017-03-08
-edited: 2017-03-10
+edited: 2017-03-18
 author: Ruslan Ledesma-Garza
 summary: '
-Given a set of strings, find the length of a longest common
-anagram.
+Given a set of strings, find the length of any longest word you can
+make with the letters that are common.
 '
 ---
 
 {{page.summary}}
 
-For example, the length of a longest common anagram for the
-following strings is 4 because a longest common anagram is `kikj`.
+For example, consider the following set of strings.
 
 {% highlight asciidoc %}
 ijkik
 kkjki
 kljkikiijk
 {% endhighlight %}
+
+The length of a longest word is 4 because a longest word is `kikj`.
+
+*Edit.* This post was previously titled 'Longest Common Anagram' and
+had a different statement.  Thanks to [Marcelo
+Melendez](https://www.linkedin.com/in/eugenio-marcelo-melendez-248b7942/)
+for pointing out that the title and statement were confusing.
 
 **Input.**
 The input file consists of one or more cases.  Each case consists of a
@@ -37,8 +43,8 @@ kljkikiijk
 
 **Output.**
 The output file consists of one line per case, each consisting of a
-single integer that indicates the length of the longest common
-anagram for the case.
+single integer that indicates the length of any longest word for the
+case.
 The following is the output file that corresponds to the sample input
 file.
 
@@ -48,23 +54,23 @@ file.
 
 # Solution
 
-Consider the count of letters for each word.
+Consider the count of letters for each string.
 
 {% highlight asciidoc %}
-Word       | i | j | k | l
+String     | i | j | k | l
 ---------------------------
 ijkik      | 2 | 1 | 2 | 0
 kkjki      | 1 | 1 | 3 | 0
 kljkikiijk | 3 | 2 | 4 | 1
 {% endhighlight %}
 
-A longest common anagram consists only of letters appearing in the
-words.  For each letter, a longest common anagram has as many
-instances of the letter as the minimum count amongst the words.
-Consider the minimum count of letters amongst the words.
+A longest word consists only of letters appearing in the
+words.  For each letter, a longest word has as many
+copies of the letter as the minimum count amongst the strings.
+Consider the minimum count of letters amongst the strings.
 
 {% highlight asciidoc %}
-Word       | i | j | k | l
+String     | i | j | k | l
 ---------------------------
 ijkik      | 2 | 1 | 2 | 0
 kkjki      | 1 | 1 | 3 | 0
@@ -73,8 +79,8 @@ kljkikiijk | 3 | 2 | 4 | 1
              1   1   2   0  <-- minimum count of each letter
 {% endhighlight %}
 
-Given the minimum count of letters, we know that a longest common
-anagram consists of one `i`, one `j`, and two `k`, thus giving a
+Given the minimum count of letters, we know that a longest word
+consists of one `i`, one `j`, and two `k`, thus giving a
 grand total of 4 letters.
 
 # Ruby implementation
@@ -82,7 +88,7 @@ grand total of 4 letters.
 {% highlight ruby %}
 #!/usr/bin/env ruby
 
-def length_of_longest_common_anagram mm
+def length_of_a_longest_word mm
   mins = Array.new(26)
   count = Array.new(26)
   mm.each { |m|
@@ -107,7 +113,7 @@ while true
     mm << m
     n -= 1
   end
-  puts length_of_longest_common_anagram mm
+  puts length_of_a_longest_word mm
 end
 {% endhighlight %}
 
@@ -124,8 +130,8 @@ end
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = 'http://ruslanledesma.com/2017/03/08/longest-common-anagram.html';  // Replace PAGE_URL with your page's cbanonical URL variable
-        this.page.identifier = '2017-03-08-longest-common-anagram'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://ruslanledesma.com/2017/03/08/longest-word.html';  // Replace PAGE_URL with your page's cbanonical URL variable
+        this.page.identifier = '2017-03-08-longest-word'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
