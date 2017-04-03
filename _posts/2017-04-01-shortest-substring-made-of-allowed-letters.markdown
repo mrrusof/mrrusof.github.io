@@ -3,6 +3,7 @@ layout: post
 title: Shortest Substring Made of Allowed Letters
 date: 2017-04-01
 author: Ruslan Ledesma-Garza
+edited: 2017-04-02
 summary: '
 You are given a string and a set of letters.  Your task is to return
 any shortest substring that consists of all and only the letters in
@@ -12,7 +13,11 @@ the set.
 
 {{page.summary}}
 
-Consider string `aabxbcbaaccb` and the set of letters `{a,b,c}`.
+**Edit 2017-04-02**: The example string did not correspond to the
+illustrations. Thanks to [Guillermo
+Cruz](https://www.linkedin.com/in/guillermo-cruz-20732948/) for the correction.
+
+Consider string `aabbxbbcaab` and the set of letters `{a,b,c}`.
 The only possible answer is `cba` as illustrated in the following diagram.
 
 <img src="/assets/2017.04.01.solution.jpg" alt="Solution" style="width:50%; display: block; margin-left: auto; margin-right: auto;" />
@@ -53,7 +58,7 @@ We approach the problem by computing a candidate solution for each
 prefix and then selecting the shortest.  A candidate solution for a
 prefix is the shortest suffix that is made of all and only the allowed
 letters.  There may not be a candidate solution for every prefix.  For
-example, consider the candidates for string `aabxbcbaaccb` in the
+example, consider the candidates for string `aabbxbbcaab` in the
 following diagram.
 
 <img src="/assets/2017.04.01.candidates.jpg" alt="Candidates" style="width:50%; display: block; margin-left: auto; margin-right: auto;" />
@@ -70,7 +75,7 @@ pre-candidates for each prefix and then filtering those that contain a
 forbidden character or do contain all allowed characters.  A
 pre-candidate for a prefix is the shortest suffix that contains as
 many allowed characters as possible. For example, consider the
-pre-candidates for string `aabxbcbaaccb` in the following diagram.
+pre-candidates for string `aabbxbbcaab` in the following diagram.
 
 <img src="/assets/2017.04.01.pre-candidates.jpg" alt="Pre-Candidates" style="width:50%; display: block; margin-left: auto; margin-right: auto;" />
 
@@ -86,7 +91,7 @@ To compute the pre-candidates and select the shortest candidate, we
 apply the following procedure to each prefix.
 
 For each allowed character, compute the last position within the
-prefix.  For example, consider the positions for string `aabxbcbaaccb`
+prefix.  For example, consider the positions for string `aabbxbbcaab`
 in the following diagram.
 
 <img src="/assets/2017.04.01.last.jpg" alt="Last occurrence of allowed letters" style="width:50%; display: block; margin-left: auto; margin-right: auto;" />
