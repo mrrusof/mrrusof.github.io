@@ -15,7 +15,7 @@ One of the arrays consists of data and an empty space called
 buffer. This array is the primary array because this is where you
 will store the result of the merge. Even though the buffer contains
 integers, we consider it empty.  Consider the following example
-primary array $@P@$.
+primary array `P`.
 
 <img src="/assets/2017.04.13.primary-array.png" alt="Primary Array" style="width:80%; display: block; margin-left: auto; margin-right: auto;" />
 
@@ -23,12 +23,12 @@ primary array $@P@$.
 The other array is at most the size of the buffer and consists of
 data.  This array is the secondary array because it contains the
 elements that you will merge into the primary array.  Consider the
-following example secondary array $@S@$ that corresponds to the example
+following example secondary array `S` that corresponds to the example
 primary array.
 
 <img src="/assets/2017.04.13.secondary-array.png" alt="Secondary Array" style="width:80%; display: block; margin-left: auto; margin-right: auto;" />
 
-The expected final state of $@P@$ given $@S@$ is the following.
+The expected final state of `P` given `S` is the following.
 
 <img src="/assets/2017.04.13.expected-primary.png" alt="Expected Primary" style="width:80%; display: block; margin-left: auto; margin-right: auto;" />
 
@@ -92,11 +92,11 @@ example primary and secondary arrays.
 
 <img src="/assets/2017.04.13.positions.png" alt="Positions of last elements and tail of buffer" style="width:80%; display: block; margin-left: auto; margin-right: auto;" />
 
-Position $@i@$ corresponds to the last element of the data.  Position
-$@j@$ corresponds to the last element of the secondary array $@S@$.  Position
-$@t@$ is the last position in the primary array $@P@$.
+Position `i` corresponds to the last element of the data.  Position
+`j` corresponds to the last element of the secondary array `S`.  Position
+`t` is the last position in the primary array `P`.
 
-Given positions $@i@$, $@j@$, and $@t@$, we write the last four elements of
+Given positions `i`, `j`, and `t`, we write the last four elements of
 the result as illustrated by the following diagram.  The order we
 follow is green, yellow, red, and purple.
 
@@ -104,12 +104,12 @@ follow is green, yellow, red, and purple.
 
 For the rest of the result, we continue with the merge of data and the
 secondary array in descending order.  In doing so, we overwrite
-positions 1 to 5 of the primary array $@P@$.
+positions 1 to 5 of the primary array `P`.
 
 <img src="/assets/2017.04.13.the-rest.png" alt="Writing of the rest of the elements of the result" style="width:80%; display: block; margin-left: auto; margin-right: auto;" />
 
 After the merge, we shift the result to the right and thus obtain the
-following final state of $@P@$.
+following final state of `P`.
 
 <img src="/assets/2017.04.13.result.png" alt="The final state of the primary array" style="width:80%; display: block; margin-left: auto; margin-right: auto;" />
 
