@@ -2,6 +2,7 @@
 layout: post
 title: All Balanced Parentheses Strings
 date: 2017-05-16
+edited: 2017-05-17
 author: Ruslan Ledesma-Garza
 summary: '
 Print all strings consisting of `n` balanced parentheses.
@@ -9,6 +10,8 @@ Print all strings consisting of `n` balanced parentheses.
 ---
 
 {{page.summary}}
+
+**Edit 2017-05-17.** Added implementation in Golang.
 
 For example, the strings consisting of three balanced parentheses are
 the following.
@@ -34,10 +37,10 @@ line of its own, followed by EOF.  The following is an example input.
 **Output.** For a given input, the output consists of one of more
 sequences of balanced parentheses strings.  Each sequence corresponds
 to a number in the input.  The sequences appear in the order
-determined by the input numbers.  The strings that belong to a given
-sequence need not be sorted.  The strings that belong to a given
-sequence must not be repeated.  For example, the following is the
-output that corresponds to the previous example input.
+determined by the input numbers.  Each sequence need not be sorted.
+The strings that belong to a given sequence must not be repeated.  For
+example, the following is the output that corresponds to the previous
+example input.
 
 {% highlight ascii %}
 ()
@@ -53,8 +56,8 @@ output that corresponds to the previous example input.
 
 # Solution
 
-Any given string consisting of `n` balanced
-parentheses satisfies the following three rules.
+The structure of any given string consisting of `n` balanced
+parentheses obeys the following three rules.
 
 **Rule 1.** The first position in the string consists of an opening
 parenthesis.
@@ -131,7 +134,9 @@ parenthesis available to the next node.
 
 # Implementation
 
-Our implementation of rule applications is the following.
+We implement the application of rules in Ruby and Golang.
+
+Our Ruby implementation is the following.
 
 {% highlight ruby %}
 #!/usr/bin/env ruby
@@ -153,6 +158,45 @@ while true
   n = readline.strip.to_i rescue break
   puts e n, 0, '', []
 end
+{% endhighlight %}
+
+Out Golang implementation is the following.  You will find a
+corresponding Makefile [here](https://github.com/mrrusof/algorithms/tree/master/all-balanced-parentheses-strings/golang).
+
+{% highlight go %}
+package main
+
+import (
+	"bufio"
+	"os"
+	"fmt"
+	"strconv"
+)
+
+func e(l, r int, s string, e_n []string) ([]string) {
+	if l > 0 {
+		e_n = e(l - 1, r + 1, s + "(", e_n)
+	}
+	if r > 0 {
+		e_n = e(l, r - 1, s + ")", e_n)
+	}
+	if l == 0 && r == 0 {
+		e_n = append(e_n, s)
+	}
+	return e_n
+}
+
+func main() {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		n, err := strconv.Atoi(scanner.Text())
+		if err != nil { break }
+		o := e(n, 0, "", make([]string, 0, 1))
+		for _, s := range o {
+			fmt.Printf("%s\n", s)
+		}
+	}
+}
 {% endhighlight %}
 
 {% include subscribe.html %}
