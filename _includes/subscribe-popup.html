@@ -2,6 +2,8 @@
   var spopup_email_msg = "Enter your email here.";
 
   function show_spopup() {
+    $.ajax({ url: "https://correole.herokuapp.com/",
+             type: "GET" });
     $("#spopup-email").val(spopup_email_msg);
     $("#spopup").show("slow");
   }

@@ -92,7 +92,7 @@ The closing parenthesis at position 3 is allowed because the opening
 parenthesis in the first position is unmatched in prefix `(()`.
 
 
-Our approach to enumerate all balanced parentheses strings of length
+Our approach to enumerating all balanced parentheses strings of length
 `n` consists in applying the rules from left to right until we output
 `n` pairs of parentheses and then backtracking at each position where
 more than one option is possible.  To illustrate our approach,
@@ -160,7 +160,7 @@ while true
 end
 {% endhighlight %}
 
-Out Golang implementation is the following.  You will find a
+Our Golang implementation is the following.  You will find a
 corresponding Makefile [here](https://github.com/mrrusof/algorithms/tree/master/all-balanced-parentheses-strings/golang).
 
 {% highlight go %}
