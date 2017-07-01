@@ -2,6 +2,7 @@
 layout: post
 title: Equilibrium Index
 date: 2017-02-17
+edited: 2017-07-01
 author: Ruslan Ledesma-Garza
 summary: "
 Given an array of integers, find an equilibrium index.
@@ -12,6 +13,10 @@ indexes.
 ---
 
 {{page.summary}}
+
+**Edit 2017.07.01**
+Added three more example input & output.  Fixed an off-by-one error in
+the Ruby implementation.
 
 For example, consider the following array `A`.
 
@@ -46,6 +51,9 @@ character. Consider the following example.
 
 1 1
 1 0
+1 0 -1
+0 1 -1
+1 -1 0
 {% endhighlight %}
 
 **Output.**
@@ -55,11 +63,14 @@ input. Each output line consists of an equilibrium index (if any) or
 corresponds to the previous example input.
 
 {% highlight asciidoc %}
-6
--1
+3
+0
 -1
 -1
 0
+-1
+0
+2
 {% endhighlight %}
 
 # Solution
@@ -83,10 +94,11 @@ def equilibrium_index nn
   return 0 if nn.length == 1
   ls = 0
   rs = nn[1..-1].reduce(0, &:+)
-  nn[0..-2].each_with_index do |n, i|
-    return i if ls == rs
-    ls += n
-    rs -= nn[i + 1]
+  return 0 if rs == 0
+  nn[1..-1].each_with_index do |n, i|
+    ls += nn[i]
+    rs -= n
+    return i + 1 if ls == rs
   end
   return -1
 end
