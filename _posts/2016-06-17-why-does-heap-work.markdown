@@ -2,7 +2,7 @@
 layout: post
 title: Why does Heap's algorithm work?
 date: 2016-06-17
-edited: 2016-06-20
+edited: 2017-07-02
 author: Ruslan Ledesma-Garza
 summary: Heap's algorithm for constructing all permutations is efficient and simple but not easy to understand. This article explains Heap's algorithm by example.
 ---
@@ -25,6 +25,10 @@ If we understand why Heap's algorithm works, we might understand other problems 
 
 If you are interested in an iterative version of Heap's algorithm or permutation algorithms in general, have a look at [Sedgewick's survey on permutation algorithms](#sedgewick).
 
+# Edits
+
+**Edit 2017.07.02: An iterative algorithm.**
+Thanks to [8BitPimp](https://github.com/8BitPimp) for sharing [a C++ implementation of an iterative algorithm that permutes elements in the same order as Heap's algorithm](https://gist.github.com/8BitPimp/fb182d04f6c31cabdceb20f714ba8395).
 
 # How does Heap's algorithm work?
 
