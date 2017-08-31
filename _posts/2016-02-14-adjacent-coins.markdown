@@ -2,10 +2,14 @@
 layout: post
 title: The Adjacent Coins Problem
 date: 2016-02-14
-edited: 2016-11-04
+edited: 2017-08-31
 author: Ruslan Ledesma-Garza
 summary: Choose a coin that maximizes your gain or minimizes your loss, but you have to do it in linear time and constant memory.
 ---
+
+**2017-08-31 Check your solution.** You can now <a
+  href="http://thebookofproblems.com/problems/adjacent-coins">check
+  your Ruby solution at _The Book of Problems_</a>.
 
 Here is a problem that I considered solved for some months: The Adjacent
 Coins Problem.  This is a problem where you have to choose a coin that
