@@ -1,0 +1,199 @@
+---
+layout: post
+title: Netmask
+date: 2017-09-24
+author: Ruslan Ledesma-Garza
+summary: Determine if a given string corresponds to a netmask.
+---
+
+{{page.summary}}
+
+Our definition of netmask is the following.  A netmask is a sequence
+of 4-bytes that consists of a prefix of 1s followed by a suffix of 0s.
+The prefix consists of at least 8 1s and the suffix consists of at
+least 2 0s.
+
+For example, string `255.255.0.0` is notation for a netmask.  In the
+example, each byte is given in decimal notation and the bytes are
+separated by dots.  The example is a netmask because the first two
+bytes are all 1s and the last two bytes are all 0s.
+
+**Input.**
+The input consists of one or more test cases.  Test cases
+are separated by newlines and are terminated by EOF.  Each test case
+consists of 4 bytes in decimal notation separated by dots.  Consider
+the following example.
+
+{% highlight asciidoc %}
+255.255.0.0
+1.255.0.128
+255.128.0.0
+{% endhighlight %}
+
+**Output.**
+For each test case, there is one line of output.  The output
+corresponding to a test case is either `true` when the test case is
+netmask and `false` otherwise.  For the example input file, the output
+is the following.
+
+{% highlight asciidoc %}
+true
+false
+true
+{% endhighlight %}
+
+# O.K. solution
+
+We determine if a candidate is a netmask by binary search in the
+following way.
+
+Consider the search space.  The search space consists of 23 netmasks.
+The netmasks, their dot-decimal representation, and their decimal
+representation are the following.
+
+{% highlight asciidoc %}
+11111111000000000000000000000000 ... 255.0.0.0       ... 4278190080
+11111111100000000000000000000000 ... 255.128.0.0     ... 4286578688
+11111111110000000000000000000000 ... 255.192.0.0     ... 4290772992
+11111111111000000000000000000000 ... 255.224.0.0     ... 4292870144
+11111111111100000000000000000000 ... 255.240.0.0     ... 4293918720
+11111111111110000000000000000000 ... 255.248.0.0     ... 4294443008
+11111111111111000000000000000000 ... 255.252.0.0     ... 4294705152
+11111111111111100000000000000000 ... 255.254.0.0     ... 4294836224
+11111111111111110000000000000000 ... 255.255.0.0     ... 4294901760
+11111111111111111000000000000000 ... 255.255.128.0   ... 4294934528
+11111111111111111100000000000000 ... 255.255.192.0   ... 4294950912
+11111111111111111110000000000000 ... 255.255.224.0   ... 4294959104
+11111111111111111111000000000000 ... 255.255.240.0   ... 4294963200
+11111111111111111111100000000000 ... 255.255.248.0   ... 4294965248
+11111111111111111111110000000000 ... 255.255.252.0   ... 4294966272
+11111111111111111111111000000000 ... 255.255.254.0   ... 4294966784
+11111111111111111111111100000000 ... 255.255.255.0   ... 4294967040
+11111111111111111111111110000000 ... 255.255.255.128 ... 4294967168
+11111111111111111111111111000000 ... 255.255.255.192 ... 4294967232
+11111111111111111111111111100000 ... 255.255.255.224 ... 4294967264
+11111111111111111111111111110000 ... 255.255.255.240 ... 4294967280
+11111111111111111111111111111000 ... 255.255.255.248 ... 4294967288
+11111111111111111111111111111100 ... 255.255.255.252 ... 4294967292
+{% endhighlight %}
+
+A candidate is a netmask when its value is in the previous list.
+For a given candidate, we only consider the candidate when its value
+is between 4278190080 and 4294967292 inclusive.  The reason is that
+all values for netmasks are in that range.
+
+When a candidate is within range, we apply binary search over the
+values of netmasks to try to find the candidate.
+
+# Implementation of O.K. solution
+
+Here is a Ruby implementation.
+
+{% highlight ruby %}
+#!/usr/bin/env ruby
+
+def search c, m, b
+  # puts "m = #{m.to_s(2)}, s = #{s}"
+  if b == 0
+    return false
+  elsif c == m
+    return true
+  else
+    b /= 2
+    if m < c # candidate is not on the left
+      m = (m >> b) | m
+      return search c, m, b
+    else # c < m, candidate is not on the right
+      m = (m << b) & 4294967295 # 4294967295.to_s(2) => "11111111111111111111111111111111"
+      return search c, m, b
+    end
+  end
+end
+
+def netmask? a, b, c, d
+  candidate = (a << 24) + (b << 16) + (c << 8) + d
+  # puts "c = " + candidate.to_s(2) + " "
+  if candidate < 4278190080 || # 4278190080.to_s(2) => "11111111000000000000000000000000"
+     candidate > 4294967292    # 4294967292.to_s(2) => "11111111111111111111111111111100"
+    return false
+  end
+  middle = 4294901760 # middle.to_s(2) => "11111111111111110000000000000000"
+  bits_in_half = 16
+  return search candidate, middle, bits_in_half
+end
+
+while true
+  a, b, c, d = readline.strip.split('.').map(&:to_i) rescue break
+  puts netmask? a, b, c, d
+end
+{% endhighlight %}
+
+# Fast solution
+
+We determine if a candidate is a netmask by checking the structure of
+the candidate by bitwise operations.
+
+Consider the set of all possible netmasks in section _O.K. solution_.
+We only consider candidates between 4278190080 and 4294967292
+inclusive.
+
+We check the structure of a candidate within range by checking the
+structure of its bitwise complement.  Consider the binary
+representation of candidate `c = 255.255.255.128`.
+
+{% highlight asciidoc %}
+  c = 11111111 11111111 11111111 10000000
+      76543210 76543210 76543210 76543210
+
+ ~c = 00000000 00000000 00000000 01111111
+      76543210 76543210 76543210 76543210
+{% endhighlight %}
+
+The binary representation of `~c` consists of a sequence of 0s
+followed by a sequence of 1s because `(~c + 1) & c == 0`, as
+illustrated in the following diagram.  The reason is that only when
+`~c` has the expected structure, all 1s in `~c` correspond to 0s in
+`~c + 1` and the least significant 0 in `~c` (position 7 of octet D)
+corresponds to a 1 in `~c + 1` (position 7 of octet D').
+
+{% highlight asciidoc %}
+ ~c     = 00000000 00000000 00000000 01111111
+          76543210 76543210 76543210 76543210
+              A        B        C        D
+
+ ~c + 1 = 00000000 00000000 00000000 10000000
+          76543210 76543210 76543210 76543210
+              A'       B'       C'       D'
+{% endhighlight %}
+
+
+
+# Implementation of fast solution
+
+Here is a Ruby implementation.
+
+{% highlight ruby %}
+#!/usr/bin/env ruby
+
+def netmask? a, b, c, d
+  candidate = (a << 24) + (b << 16) + (c << 8) + d
+  # puts "c = " + candidate.to_s(2) + " "
+  if candidate < 4278190080 || # 4278190080.to_s(2) => "11111111000000000000000000000000"
+     candidate > 4294967292    # 4294967292.to_s(2) => "11111111111111111111111111111100"
+    return false
+  end
+  complement = ~candidate & 4294967295 # 4294967295.to_s(2) => "11111111111111111111111111111111"
+  succ_complement = complement + 1
+  return complement & succ_complement == 0
+end
+
+while true
+  a, b, c, d = readline.strip.split('.').map(&:to_i) rescue break
+  puts netmask? a, b, c, d
+end
+{% endhighlight %}
+
+{% include subscribe.html %}
+{% include share.html %}
+
+{% include comments.html %}
