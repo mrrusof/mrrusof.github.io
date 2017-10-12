@@ -2,13 +2,14 @@
 layout: post
 title: 'BST: All Possible Arrays'
 date: 2017-09-27
+edited: 2017-10-12
 author: Ruslan Ledesma-Garza
 summary: Given a binary search tree, print all possible arrays that produce the tree.
 tbop_url: http://thebookofproblems.com/problems/bst-all-possible-arrays
 ---
 
 {{page.summary}}
-An array produces a tree by inserting the array''s elements one
+An array produces a tree by inserting the array's elements one
 by one into the tree.  The elements are taken from the array from left
 to right.
 
@@ -50,9 +51,10 @@ The output consists of all possible arrays for each test case.  The arrays that 
 
 # Solution
 
-An method to the problem consists in building arrays as we visit
-children of the nodes that we have already visited.  We illustrate the
-method with the following tree.
+We build each array from left to right by choosing for every position
+one node out of a set of possible choices for that position.  The set
+of possible choices for a position is given by the corresponding array
+prefix.  We illustrate the method with the following tree.
 
 <img src="/assets/2017.09.27.example.png" style="width: 40%; display: block; margin-left: auto;
 margin-right: auto;">
