@@ -2,6 +2,7 @@
 layout: post
 title: Most Recent Common Ancestor
 date: 2017-10-13
+edited: 2017-10-17
 author: Ruslan Ledesma-Garza
 summary: Given two nodes of a tree, find their most recent common ancestor.
 tbop_url: http://thebookofproblems.com/problems/most-recent-common-ancestor
@@ -14,14 +15,15 @@ The input consist of one tree.  The first line of input is a pair of
 integers `x` and `y` separated by a space.  `x` and `y` are the nodes
 that you will consider.  The second line of input is a single
 integer `n` which is the count of edges in the tree.  Each one of the
-next `n` lines consist of a pair of integers `a` and `b` separted by
-space. The pair `a b` correspond to an edge from `a` and `b`.  The
+next `n` lines consist of a pair of integers `a` and `b` separated by a
+space. The pair `a b` corresponds to an edge from `a` and `b`.  The
 following is an example input.
 
 {% highlight asciidoc %}
 5 7
-5
+6
 1 2
+1 3
 3 4
 4 5
 4 6
