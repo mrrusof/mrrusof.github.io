@@ -326,11 +326,15 @@ The time complexity is also $@O(t)@$ because $@t > p@$.
 
 # Knuth-Morris-Pratt Algorithm
 
+<div style="width: 20%; float: right; text-align: center;">
+<a target="_blank"  href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=35d34a30e72c2cb447f7cc8a86ad3ce5"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0262033844&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL110_&tag=tbop-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<a target="_blank" href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=10069966509cc79b6b7020137ef79909">Get the book.</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</div>
 Our implementation of the solution approach corresponds to the
 Knuth-Morris-Pratt Algorithm.  The implementation is a transliteration
-of the pseudo-code in Section 32.4 of [Cormen et al](#cormen).  You may
-want to refer to that section for a more rigorous and yet illustrative
-explanation of Knuth-Morris-Pratt Algorithm.
+of the pseudo-code in Section 32.4 of [Cormen et al](#cormen).  You
+may want to refer to that section for a more rigorous and yet
+illustrative explanation of Knuth-Morris-Pratt Algorithm.
 
 {% include subscribe.html %}
 {% include share.html %}
@@ -342,7 +346,14 @@ explanation of Knuth-Morris-Pratt Algorithm.
     [Cormen et al]
   </dt>
   <dd>
-    Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill. pp. 1002-1012. ISBN 0-262-03384-4.
+    <a target="_blank"
+      href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=e0e6f010ca984fffcfebd5dbd61008ee">Cormen,
+      Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford
+      (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and
+      McGraw-Hill. pp. 1002-1012. ISBN 0-262-03384-4.</a><img
+      src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844"
+      width="1" height="1" border="0" alt="" style="border:none
+      !important; margin:0px !important;" />
   </dd>
 </dl>
 

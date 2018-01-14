@@ -689,6 +689,10 @@ FloydWarshall(n, W)
 8:                 D[k][i,j] = D[k - 1][i,k] + D[k - 1][k,j]
 9: RETURN D[n]
 {% endhighlight %}
+<div style="width: 20%; float: right; text-align: center;">
+<a target="_blank"  href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=35d34a30e72c2cb447f7cc8a86ad3ce5"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0262033844&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL110_&tag=tbop-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<a target="_blank" href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=10069966509cc79b6b7020137ef79909">Get the book.</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</div>
 [Cormen et al](#cormen) explain how Floyd-Warshall constructs shortest paths for all pairs of vertices for a graph given by adjacency matrix `W` of size $@n \times n@$.
 Algorithm S is not similar to Floyd-Warshall because Floyd-Warshall considers intermediate vertices in each iteration of its outer loop instead of an increasing number of edges.
 <br /><br />
@@ -929,7 +933,18 @@ The corresponding implementation is ranked 8th place as of 2016.05.26.
     [Cormen et al]
   </dt>
   <dd>
-    Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill. pp. 684-699. ISBN 0-262-03384-4.
+    <div style="width: 20%; float: right; text-align: center;">
+    <a target="_blank"  href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=35d34a30e72c2cb447f7cc8a86ad3ce5"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0262033844&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL110_&tag=tbop-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    <a target="_blank" href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=10069966509cc79b6b7020137ef79909">Get the book.</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <a target="_blank"
+      href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=e0e6f010ca984fffcfebd5dbd61008ee">Cormen,
+      Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford
+      (2009) [1990]. In684-699n to Algorithms (3rd ed.). MIT Press and
+      McGraw-Hill. pp. 1002-1012. ISBN 0-262-03384-4.</a><img
+      src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844"
+      width="1" height="1" border="0" alt="" style="border:none
+      !important; margin:0px !important;" />
   </dd>
   <dt id="prajogotio">
     [Prajogo Tio]
