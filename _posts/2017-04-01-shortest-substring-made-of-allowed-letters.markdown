@@ -18,7 +18,7 @@ illustrations. Thanks to [Guillermo
 Cruz](https://www.linkedin.com/in/guillermo-cruz-20732948/) for the correction.
 
 Consider string `aabbxbbcaab` and the set of letters `{a,b,c}`.
-The only possible answer is `cba` as illustrated in the following diagram.
+The only possible answer is `bca` as illustrated in the following diagram.
 
 <img src="/assets/2017.04.01.solution.jpg" alt="Solution" style="width:50%; display: block; margin-left: auto; margin-right: auto;" />
 
@@ -71,9 +71,11 @@ every prefix that includes all allowed letters also includes the
 forbidden letter `x`.
 
 We approach the problem of computing candidates by computing
-pre-candidates for each prefix and then filtering those that contain a
-forbidden character or do contain all allowed characters.  A
-pre-candidate for a prefix is the shortest suffix that contains as
+pre-candidates for each prefix and then filtering out those that
+either contain a forbidden character or do not contain all allowed
+characters.
+
+A pre-candidate for a prefix is the shortest suffix that contains as
 many allowed characters as possible. For example, consider the
 pre-candidates for string `aabbxbbcaab` in the following diagram.
 
