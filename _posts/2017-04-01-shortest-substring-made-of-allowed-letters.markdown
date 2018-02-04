@@ -203,6 +203,9 @@ implementation in Ruby.
 37: end
 {% endhighlight %}
 
+In our implementation, parameters `s` and `allowed` on line 3 are Ruby
+arrays.
+
 Placing a window over each pre-candidate consists of moving its
 boundaries `left` and `right` over string `s`.  We move `right` in the
 main loop of the algorithm without any restriction.  The crucial
@@ -252,6 +255,11 @@ last position of the letter is before the last forbidden letter
 Updating solution consists in checking that all the allowed letters
 happen after the last forbidden letter and that the length of the
 window is smaller than the previous solution (lines 15-20).
+
+The run time of this algorithm is $@O(|s|)@$ because both window
+boundaries move from left to right.  For boundary `left`, the number
+of iterations of the nested loop in lines 12-14 is bounded by the
+length of string `s`.
 
 {% include subscribe.html %}
 
