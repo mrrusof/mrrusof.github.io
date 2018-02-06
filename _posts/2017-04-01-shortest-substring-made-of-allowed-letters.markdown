@@ -30,7 +30,7 @@ When there is no shortest substring, return the empty string.
 
 **Input.**
 The input consists of one or more cases.
-Each case consists of a two strings, one on a separate line.
+Each case consists of two strings, one on a separate line.
 The first string is the string where you will search for a shortest substring.
 The second string indicates the characters in the set.
 The input is terminated by EOF.  The following is a sample input
