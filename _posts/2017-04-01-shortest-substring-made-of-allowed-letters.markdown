@@ -59,10 +59,10 @@ bca
 # Problem Structure
 
 Given an input pair of set and string, the structure of the string
-consists of a solution, candidate solutions, and pre-candidate
+consists of solutions, candidate solutions, and pre-candidate
 solutions.
 
-The solution is the shortest candidate solution we find in the
+A solution is a shortest candidate solution we find in the
 string.  When there are no candidate solutions, the solution is the
 empty string.
 
