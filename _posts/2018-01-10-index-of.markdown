@@ -326,7 +326,6 @@ The time complexity is also $@O(t)@$ because $@t > p@$.
 
 # Knuth-Morris-Pratt Algorithm
 
-{% include get-cormen.html %}
 Our implementation of the solution approach corresponds to the
 Knuth-Morris-Pratt Algorithm.  The implementation is a transliteration
 of the pseudo-code in Section 32.4 of [Cormen et al](#cormen).  You
@@ -343,14 +342,9 @@ illustrative explanation of Knuth-Morris-Pratt Algorithm.
     [Cormen et al]
   </dt>
   <dd>
-    <a target="_blank"
-      href="https://www.amazon.com/gp/product/0262033844/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262033844&linkCode=as2&tag=tbop-20&linkId=e0e6f010ca984fffcfebd5dbd61008ee">Cormen,
-      Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford
-      (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and
-      McGraw-Hill. pp. 1002-1012. ISBN 0-262-03384-4.</a><img
-      src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0262033844"
-      width="1" height="1" border="0" alt="" style="border:none
-      !important; margin:0px !important;" />
+    Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford
+    (2009) [1990]. Introduction to Algorithms (3rd ed.). MIT Press and
+    McGraw-Hill. pp. 1002-1012. ISBN 0-262-03384-4.
   </dd>
 </dl>
 

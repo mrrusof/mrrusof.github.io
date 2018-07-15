@@ -277,7 +277,7 @@ steps.
     Rubin
   </dt>
   <dd>
-    <a target="_blank" href="https://www.amazon.com/gp/product/0137043295/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0137043295&linkCode=as2&tag=tbop-20&linkId=10c679bbbbcc0094d7289ecf159432b2">Rubin, K. S. (2012). Essential Scrum: A practical guide to the most popular agile process (pp. 129-133). Upper bSaddle River, NJ: Addison-Wesley.</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tbop-20&l=am2&o=1&a=0137043295" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    Rubin, K. S. (2012). Essential Scrum: A practical guide to the most popular agile process (pp. 129-133). Upper bSaddle River, NJ: Addison-Wesley.
   </dd>
   <dt id="wilson">
     Wilson et al.
