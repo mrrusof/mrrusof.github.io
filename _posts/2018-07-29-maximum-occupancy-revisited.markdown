@@ -144,7 +144,7 @@ delta for `day_in` and decrease the delta for `day_out`.  We output a
 list of deltas sorted by day.  We implement the computation of deltas
 in the following method `sorted_deltas`.  The run time of
 the implementation is dominated by the sorting and belongs to class
-$@O(r\,log(r))@$, where $@r@$ is the count of reservations.
+$@O(r\,\text{log}(r))@$, where $@r@$ is the count of reservations.
 
 {% highlight ruby %}
 def sorted_deltas reservations
@@ -177,7 +177,7 @@ among the occupancies for each day.
 
 The following is our Ruby implementation of the approach.  The run
 time of the implementation is bounded by the call to `sorted_deltas`
-and belongs to class $@O(r\,log(r))@$, where $@r@$ is the count of
+and belongs to class $@O(r\,\text{log}(r))@$, where $@r@$ is the count of
 reservations.
 
 {% highlight ruby %}
