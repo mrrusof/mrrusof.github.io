@@ -4,10 +4,9 @@ title: About
 permalink: /about/
 ---
 
-My name is Ruslan Ledesma Garza (last name Ledesma Garza), I am a
-software engineer living in Guadalajara, Mexico.  I love solving
-programming problems and explaining them here.  If you would like to
-get the latest problem + solution, <a
+My name is Ruslan Ledesma Garza (last name Ledesma Garza).  I love
+solving programming problems and explaining them here.  If you would
+like to get the latest problem + solution, <a
 onclick="show_spopup()">subscribe to the newsletter</a> or <a href="{{
 "/feed.xml" | prepend: site.baseurl }}">subscribe via RSS</a>.  You
 can also follow me on <a href="https://twitter.com/{{
