@@ -5,7 +5,6 @@ date: 2017-09-27
 edited: 2017-10-12
 author: Ruslan Ledesma-Garza
 summary: Given a binary search tree, print all possible arrays that produce the tree.
-tbop_url: http://thebookofproblems.com/problems/bst-all-possible-arrays
 ---
 
 {{page.summary}}
@@ -46,8 +45,6 @@ The output consists of all possible arrays for each test case.  The arrays that 
 4 2 9
 4 9 2
 {% endhighlight %}
-
-{% include tbop.html %}
 
 # Solution
 

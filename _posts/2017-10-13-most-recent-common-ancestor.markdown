@@ -5,7 +5,6 @@ date: 2017-10-13
 edited: 2017-10-17
 author: Ruslan Ledesma-Garza
 summary: Given two nodes of a tree, find their most recent common ancestor.
-tbop_url: http://thebookofproblems.com/problems/most-recent-common-ancestor
 ---
 
 {{page.summary}}
@@ -37,8 +36,6 @@ ancestor.  The following output corresponds to the example input.
 {% highlight asciidoc %}
 4
 {% endhighlight %}
-
-{% include tbop.html %}
 
 # Solution
 

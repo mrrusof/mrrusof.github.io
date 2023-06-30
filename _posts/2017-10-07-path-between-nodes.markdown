@@ -4,7 +4,6 @@ title: Path between Nodes
 date: 2017-10-07
 author: Ruslan Ledesma-Garza
 summary: Given an undirected graph, determine if there is a path from one node to another.
-tbop_url: http://thebookofproblems.com/problems/path-between-nodes
 ---
 
 {{page.summary}}
@@ -35,8 +34,6 @@ the source and target nodes, output `false` otherwise.
 {% highlight asciidoc %}
 true
 {% endhighlight %}
-
-{% include tbop.html %}
 
 # O.K. solution
 

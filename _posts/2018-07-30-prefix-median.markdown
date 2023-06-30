@@ -3,7 +3,6 @@ layout: post
 title: Prefix Median
 date: 2018-07-30
 author: Ruslan Ledesma-Garza
-tbop_url: http://thebookofproblems.com/problems/prefix-median
 summary: '
 Given a sequence of integers, print the median for each non-empty
 prefix of the sequence.
@@ -36,8 +35,6 @@ by EOF.  The following example corresponds to the example input.
 1.0 4.0 6.0 6.5 7.0
 -4.0 -3.5 -3.0 -2.5
 ```
-
-{% include tbop.html %}
 
 # Approach
 

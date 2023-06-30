@@ -4,7 +4,6 @@ title: The Watermark Problem
 date: 2018-07-01
 author: Ruslan Ledesma-Garza
 summary: Calculate how much water a histogram can hold.
-tbop_url: http://thebookofproblems.com/problems/watermark
 ---
 
 You are given a bar graph as a list of integers.  Write a function
@@ -45,8 +44,6 @@ the output is terminated by EOF.
 8
 1
 ```
-
-{% include tbop.html %}
 
 # Problem Structure
 
