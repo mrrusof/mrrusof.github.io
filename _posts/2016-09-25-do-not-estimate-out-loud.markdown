@@ -230,7 +230,6 @@ my own [spoker-master](https://spoker-master.herokuapp.com/).
 Really, there is no excuse for saying your estimates out loud.
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 

@@ -18,7 +18,6 @@ an arcane piece of AppleScript in your beautiful Mac?
 
 You are welcome.
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

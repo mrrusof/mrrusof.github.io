@@ -153,7 +153,6 @@ main
 The time complexity is `O(E)`.  `E` is the number of legs.  The space
 complexity is `O(V)`.  `V` is the number of places.
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

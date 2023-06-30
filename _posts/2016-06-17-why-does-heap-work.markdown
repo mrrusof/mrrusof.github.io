@@ -482,7 +482,6 @@ Do you have any questions, comments, suggestions? Let me know in the comments.
 
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 

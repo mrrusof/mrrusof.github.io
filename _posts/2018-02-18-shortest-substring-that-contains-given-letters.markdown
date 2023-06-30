@@ -227,7 +227,6 @@ length of the input string.  The reason is that the number of
 iterations of nested loop (lines 37 to 46) is bounded by the length of
 the input string.
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

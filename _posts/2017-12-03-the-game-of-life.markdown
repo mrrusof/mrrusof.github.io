@@ -250,7 +250,6 @@ Function `step` computes the counts of neighbors using function `increase_cells`
 The time and space complexity of this approach is `O( alive
 cells )`.
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

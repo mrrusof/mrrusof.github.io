@@ -216,7 +216,6 @@ for line in sys.stdin:
     print(btos[netmask(a, b, c, d)])
 {% endhighlight %}
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

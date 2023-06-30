@@ -451,7 +451,6 @@ We avoid computing the location of blocks on the table by tagging each
 block with its location.
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 

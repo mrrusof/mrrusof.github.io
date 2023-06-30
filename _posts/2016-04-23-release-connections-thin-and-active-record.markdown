@@ -344,7 +344,6 @@ end
 [Some people suggest closing all connections altogether by calling `ActiveRecord::Base.connection.close`](http://stackoverflow.com/questions/13675879/activerecordconnectiontimeouterror), but that's not always necessary.
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 

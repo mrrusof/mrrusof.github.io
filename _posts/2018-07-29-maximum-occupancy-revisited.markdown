@@ -215,7 +215,6 @@ end
 puts maximum_occupancy reservations
 {% endhighlight %}
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

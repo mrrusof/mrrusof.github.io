@@ -185,7 +185,6 @@ Judge](https://uva.onlinejudge.org/index.php).
 There are submissions with reported runtimes of 0.000 seconds.
 I have yet to figure out a faster solution.
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

@@ -218,7 +218,6 @@ these
 Correole is released under MIT license, so you fork the project and
 use it in your propietary application.
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

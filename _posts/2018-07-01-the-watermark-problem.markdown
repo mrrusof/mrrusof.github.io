@@ -233,7 +233,6 @@ end
 The run-time of our implementation if $@O(n)@$ where $@n@$ is the
 length of the histogram.
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

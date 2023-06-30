@@ -183,7 +183,6 @@ with open('/dev/stdin', 'rt') as f:
 {% endhighlight %}
 
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

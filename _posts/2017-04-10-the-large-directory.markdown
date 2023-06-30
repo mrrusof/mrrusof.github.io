@@ -64,7 +64,6 @@ the directory that has more files.
 </details>
 <br>
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

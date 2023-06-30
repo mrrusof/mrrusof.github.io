@@ -285,7 +285,6 @@ to write this post and the 16 cases.  You may want to have a look at
 that for an idea of why minitest does not come with `before(:all)`/`after(:all)`.
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 

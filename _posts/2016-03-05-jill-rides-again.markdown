@@ -405,7 +405,6 @@ What was your experience solving this problem? Let me know in the
 comments.
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 

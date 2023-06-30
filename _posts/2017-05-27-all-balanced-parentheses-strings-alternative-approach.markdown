@@ -204,7 +204,6 @@ func main() {
 }
 {% endhighlight %}
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

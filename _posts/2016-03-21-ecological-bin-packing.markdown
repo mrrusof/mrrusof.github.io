@@ -225,7 +225,6 @@ solutions are few, we consider all candidate solutions and select the
 best.
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 

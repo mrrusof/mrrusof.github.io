@@ -138,7 +138,6 @@ end
 {% endhighlight %}
 
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

@@ -33,7 +33,6 @@ examples.
 
 {{page.summary}}
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

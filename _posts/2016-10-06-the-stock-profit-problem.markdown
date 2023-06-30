@@ -440,7 +440,6 @@ main :-
 This implementation considers prices from right to left. Did you notice that?
 
 
-{% include subscribe.html %}
 {% include share.html %}
 
 <!--

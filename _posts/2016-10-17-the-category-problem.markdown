@@ -976,7 +976,6 @@ food.all_products = [sandwich, pizza]
 - Apply several data modifications in the same query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
 - Apply recursive self-references in a data-modifying query ([section 7.8.2](https://www.postgresql.org/docs/9.6/static/queries-with.html)).
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

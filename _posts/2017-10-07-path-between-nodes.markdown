@@ -141,7 +141,6 @@ while (n -= 1) >= 0
 end
 {% endhighlight %}
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}

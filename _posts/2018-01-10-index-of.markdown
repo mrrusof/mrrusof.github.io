@@ -332,7 +332,6 @@ of the pseudo-code in Section 32.4 of [Cormen et al](#cormen).  You
 may want to refer to that section for a more rigorous and yet
 illustrative explanation of Knuth-Morris-Pratt Algorithm.
 
-{% include subscribe.html %}
 {% include share.html %}
 
 # References

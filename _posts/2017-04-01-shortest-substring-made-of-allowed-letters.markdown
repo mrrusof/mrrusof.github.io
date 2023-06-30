@@ -261,7 +261,6 @@ boundaries move from left to right.  For boundary `left`, the number
 of iterations of the nested loop in lines 12-14 is bounded by the
 length of string `s`.
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

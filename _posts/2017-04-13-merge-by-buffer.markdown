@@ -151,7 +151,6 @@ def merge_by_buffer p, s, l
 end
 {% endhighlight %}
 
-{% include subscribe.html %}
 
 {% include share.html %}
 

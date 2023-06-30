@@ -170,7 +170,6 @@ project and that project has a Gemfile, [indicate that PhantomJS
 should be installed when dependencies for your project are
 installed](https://github.com/colszowka/phantomjs-gem#usage-with-poltergeistcapybara).
 
-{% include subscribe.html %}
 {% include share.html %}
 
 {% include comments.html %}
