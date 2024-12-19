@@ -14,6 +14,14 @@ Radiomaster MT12 control running EdgeTX.
 '
 ---
 
+<style>
+video {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+}
+</style>
+
 {{page.summary}}
 
 <img src="/assets/2024-12-18-realistic-tamiya-lights/tamiya-kit.jpg" />
@@ -60,6 +68,7 @@ our RC cars feel more like toys than scale models.
 
 <li>
 <b>Keep the yellow leds the way they are.</b>
+<br />
 <video muted autoplay controls>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/naive-steering.mp4" type="video/mp4" />
   Your browser does not support the video tag.
@@ -70,6 +79,7 @@ our RC cars feel more like toys than scale models.
 <b>Have headlights and tail lights turn on when channel 3 is high.</b>
 For this reason we connect an additional pair of red leds in parallel
 with the white leds that turn on when channel 3 is high.
+<br />
 <video muted autoplay controls>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/channel3-rewired.mp4" type="video/mp4" />
   Your browser does not support the video tag.
@@ -82,7 +92,7 @@ with the white leds that turn on when channel 3 is high.
 reverse.</b> This is the challenging part of realistic lights with this
 kit.  Consider the following video that shows the behavior of the
 white and red leds corresponding to channel 2 given throttle actions.
-
+<br />
 <video muted autoplay controls>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/naive-throttle.mp4" type="video/mp4" />
   Your browser does not support the video tag.
