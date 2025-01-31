@@ -650,8 +650,8 @@ considerations.
    For this reason we power the Raspberry Pico directly from 5v but we
    use a [voltage
    divider](https://en.wikipedia.org/wiki/Voltage_divider#General_case)
-   to drop the voltage that signal pin of the radio receiver imparts
-   on GPIO 27 (pin 32).
+   to drop the voltage that the signal pin of the radio receiver
+   imparts on GPIO 27 (pin 32).
 
 We develop and test our wiring and our program with the help of a
 second Raspberry Pico as shown in the following two pictures (see
