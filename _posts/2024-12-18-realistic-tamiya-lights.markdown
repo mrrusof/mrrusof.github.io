@@ -69,7 +69,7 @@ our RC cars feel more like toys than scale models.
 <li>
 <b>Keep the yellow leds the way they are.</b>
 <br />
-<video muted autoplay controls>
+<video muted autoplay controls loop>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/naive-steering.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
@@ -80,7 +80,7 @@ our RC cars feel more like toys than scale models.
 For this reason we connect an additional pair of red leds in parallel
 with the white leds that turn on when channel 3 is high.
 <br />
-<video muted autoplay controls>
+<video muted autoplay controls loop>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/channel3-rewired.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
@@ -93,7 +93,7 @@ reverse.</b> This is the challenging part of realistic lights with this
 kit.  Consider the following video that shows the behavior of the
 white and red leds corresponding to channel 2 given throttle actions.
 <br />
-<video muted autoplay controls>
+<video muted autoplay controls loop>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/naive-throttle.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
@@ -178,7 +178,7 @@ The following video shows the activation of switch L07 by going in
 reverse, and the sequence of activations of switches L01 to L05 when
 we first go forward and then brake.
 
-<video muted autoplay controls>
+<video muted autoplay controls loop>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/implementation.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
@@ -208,7 +208,7 @@ positive as shown in the following image.
 Finally, the implementation of the brake and reverse rules coordinates
 the led and motor actions in a realistic way.
 
-<video muted autoplay controls>
+<video muted autoplay controls loop>
   <source src="/assets/2024-12-18-realistic-tamiya-lights/realisticbrakereverse.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
