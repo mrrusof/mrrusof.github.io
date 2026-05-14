@@ -3,7 +3,7 @@ layout: post
 title: How to add sound to a broken Skyzone 04o Pro
 date: 2026-05-13
 author: Ruslan Ledesma-Garza
-summary: A known shortcoming of the Skyzone 04o Pro FPV goggles is lack of sound in some models.  We explain how owners can overcome this issue by adding a crucial electronic component.
+summary: A known shortcoming of the Skyzone 04o Pro FPV goggles is lack of sound in some production batches.  We explain how owners can overcome this issue by adding a crucial electronic component.
 ---
 
 <style>
@@ -18,10 +18,10 @@ video {
 
 
 A known shortcoming of the Skyzone 04o Pro FPV goggles is lack of
-sound in some batches.  In this article we explain how to overcome
-this issue by adding an electronic component that is missing from the
-factory.  The goggles that we will use to illustrate the fix were
-purchased at the beginning of 2026, see Figure 1.  Although the
+sound in some production batches.  In this article we explain how to
+overcome this issue by adding an electronic component that is missing
+from the factory.  The goggles that we will use to illustrate the fix
+were purchased at the beginning of 2026, see Figure 1.  Although the
 goggles are otherwise functional, the lack of sound is unexpected and
 not disclosed when you buy the goggles.
 
