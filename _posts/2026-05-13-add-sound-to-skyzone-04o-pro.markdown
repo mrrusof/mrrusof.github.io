@@ -18,8 +18,8 @@ video {
 
 
 A known shortcoming of the Skyzone 04o Pro FPV goggles is lack of
-sound in some models.  In this article we explain how to overcome this
-issue by adding an electronic component that is missing from the
+sound in some batches.  In this article we explain how to overcome
+this issue by adding an electronic component that is missing from the
 factory.  The goggles that we will use to illustrate the fix were
 purchased at the beginning of 2026, see Figure 1.  Although the
 goggles are otherwise functional, the lack of sound is unexpected and
