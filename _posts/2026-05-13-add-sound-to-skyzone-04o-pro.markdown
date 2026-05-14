@@ -143,18 +143,18 @@ so that no components are damaged, see Figure 9.
 <img style="width: 100%" src="/assets/2026-05-13/IMG20260511235222.jpg"/>
 _Figure 9. Location of the adhesive that holds together the two boards that make the video receiver module._
 
-**Step 8. Solder the second ceramic filter in the dedicated slot.**
-The second ceramic filter should be placed in a slot that is identical
-to the slot of the first filter.  Again, make sure that you choose a
-filter that will sit flush and trim the metal frame as necessary, see
-Figure 10.  It is even more critical that this second filter sits
-flush so that you can close the metal plate and sandwich the two
-boards together.
+**Step 7. Solder the second ceramic filter in the dedicated slot.**
+Remove the metal plate that you just uncovered.  The second ceramic
+filter should be placed in a slot that is identical to the slot of the
+first filter.  Again, make sure that you choose a filter that will sit
+flush and trim the metal frame as necessary, see Figure 10.  It is
+even more critical that this second filter sits flush so that you can
+close the metal plate and sandwich the two boards together.
 
 <img style="width: 100%" src="/assets/2026-05-13/IMG20260512001919.jpg"/>
 _Figure 10. Second ceramic filter soldered in its slot and in the right orientation._
 
-**Step 9. Put back together the video receiver module and make sure
+**Step 8. Put back together the video receiver module and make sure
   you can close the plastic lid.**
 
 # Result
