@@ -162,7 +162,7 @@ After installing both ceramic filters, audio becomes available to any
 plugged headphones as well as to the DVR.  See (and hear) the
 following recording.
 
-<video autoplay controls loop>
+<video controls loop>
   <source src="/assets/2026-05-13/fpv-video-w-sound.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
