@@ -167,3 +167,10 @@ following recording.
   <source src="/assets/2026-05-13/fpv-video-w-sound.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
+
+<br />
+
+# Comments
+
+<script async defer src="https://convos.ruslanledesma.com/convos.js" type="module"></script>
+<convos-comments-section thread_id='skyzone' />
