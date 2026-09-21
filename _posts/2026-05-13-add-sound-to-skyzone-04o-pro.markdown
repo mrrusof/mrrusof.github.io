@@ -168,9 +168,8 @@ following recording.
   Your browser does not support the video tag.
 </video>
 
-<br />
 
-# Comments
+{% include share.html %}
 
-<script async defer src="https://convos.ruslanledesma.com/convos.js" type="module"></script>
-<convos-comments-section thread_id='skyzone' />
+
+{% include comments.html %}
