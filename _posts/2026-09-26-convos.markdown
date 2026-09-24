@@ -1,0 +1,152 @@
+---
+layout: post
+title: Convos, a minimum comments system in Ruby
+date: 2026-09-22
+author: Ruslan Ledesma-Garza
+summary: Convos is a minimum feature comments system for blogs in Ruby. We introduce the gem and explain how to run a comments server and embed its widget in a blog.
+---
+
+Convos is a minimum feature comments system in Ruby.  Originally
+envisioned for blogs, it accepts comments from readers, lets an admin
+review them and shows comments below a post only after approval.  In
+this article we explain how to run the server and add its HTML widget
+to a blog (see last section of this blog post for a demo).
+
+The source code is available in [the Convos
+repository](https://github.com/mrrusof/convos) under the MIT license.
+
+The original scenario for Convos is a static blog like this one hosted
+on GitHub Pages.  Typically a comments section will be powered by a
+third-party system like Facebook Comments but over time the blog must
+adapt to the demands of third-party system.  Instead of depending on
+the third-party application, we create Convos as a standalone and open
+source alternative.
+
+The server is a Ruby gem built with Sinatra and ActiveRecord. It can
+store its data in SQLite or PostgreSQL. The browser component is a
+custom HTML element called `convos-comments-section`. So, at a minimum
+you need to host Convos and add the following code to your blog pages:
+
+```
+<script async defer src="<YOUR DOMAIN>/convos.js" type="module"></script>
+<convos-comments-section thread_id='<A UNIQUE IDENTIFIER FOR EACH PAGE>' />
+```
+
+Once hosted, readers choose a username and password when posting their
+first comment and use those credentials when posting again. New
+comments wait for moderation. The administrator can approve a comment
+to make it visible or reject it to remove it. Comments and the
+moderation login form are gated by an ALTCHA challenge hosted by
+Convos itself.
+
+# Steps for running Convos
+
+**Step 1. Install Convos.**
+
+The current gem requires Ruby 4.0.5 or later. The repository provides
+an installation script that clones the source, builds the gem, and
+installs it:
+
+```sh
+curl https://raw.githubusercontent.com/mrrusof/convos/refs/heads/master/install.sh | bash
+```
+
+**Step 2. Configure the server.**
+
+Create a `config.yml` file. The following example uses SQLite and
+assumes that the blog is served at `https://blog.example.com` and the
+Convos server is exposed at `https://comments.example.com`:
+
+```yaml
+production:
+  host: 'https://comments.example.com'
+  port: 4567
+  access_control_allow_origin: 'https://blog.example.com'
+  session_secret: '<replace with a random secret of at least 64 bytes>'
+  session_idle_timeout: 1_800
+  session_ttl: 86_400
+  admin_password: '<replace with your administrator password>'
+  altcha_challenge_cost: 1_000_000
+  altcha_hmac_secret: '<replace with a separate random secret of at least 64 bytes>'
+  db_adapter: sqlite3
+  db_name: '/absolute/path/to/production.db'
+```
+
+Replace the example domains, password, secrets, and database path with
+your own values. You can generate each secret by running:
+
+```sh
+ruby -rsecurerandom -e 'puts SecureRandom.hex(64)'
+```
+
+The `host` setting is the public address of the Convos server, including
+the scheme and any nonstandard port, without a trailing slash. The
+widget uses it to reach the server when the blog is on another domain.
+It is optional: when omitted, the widget uses relative URLs.
+
+The `port` setting controls the port on which Sinatra listens. Setting
+`host` to an HTTPS address does not configure HTTPS; that address must
+already be routed to the application, for example through a reverse
+proxy.
+
+The `access_control_allow_origin` setting allows the blog to load the
+widget resources across domains. Set it to the blog's origin, as in
+the example, or use `'*'` to allow all origins. Configuration values
+can also be supplied as uppercase environment variables, which take
+precedence over the YAML file.
+
+**Step 3. Initialize the database and run the server.**
+
+Use the absolute path to the configuration file in each command:
+
+```sh
+CONFIG_FILE=/absolute/path/to/config.yml convos db:create
+CONFIG_FILE=/absolute/path/to/config.yml convos db:load_schema
+CONFIG_FILE=/absolute/path/to/config.yml convos server
+```
+
+The first two commands prepare a new database. The last command starts
+the server. The application uses the `production` configuration section
+by default.
+
+**Step 4. Add the widget to a post.**
+
+Place the following HTML where the comments should appear:
+
+```html
+<script async defer
+        src="https://comments.example.com/convos.js"
+        type="module"></script>
+
+<convos-comments-section thread_id="my-first-post"></convos-comments-section>
+```
+
+Give each post a unique, stable `thread_id`. Convos uses that identifier
+to retrieve the corresponding comments. Keeping it unchanged preserves
+the association even if you change the post's title or address.
+
+The widget loads the published comments and the submission form. When
+a reader submits a comment, the browser returns to the page where the
+widget was embedded. There is no need to configure a return address
+in the HTML.
+
+**Step 5. Moderate comments.**
+
+Visit `/login` on the Convos server and sign in with the administrator
+password from the configuration file. Complete the verification and
+review the pending comments on the moderation page. Approving a comment
+makes it visible in its thread; rejecting it deletes it. Readers will
+see approved comments the next time they load the page.
+
+Convos keeps this workflow lightweight: readers submit comments, the
+administrator reviews them, and the widget displays the published
+conversation. If you would like to try it, the
+[repository](https://github.com/mrrusof/convos) contains the source and
+setup instructions. Feedback, bug reports, and contributions are
+welcome.
+
+
+{% include share.html %}
+
+
+{% include comments.html %}
