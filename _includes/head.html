@@ -12,6 +12,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
+  {% if jekyll.environment != 'development' %}
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTREPW81XW"></script>
   <script>
@@ -21,6 +22,9 @@
 
     gtag('config', 'G-WTREPW81XW');
   </script>
+  {% else %}
+  <!-- Google tag (gtag.js) SKIPPED -->
+  {% endif %}
 
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
