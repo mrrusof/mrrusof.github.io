@@ -6,8 +6,6 @@ author: Ruslan Ledesma-Garza
 summary: For one of the web applications we support, we know that some users have registered more than once.  Having duplicated users is a problem because it distorts usage metrics for the application and thus complicates business decisions.  So we need you to write a program that finds duplicated users.
 ---
 
-_**Disclaimer.** This article was proofread with the assistance of ChatGPT (OpenAI), which also provided feedback on the algorithm and suggested improvements to parts of the explanation. The problem-solving approach and implementation are my own._
-
 {{page.summary}}
 
 Because duplicated users rarely have the same values for all
@@ -55,8 +53,8 @@ id1,id2,similarity
 # Naive Approach
 
 We approach the problem by indexing users by their attributes and then
-we use the indices to find for each user the most similar and smallest
-user. 
+we use the indices to find for each user another smaller user that is
+most similar and smallest.
 
 We now illustrate the approach on the example input CSV.
 
@@ -97,7 +95,7 @@ address
 '654 Pamela Dr.' -> {4}
 ```
 
-For each user, we find the most similar and smallest user in the
+For each user, we find a smaller most similar and smallest user in the
 following way.  For the k-th attribute of the user, convert its value
 $@v@$ to the set of user ids $@I_k(v)@$ minus the id $@i@$ of the
 user, so $@I_k(v) \setminus \lbrace i \rbrace@$.  Select the most
@@ -119,14 +117,18 @@ Then the most frequent and smallest user id for each user and their
 similarity is as follows.
 
 ```asciidoc
-user  most_frequent_and_smallest_user   similarity
-1     2                                 High
-2     1                                 High
-3     1                                 Low
-4     -                                 -
+user  smaller_most_frequent_and_smallest_user   similarity
+1     -                                         -
+2     1                                         High
+3     1                                         Low
+4     -                                         -
 ```
 
-Using the previous result we can now print the answer in the following way.  First, discard those rows where the most frequent and smallest user is greater than the given user (for example, discard the first row) and also those rows where there is no most frequent and smallest user (for example, discard the last row).  Second, print the column of most frequent and smallest user as `id1` and the first column as `id2`.  The result is as in the example output.
+Using the previous result we can now print the answer in the following
+way.  First, discard those rows where there is no most frequent and
+smallest user (for example, discard the first and last rows).  Second,
+print the column of most frequent and smallest user as `id1` and the
+first column as `id2`.  The result is as in the example output.
 
 ```asciidoc
 id1,id2,similarity
@@ -472,7 +474,12 @@ main()
 
 # A Final Note
 
-Always challenge your techincal editors XD.
+ChatGPT (OpenAI) served as a technical editor for this article,
+providing proofreading, technical review, and suggestions for
+improving the explanations. The algorithm and implementation are my
+own...
+
+...that said, always challenge your techincal editors XD.
 
 <img style="width: 100%" src="/assets/2026-11-08-always-challenge-your-technical-editors.png"/>
 
