@@ -98,7 +98,7 @@ address
 For each user, we find a smaller most similar and smallest user in the
 following way.  For the k-th attribute of the user, convert its value
 $@v@$ to the set of user ids $@I_k(v)@$ minus all the ids that are
-greater or equal to the id of the user, so $@I_k(v) \setminus \lbrace
+greater or equal to the id of the user, so $@I_k(v) \cap \lbrace
 j \mid j < i \rbrace@$.  Select the most frequent user id, breaking ties by
 choosing the smallest id.  For example, the sets of user ids
 corresponding to each attribute of each user of the input CSV are the
@@ -141,11 +141,12 @@ This approach is naive because it takes $@O(n^2)@$, where $@n@$ is the
 number of input rows, to find the most frequent and smallest id for
 each user by inspecting the `TABLE OF SETS OF IDS`.  The worst case
 happens when each column has the same value for every user: each set
-in the `TABLE OF SETS OF IDS` contains $@n - 1@$ users so processing
-one user takes $@O(n)@$ time for a fixed number of columns
-(meaning the number of columns remains constant across input CSV
-files).  The building of the indices is not problematic because it
-takes $@O(n)@$ for a fixed number of columns.
+in the `TABLE OF SETS OF IDS` contains $@i - 1@$ users with ids
+smaller than the id of the current row, where $@i@$ is the 1-based index of
+the current row, so processing one user takes $@O(n)@$ time for a
+fixed number of columns (meaning the number of columns remains
+constant across input CSV files).  The building of the indices is not
+problematic because it takes $@O(n)@$ for a fixed number of columns.
 
 
 # Solution Approach
@@ -153,10 +154,10 @@ takes $@O(n)@$ for a fixed number of columns.
 There is a way to achieve linear time $@O(n)@$ for a fixed number of
 columns.  The key to doing that is indexing combinations of column
 values instead of individual column values.  This indexing consists in
-building an index for each of the $@2^k - 1@$ nomempty subsets of the
-$@k@$ attribute columns.  Then when we lookup for the most frequent
-and smallest id for a given row, we consider the indices for subsets
-going from big to small subsets until we find a match.  Because the
+building an index for each of the $@2^k - 1@$ nonempty subsets of the
+$@k@$ attribute columns.  Then when we look up the most frequent and
+smallest id for a given row, we consider the indices for subsets going
+from larger to smaller subsets until we find a match.  Because the
 number of subsets is fixed when the number of columns $@k@$ is fixed,
 the building of indices and the finding of the smallest canonical user
 for each row each take linear time $@O(n)@$ on the number of rows
@@ -173,7 +174,7 @@ We now illustrate the solution approach on the example input CSV.
 
 The indexing step produces one index for each subset of the input
 columns, except the `id` column, in the following way.  For each row
-from top to bottom of the input CSV, and for each subset of colums
+from top to bottom of the input CSV, and for each subset of columns
 $@S@$, map the values $@v_1, ..., v_j@$ of the subset of columns to
 the user id $@i@$ of the row, $@I_S(v_1, ..., v_j) = i@$ when
 $@I_S(v_1, ..., v_j)@$ is unset.  For example, some of the indices we
@@ -254,7 +255,7 @@ possible similarity. If multiple indices of that cardinality return
 users, selecting the smallest id ensures that we also satisfy the
 tie-breaking rule.
 
-Finally, the result the same as in the example output CSV.
+Finally, the result is the same as in the example output CSV.
 
 
 # Implementation
@@ -351,7 +352,7 @@ class SubsetIndex:
     
         for i, bit in enumerate(self.key_mask):
             if bit == 1:
-                key.append(row[1 + i]) # skip the id, first colum
+                key.append(row[1 + i]) # skip the id, first column
     
         return tuple(key)
 
@@ -480,7 +481,7 @@ providing proofreading, technical review, and suggestions for
 improving the explanations. The algorithm and implementation are my
 own...
 
-...that said, always challenge your techincal editors XD.
+...that said, always challenge your technical editors XD.
 
 <img style="width: 100%" src="/assets/2026-11-08-always-challenge-your-technical-editors.png"/>
 
