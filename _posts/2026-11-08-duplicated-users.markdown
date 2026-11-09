@@ -6,6 +6,8 @@ author: Ruslan Ledesma-Garza
 summary: For one of the web applications we support, we know that some users have registered more than once.  Having duplicated users is a problem because it distorts usage metrics for the application and thus complicates business decisions.  So we need you to write a program that finds duplicated users.
 ---
 
+_**Disclaimer.** This article was proofread with the assistance of ChatGPT (OpenAI), which also provided feedback on the algorithm and suggested improvements to parts of the explanation. The problem-solving approach and implementation are my own._
+
 {{page.summary}}
 
 Because duplicated users rarely have the same values for all
@@ -15,7 +17,8 @@ potential duplicate of another if they have the same value for at
 least one attribute.  We also say that one user has a low similarity
 with another if they only share one attribute, a medium similarity if
 they share two attributes and a high similarity if they share three or
-more.
+more.  If an attribute is missing or empty for two given users, it is
+considered a shared attribute.
 
 **Input.**
 The input is a CSV file of users as in the following example.  The
@@ -35,11 +38,13 @@ The program prints the CSV to stdout.  Each line relates two potential
 duplicate users such that `id1` is canonical and indicates how similar
 they are ("High", "Medium", "Low").  A user is canonical if it is the
 smallest id for a given set of similar users. For example, user 1 is
-canonical for the set of users `{1, 2}`.  Users may appear at most
-once in column `id2` and they are paired with the most similar
+canonical for the set of users `{1, 2}` that are similar over
+`(first_name, email) = ('A', 'ana@example.com')`.  Users may appear at
+most once in column `id2` and they are paired with the most similar
 canonical user, breaking ties by choosing the smallest id.  Users
 without potential duplicates do not appear in the output.  No user
-appears in columns `id1` and `id2` of the same row.  The output rows are sorted by column `id2`.
+appears in columns `id1` and `id2` of the same row.  The output rows
+are sorted by column `id2`.
 
 ```asciidoc
 id1,id2,similarity
@@ -89,16 +94,16 @@ zip_code
 address
 '123 Maple St.'  -> {1, 2}
 <empty string>   -> {3}
-'654 Panela Dr.' -> {4}
+'654 Pamela Dr.' -> {4}
 ```
 
 For each user, we find the most similar and smallest user in the
 following way.  For the k-th attribute of the user, convert its value
 $@v@$ to the set of user ids $@I_k(v)@$ minus the id $@i@$ of the
-user, so $@I_k(v) \setminus \lbrace i \rbrace@$.  Select the user id
-that is most frequent, if there is a tie, then select the smallest id.
-For example, the sets of user ids corresponding to each attribute of
-each user of the input CSV are the following.
+user, so $@I_k(v) \setminus \lbrace i \rbrace@$.  Select the most
+frequent user id, breaking ties by choosing the smallest id.  For
+example, the sets of user ids corresponding to each attribute of each
+user of the input CSV are the following.
 
 ```asciidoc
 TABLE OF SETS OF IDS
@@ -134,7 +139,7 @@ number of input rows, to find the most frequent and smallest id for
 each user by inspecting the `TABLE OF SETS OF IDS`.  The worst case
 happens when each column has the same value for every user: each set
 in the `TABLE OF SETS OF IDS` contains $@n - 1@$ users so processing
-one user takes $@O(n)@$ time for a fixed set number of columns
+one user takes $@O(n)@$ time for a fixed number of columns
 (meaning the number of columns remains constant across input CSV
 files).  The building of the indices is not problematic because it
 takes $@O(n)@$ for a fixed number of columns.
@@ -143,20 +148,28 @@ takes $@O(n)@$ for a fixed number of columns.
 # Solution Approach
 
 There is a way to achieve linear time $@O(n)@$ for a fixed number of
-columns.  The key to doing that is indexing subsets of columns instead
-of individual columns.  This indexing consists in mapping each of the
-$@2^k - 1@$ subsets of the $@k@$ input columns to one corresponding
-user.  Then when we lookup for the most frequent and smallest id for a
-given row, we consider the indices for subsets going from big to small
-subsets until we find a match.  Because the number of subsets is fixed
-when the number of columns $@k@$ is fixed, the building of indices and
-the finding of the smallest canonical user for each row each take
-linear time $@O(n)@$ on the number of rows $@n@$.
+columns.  The key to doing that is indexing combinations of column
+values instead of individual column values.  This indexing consists in
+building an index for each of the $@2^k - 1@$ nomempty subsets of the
+$@k@$ attribute columns.  Then when we lookup for the most frequent
+and smallest id for a given row, we consider the indices for subsets
+going from big to small subsets until we find a match.  Because the
+number of subsets is fixed when the number of columns $@k@$ is fixed,
+the building of indices and the finding of the smallest canonical user
+for each row each take linear time $@O(n)@$ on the number of rows
+$@n@$.
+
+For each combination of columns and values, the corresponding index
+stores the smallest user id having those values. Therefore, if
+multiple users share the same values for a given subset of columns, we
+only need to remember the smallest id. Any other user with those
+values cannot be a better candidate for that subset because it has the
+same similarity and a greater id.
 
 We now illustrate the solution approach on the example input CSV.
 
 The indexing step produces one index for each subset of the input
-colums, except the `id` column, in the following way.  For each row
+columns, except the `id` column, in the following way.  For each row
 from top to bottom of the input CSV, and for each subset of colums
 $@S@$, map the values $@v_1, ..., v_j@$ of the subset of columns to
 the user id $@i@$ of the row, $@I_S(v_1, ..., v_j) = i@$ when
@@ -210,20 +223,19 @@ SUBSET {zip_code}:
 
 With the indices for all subsets of columns, we now find the canonical
 id that is smallest for each of the rows of the input CSV, if it
-exists, in the following way.  Take one input row and apply the
-indices, from the biggest subset cardinality to smallest, until we
-find an id that is not the id of the given row.  For example, when we
-consider the second input row with id 2, we start by applying the
-index for the biggest subset `{first_name, last_name, email, zip_code,
-address}` and we get id 2 but that is the id of the row, so we
-continue.  Then we consider the indices for all subsets of cardinality
-4 and none returns a match for the row.  Then we consider the indices
-for subsets of cardinality 3 and find that the index for subset
-`{first_name, email, address}` returns id 1 because of the mapping
-`(A, ana@example.com, '123 Maple St.') -> 1`.  Because no other index
-of cardinality 3 return an id, we select as the canonical id for this
-row (user id 2).
-
+exists, in the following way.  Take one input row and lookup the row's
+values in the corresponding indices, from the biggest subset
+cardinality to smallest, until we find an id that is not the id of the
+given row.  For example, when we consider the second input row with id
+2, we start by applying the index for the biggest subset `{first_name,
+last_name, email, zip_code, address}` and we get id 2 but that is the
+id of the row, so we continue.  Then we consider the indices for all
+subsets of cardinality 4 and none returns a match for the row.  Then
+we consider the indices for subsets of cardinality 3 and find that the
+index for subset `{first_name, email, address}` returns id 1 because
+of the mapping `(A, ana@example.com, '123 Maple St.') -> 1`.  Because
+no other index of cardinality 3 returns an id, we select id 1 as the
+canonical id for this row (user id 2).
 
 When multiple indices for the same subset cardinality return an id, we
 break ties by selecting the smallest id.  For example, when we
@@ -233,14 +245,24 @@ the indices of cardinality 1.  We find two matches, index for
 We select the smallest id of the two and assign to row 3 (user id 3)
 the id 1 as its canonical user.
 
-Finally the result the same as in the example output CSV.
+Because we examine subsets from largest to smallest, the first
+cardinality for which we find a matching user gives us the greatest
+possible similarity. If multiple indices of that cardinality return
+users, selecting the smallest id ensures that we also satisfy the
+tie-breaking rule.
+
+Finally, the result the same as in the example output CSV.
 
 
 # Implementation
 
 We implement the solution approach in Python as follows.  A critical
-implementation detail is that we hash the input cells so that we
-achieve constant time hash lookups.
+implementation detail is that we hash the input cells so that we can
+expect constant time hash lookups.  This hashing is intended to
+highlight to you, the reader, the importance of addressing the
+limitations of the chosen programming language and it is not
+guaranteed to give constant time hash lookups or avoid collisions in
+its current form.
 
 {% highlight python %}
 ########################################
@@ -383,7 +405,7 @@ def find_most_frequent_and_smallest_row(row, indices_by_cardinality):
         for index in indices_by_cardinality[cardinality]:
             similar_id = index.get(row)
 
-            if similar_id == row_id:
+            if similar_id is None or similar_id == row_id:
                 continue
 
             if most_frequent_and_smallest_row is None or similar_id < most_frequent_and_smallest_row:
@@ -447,6 +469,12 @@ def main():
 
 main()
 {% endhighlight %}
+
+# A Final Note
+
+Always challenge your techincal editors XD.
+
+<img style="width: 100%" src="/assets/2026-11-08-always-challenge-your-technical-editors.png"/>
 
 
 {% include share.html %}
