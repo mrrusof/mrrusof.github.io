@@ -97,24 +97,25 @@ address
 
 For each user, we find a smaller most similar and smallest user in the
 following way.  For the k-th attribute of the user, convert its value
-$@v@$ to the set of user ids $@I_k(v)@$ minus the id $@i@$ of the
-user, so $@I_k(v) \setminus \lbrace i \rbrace@$.  Select the most
-frequent user id, breaking ties by choosing the smallest id.  For
-example, the sets of user ids corresponding to each attribute of each
-user of the input CSV are the following.
+$@v@$ to the set of user ids $@I_k(v)@$ minus all the ids that are
+greater or equal to the id of the user, so $@I_k(v) \setminus \lbrace
+j \mid j < i \rbrace@$.  Select the most frequent user id, breaking ties by
+choosing the smallest id.  For example, the sets of user ids
+corresponding to each attribute of each user of the input CSV are the
+following.
 
 ```asciidoc
 TABLE OF SETS OF IDS
 ---------------------------------------------------
 id  first_name  last_name  email  zip_code  address
-1   {2}         {3}        {2}    {}        {2}
-2   {1}         {}         {1}    {3}       {1}
+1   {}          {}         {}     {}        {}
+2   {1}         {}         {1}    {}        {1}
 3   {}          {1}        {}     {2}       {}
 4   {}          {}         {}     {}        {}
 ```
 
-Then the most frequent and smallest user id for each user and their
-similarity is as follows.
+Then the most frequent and smallest user id for each user and
+their similarity is as follows.
 
 ```asciidoc
 user  smaller_most_frequent_and_smallest_user   similarity
