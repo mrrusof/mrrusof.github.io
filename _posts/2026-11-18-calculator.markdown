@@ -18,7 +18,7 @@ We will follow some rules to make this task manageable.
 
 - Numbers will always be integers.
 - The value of expressions and subexpressions will always be integers
-  and will always fit in signed 32 bit integers.
+  and will always fit in signed 32-bit integers.
 - `X ( Y )` means `X * Y`
 - Operators `*` and `/` bind before `+` and `-`.
   - `1 + 2 * 3` -> `1 + (2 * 3)`
@@ -201,7 +201,7 @@ n(12), n(_,+,_),              n(n(n(23),*,n(-,n(46))),/,n(2)), n(_,-,_), n(64)
 ```
 
 **4. Sum and Subtraction Pass.** Same as with the previous pass but
-   for sum and subtraction.  The result is the following
+   for sum and subtraction.  The result is the following.
 
 ```asciidoc
   expression:    12       +       23             (  -  46  )      /       2       -       64
